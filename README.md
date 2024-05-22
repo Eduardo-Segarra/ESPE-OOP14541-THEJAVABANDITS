@@ -1,1 +1,2 @@
 # ESPE-OOP14541-THEJAVABANDITS
+Welcome to the repository of THE JAVA BANDITS, in this repository we will work on a project on military mess hall software, which will allow military personnel or public servants to have easy management of the days in which they will carry out the so-called "ranch".
