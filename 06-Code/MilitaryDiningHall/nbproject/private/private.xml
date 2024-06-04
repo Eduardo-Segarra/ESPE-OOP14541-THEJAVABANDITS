@@ -3,7 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/C:/Users/USUARIO/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/Chef.java</file>
             <file>file:/C:/Users/USUARIO/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/Payment.java</file>
             <file>file:/C:/Users/USUARIO/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/GeneralAdmin.java</file>
@@ -18,23 +17,6 @@
             <file>file:/C:/Users/USUARIO/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/controller/MenuManager.java</file>
             <file>file:/C:/Users/USUARIO/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/utils/FileManager.java</file>
             <file>file:/C:/Users/USUARIO/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/Admin.java</file>
-=======
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/view/MilitaryDiningHallAplication.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/utils/Acounts.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/view/ActionsMenuManager.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/utils/FileManager.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/DinnerMenu.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/utils/Validations.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/Admin.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/Commensal.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/MilitaryUser.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/Notification.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/Payment.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/DiningHall.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/GeneralAdmin.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/model/Chef.java</file>
-            <file>file:/C:/Users/eduse/OneDrive/Escritorio/Espe/Tercer%20Semestre/Programacion%20orientada%20a%20objetos/Github%20project/ESPE-OOP14541-THEJAVABANDITS/06-Code/MilitaryDiningHall/src/ec/edu/espe/militarydininghall/view/MenuManager.java</file>
->>>>>>> f3238337a3300aa6dc9c3de157e97f31e00d762a
         </group>
     </open-files>
 </project-private>

@@ -1,7 +1,7 @@
 package ec.edu.espe.militarydininghall.model;
 /**
  *
- * @author The Java Bandits, DCCO-ESPE
+ * @author THEJAVABANDITS, DCCO-ESPE
  */
 public class MilitaryUser {
     private int id;
