@@ -38,12 +38,10 @@ public class DiningHall {
 
     // Operations
     public void mealSchedule() {
-        // Logic to schedule meals
         System.out.println("Meal schedule created");
     }
 
     public void discountPayment() {
-        // Logic to apply discount payment
         System.out.println("Payment discounted");
     }
 

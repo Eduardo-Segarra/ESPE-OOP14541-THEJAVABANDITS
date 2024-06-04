@@ -36,7 +36,6 @@ public class Chef {
 
     // Operations
     public void createDinnerMenu() {
-        // Logic to create the dinner menu
         System.out.println("Dinner menu created");
     }
 
