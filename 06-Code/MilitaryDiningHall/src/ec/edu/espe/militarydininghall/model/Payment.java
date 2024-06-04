@@ -6,7 +6,7 @@ package ec.edu.espe.militarydininghall.model;
 
 /**
  *
- * @author David Rodriguez,THEJAVABANDITS,DCCO-ESPE
+ * @author THEJAVABANDITS,DCCO-ESPE
  */
 import java.util.Date;
 
@@ -69,5 +69,15 @@ public class Payment {
                 ", idMilitary=" + idMilitary +
                 '}';
     }
+    
+    
+    
+    public void payReceive(float amount) {
+        System.out.println("Payment received: " + amount);
+        // Lógica para procesar pagos recibidos
+        // Aquí podríamos realizar cualquier acción necesaria, como actualizar registros de pagos o balances.
+    }
 }
+
+
 

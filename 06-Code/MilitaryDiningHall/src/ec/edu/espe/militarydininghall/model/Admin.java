@@ -6,7 +6,7 @@ package ec.edu.espe.militarydininghall.model;
 
 /**
  *
- * @author David Rodriguez,THEJAVABANDITS,DCCO-ESPE
+ * @author THEJAVABANDITS,DCCO-ESPE
  */
 public class Admin {
     private int id;
