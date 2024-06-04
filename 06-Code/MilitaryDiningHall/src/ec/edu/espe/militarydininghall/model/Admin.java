@@ -6,14 +6,18 @@ package ec.edu.espe.militarydininghall.model;
 
 /**
  *
- * @author THEJAVABANDITS,DCCO-ESPE
+ * @author David Rodriguez,THEJAVABANDITS,DCCO-ESPE
  */
-public class Chef {
+public class Admin {
     private int id;
+    private String name;
+    private String email;
     private String grade;
 
-    public Chef(int id, String grade) {
+    public Admin(int id, String name, String email, String grade) {
         this.id = id;
+        this.name = name;
+        this.email = email;
         this.grade = grade;
     }
 
@@ -26,6 +30,22 @@ public class Chef {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getGrade() {
         return grade;
     }
@@ -34,15 +54,18 @@ public class Chef {
         this.grade = grade;
     }
 
-    public void createDinnerMenu() {
-        System.out.println("Dinner menu created");
+    public void editRegister() {
+        System.out.println("Register edited by " + name);
     }
 
     @Override
     public String toString() {
-        return "Chef{" +
+        return "Admin{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", grade='" + grade + '\'' +
                 '}';
     }
 }
+

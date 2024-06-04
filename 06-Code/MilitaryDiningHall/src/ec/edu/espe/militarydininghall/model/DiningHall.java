@@ -36,7 +36,6 @@ public class DiningHall {
         this.commensals = commensals;
     }
 
-    // Operations
     public void mealSchedule() {
         System.out.println("Meal schedule created");
     }
