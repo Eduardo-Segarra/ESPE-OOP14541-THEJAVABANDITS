@@ -12,11 +12,9 @@ import java.util.Arrays;
  */
 public class DiningHall {
     private int id;
-    private Commensal[] commensals;
 
-    public DiningHall(int id, Commensal[] commensals) {
+    public DiningHall(int id) {
         this.id = id;
-        this.commensals = commensals;
     }
 
     // Getters and Setters
@@ -26,14 +24,6 @@ public class DiningHall {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Commensal[] getCommensals() {
-        return commensals;
-    }
-
-    public void setCommensals(Commensal[] commensals) {
-        this.commensals = commensals;
     }
 
     public void mealSchedule() {
@@ -48,7 +38,6 @@ public class DiningHall {
     public String toString() {
         return "DiningHall{" +
                 "id=" + id +
-                ", commensals=" + Arrays.toString(commensals) +
                 '}';
     }
 }

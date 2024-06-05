@@ -4,11 +4,16 @@
  */
 package utils;
 
+import ec.edu.espe.militarydininghall.model.Accounts.Account;
 import ec.edu.espe.militarydininghall.model.Accounts;
 import java.util.Scanner;
 import Utils.FileManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -16,9 +21,13 @@ import java.util.HashMap;
  */
 
 public class AccountsActions {
+    private static final Scanner scanner = new Scanner(System.in);
+    private static Map<String, ec.edu.espe.militarydininghall.model.Accounts.Account> accounts;
+    private static ec.edu.espe.militarydininghall.model.Accounts.Account currentAccount;
+    private static ObjectMapper objectMapper;
+    private static File file;
+
     public static boolean login() {
-        Scanner scanner = new Scanner(System.in);
-        
         System.out.print("Enter the email: ");
         String email = scanner.nextLine();
         System.out.print("Enter the password: ");
@@ -36,12 +45,17 @@ public class AccountsActions {
     }
 
     public static void createAccount() throws IOException {
-        String name, email, password, type, fileName = "Accounts", newAccountData;
+        int id;
+        String name, email, password, type, grade, fileName = "Accounts", newAccountData;
         
+        System.out.println("Enter the number of your identity card:");
+        id = scanner.nextInt();
         System.out.print("Enter the name: ");
         name = scanner.nextLine();
         System.out.print("Enter the email: ");
         email = scanner.nextLine();
+        System.out.println("Enter yout grade (if you area public servant type public servant):");
+        grade = scanner.nextLine();
         System.out.print("Enter the password: ");
         password = scanner.nextLine();
         type = "Commensal";
@@ -50,11 +64,11 @@ public class AccountsActions {
             accounts = new HashMap<>();
         }
 
-        Accounts.Account account = new Accounts.Account(name, email, password, type);
+        Account account = new Account(id, name, email, password, grade, type);
         accounts.put(email, account);
         objectMapper.writeValue(file, accounts);
         
-        newAccountData = account.toStringFormatJSON();
+        newAccountData = account.toStringJSON();
         FileManager.save(newAccountData, fileName);
         
         System.out.println("Account successfully created!!!");

@@ -18,8 +18,7 @@ import java.util.Scanner;
  */
 
 public class Accounts {
-    private static final Scanner scanner = new Scanner(System.in);
-    private static Map<String, Utils.Accounts.Account> accounts;
+    private static Map<String, ec.edu.espe.militarydininghall.model.Accounts.Account> accounts;
     private static ObjectMapper objectMapper;
     private static File file;
     private static ec.edu.espe.militarydininghall.model.Accounts.Account currentAccount;
@@ -28,7 +27,7 @@ public class Accounts {
         objectMapper = new ObjectMapper();
         file = new File(filename);
         if (file.exists()) {
-            accounts = objectMapper.readValue(file, TypeFactory.defaultInstance().constructMapType(HashMap.class, String.class, Utils.Accounts.Account.class));
+            accounts = objectMapper.readValue(file, TypeFactory.defaultInstance().constructMapType(HashMap.class, String.class, ec.edu.espe.militarydininghall.model.Accounts.Account.class));
         } else {
             accounts = new HashMap<>();
         }
@@ -117,7 +116,7 @@ public class Accounts {
             return "Accounts{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", grade=" + grade + ", type=" + type + '}';
         }
 
-        public String toStringJSONFormat() {
+        public String toStringJSON() {
             String accountData = "";
 
             accountData = "{"
