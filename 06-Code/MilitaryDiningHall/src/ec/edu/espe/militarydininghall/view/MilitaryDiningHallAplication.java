@@ -1,6 +1,6 @@
 package ec.edu.espe.militarydininghall.view;
 
-import Utils.Accounts;
+import ec.edu.espe.militarydininghall.model.Accounts;
 import java.io.IOException;
 
 /**
@@ -12,8 +12,16 @@ public class MilitaryDiningHallAplication {
     public static void main(String[] args) throws IOException {
         MenuManager.mainMenu();
         
-        if ("Commensal".equals(Accounts.getCurrentAccountType())){
-            MenuManager.commensalMenu();
-        } 
+        switch (Accounts.getCurrentAccountType()) {
+            case "commensal" -> MenuManager.commensalMenu();
+
+            case "administrator" -> MenuManager.adminMenu();
+            
+            case "generalAdministrator" -> MenuManager.generalAdmin();
+            
+            case "militaryChef" -> MenuManager.chefMenu();
+        }
+        
+        
     }
 }

@@ -9,5 +9,24 @@ package ec.edu.espe.militarydininghall.view;
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
  */
 public class ActionsMenuManager {
+
+    public static void bookADay() {
+
+    }
+
+    public static void unbookADay() {
+
+    }
     
+    public static void seeAccountBalance(){
+        
+    }
+    
+    public static void createDiningMenu(){
+        
+    }
+    
+    public static void declareTemporalAdmin(){
+        
+    }
 }
