@@ -1,131 +1,137 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package utils;
+package Utils;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import static Utils.Validations.valideInt;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
- * @author THEJAVABANDITS,DCCO-ESPE
+ * @author The Java Bandits, DCCO-ESPE
  */
 
-
 public class Accounts {
+    private static final Scanner scanner = new Scanner(System.in);
+    private static Map<String, Account> accounts;
+    private static ObjectMapper objectMapper;
+    private static File file;
+    private static Account currentAccount;
 
-    private static final String ACCOUNTS_TXT_FILE_PATH = "accounts.txt"; // Ruta del archivo de cuentas en formato txt
-    private static final String ACCOUNTS_CSV_FILE_PATH = "accounts.csv"; // Ruta del archivo de cuentas en formato csv
-    private Map<String, String> accountDatabase; // Mapa para almacenar las cuentas
-
-    public Accounts() {
-        // Inicializamos el mapa de cuentas
-        accountDatabase = new HashMap<>();
-        // Cargamos las cuentas desde los archivos al iniciar la aplicación
-        loadAccountsFromTxt();
-        loadAccountsFromCsv();
-    }
-
-    // Método para iniciar sesión
-    public boolean logIn(String username, String password) {
-        if (accountDatabase.containsKey(username)) {
-            String storedPassword = accountDatabase.get(username);
-            if (storedPassword.equals(password)) {
-                System.out.println("Inicio de sesión exitoso para el usuario: " + username);
-                return true;
-            } else {
-                System.out.println("Error: Contraseña incorrecta para el usuario: " + username);
-                return false;
-            }
+    public Accounts(String filename) throws IOException {
+        objectMapper = new ObjectMapper();
+        file = new File(filename);
+        if (file.exists()) {
+            accounts = objectMapper.readValue(file, TypeFactory.defaultInstance().constructMapType(HashMap.class, String.class, Account.class));
         } else {
-            System.out.println("Error: El usuario " + username + " no existe");
-            return false;
+            accounts = new HashMap<>();
         }
     }
 
-    // Método para crear cuenta
-    public boolean createAccount(String username, String password) {
-        if (accountDatabase.containsKey(username)) {
-            System.out.println("Error: El usuario " + username + " ya existe");
-            return false;
-        } else {
-            accountDatabase.put(username, password);
-            saveAccountsToTxt(); // Guardamos la cuenta en el archivo txt
-            saveAccountsToCsv(); // Guardamos la cuenta en el archivo csv
-            System.out.println("Cuenta creada exitosamente para el usuario: " + username);
+    public static boolean login() {
+        System.out.print("Enter the email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter the password: ");
+        String password = scanner.nextLine();
+
+        Account account = accounts.get(email);
+        
+        if (account != null && account.getPassword().equals(password)){
+            currentAccount = account;
+            System.out.println("Welcome " + account.getName());
+            System.out.println("You entered with a " + account.getType() + " account");
             return true;
         }
+        return false;
     }
 
-    // Método para cargar las cuentas desde el archivo txt
-    private void loadAccountsFromTxt() {
-        File file = new File(ACCOUNTS_TXT_FILE_PATH);
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(":");
-                    if (parts.length == 2) {
-                        String username = parts[0];
-                        String password = parts[1];
-                        accountDatabase.put(username, password);
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+    public static void createAccount() throws IOException {
+        System.out.print("Enter the name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter the email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter the password: ");
+        String password = scanner.nextLine();
+
+        System.out.print("Account Type: \n1.- Commensal\n2.- Chef\n3.- Admin\n4.- General Admin \nEnter the option: ");
+        String type = " ";
+        int optionNumber;
+        do {
+            optionNumber = valideInt();
+            
+            switch (optionNumber) {
+                case 1:
+                    type = "Commensal";
+                    break;
+                case 2:
+                    type = "Chef";
+                    break;
+                case 3:
+                    type = "Admin";
+                    break;
+                case 4:
+                    type = "General Admin";
+                    break;
+                default:
+                    System.out.println("Invalid option, enter again: ");
             }
+        } while (optionNumber < 1 || optionNumber > 4);
+
+        if (accounts == null) {
+            accounts = new HashMap<>();
         }
+        Account account = new Account(name, email, password, type);
+        accounts.put(email, account);
+        objectMapper.writeValue(file, accounts);
+        System.out.println("Account successfully created!!!");
     }
 
-    // Método para guardar las cuentas en el archivo txt
-    private void saveAccountsToTxt() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ACCOUNTS_TXT_FILE_PATH))) {
-            for (Map.Entry<String, String> entry : accountDatabase.entrySet()) {
-                writer.write(entry.getKey() + ":" + entry.getValue());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static String getCurrentAccountName() {
+        return currentAccount != null ? currentAccount.getName() : null;
+    }
+
+    public static String getCurrentAccountEmail() {
+        return currentAccount != null ? currentAccount.getEmail() : null;
+    }
+
+    public static String getCurrentAccountType() {
+        return currentAccount != null ? currentAccount.getType() : null;
+    }
+
+    public static class Account {
+        private String name;
+        private String email;
+        private String password;
+        private String type;
+        
+        public Account() {
         }
-    }
 
-    // Método para cargar las cuentas desde el archivo csv
-    private void loadAccountsFromCsv() {
-        File file = new File(ACCOUNTS_CSV_FILE_PATH);
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split(",");
-                    if (parts.length == 2) {
-                        String username = parts[0];
-                        String password = parts[1];
-                        accountDatabase.put(username, password);
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        public Account(String name, String email, String password, String type) {
+            this.name = name;
+            this.email = email;
+            this.password = password;
+            this.type = type;
         }
-    }
 
-    // Método para guardar las cuentas en el archivo csv
-    private void saveAccountsToCsv() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ACCOUNTS_CSV_FILE_PATH))) {
-            for (Map.Entry<String, String> entry : accountDatabase.entrySet()) {
-                writer.write(entry.getKey() + "," + entry.getValue());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        public String getEmail() {
+            return email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }
-

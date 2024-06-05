@@ -6,7 +6,7 @@ package ec.edu.espe.militarydininghall.model;
 
 /**
  *
- * @author THEJAVABANDITS,DCCO-ESPE
+ * @author David Rodriguez,THEJAVABANDITS,DCCO-ESPE
  */
 public class DinnerMenu {
     private String breakfastName;
@@ -19,6 +19,7 @@ public class DinnerMenu {
         this.snackName = snackName;
     }
 
+    // Getters and Setters
     public String getBreakfastName() {
         return breakfastName;
     }
@@ -43,6 +44,13 @@ public class DinnerMenu {
         this.snackName = snackName;
     }
 
+    public void changeDishName(String newBreakfastName, String newLunchName, String newSnackName) {
+        this.breakfastName = newBreakfastName;
+        this.lunchName = newLunchName;
+        this.snackName = newSnackName;
+        System.out.println("Dish names changed to: Breakfast - " + newBreakfastName + ", Lunch - " + newLunchName + ", Snack - " + newSnackName);
+    }
+
     @Override
     public String toString() {
         return "DinnerMenu{" +
@@ -50,23 +58,5 @@ public class DinnerMenu {
                 ", lunchName='" + lunchName + '\'' +
                 ", snackName='" + snackName + '\'' +
                 '}';
-    }
-
-    public void changeDishName(String mealType, String newName) {
-        switch (mealType) {
-            case "breakfast":
-                setBreakfastName(newName);
-                break;
-            case "lunch":
-                setLunchName(newName);
-                break;
-            case "snack":
-                setSnackName(newName);
-                break;
-            default:
-                System.out.println("Invalid meal type");
-        }
-        System.out.println("Dish name changed for " + mealType + ": " + newName);
-        // Lógica para cambiar el nombre de un plato
     }
 }

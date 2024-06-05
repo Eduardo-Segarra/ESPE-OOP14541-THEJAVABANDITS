@@ -6,7 +6,7 @@ package ec.edu.espe.militarydininghall.model;
 
 /**
  *
- * @author THEJAVABANDITS, DCCO-ESPE
+ * @author The Java Bandits, DCCO-ESPE
  */
 public class Commensal {
     private int id;
