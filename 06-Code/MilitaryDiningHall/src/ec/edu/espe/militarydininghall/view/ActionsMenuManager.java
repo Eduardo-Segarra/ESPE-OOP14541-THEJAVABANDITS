@@ -1,54 +1,80 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ec.edu.espe.militarydininghall.view;
 
-import Utils.FileManager;
+import ec.edu.espe.militarydininghall.model.Accounts;
 import java.util.Scanner;
+import ec.edu.espe.militarydininghall.model.DinnerMenu;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author Carlos Pérez, TheJavaBandits, DCCO-ESPE
  */
 public class ActionsMenuManager {
+
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void bookADay() {
+        System.out.print("Enter the day to book (DD): ");
+        String day = scanner.nextLine();
+        
+        System.out.print("Enter the month to book (MM): ");
+        String month = scanner.nextLine();
+        
+        String date = "2024-" + month + "-" + day;
+        
+        System.out.print("Enter the breakfast name: ");
+        String breakfast = scanner.nextLine();
+        
+        System.out.print("Enter the lunch name: ");
+        String lunch = scanner.nextLine();
+        
+        System.out.print("Enter the snack name: ");
+        String snack = scanner.nextLine();
 
+        DinnerMenu dinnerMenu = new DinnerMenu(breakfast, lunch, snack);
+
+        
+        System.out.println("Booking for " + date + " completed successfully!"+dinnerMenu);
     }
 
     public static void unbookADay() {
-
+        System.out.println("Booking cancelled successfully!");
     }
 
     public static void seeAccountBalance() {
 
+        String accountName = Accounts.getCurrentAccountName();
+
+        if (accountName != null) {
+            //System.out.println("Account balance for " + accountName + ": " + Balance);
+            System.out.println("Account balance for " + accountName + ": [Balance not available ]");
+        } else {
+            System.out.println("No account is currently logged in.");
+        }
     }
 
     public static void createDiningMenu() {
+        System.out.print("Enter the breakfast name: ");
+        String breakfast = scanner.nextLine();
+        
+        System.out.print("Enter the lunch name: ");
+        String lunch = scanner.nextLine();
+        
+        System.out.print("Enter the snack name: ");
+        String snack = scanner.nextLine();
 
+        DinnerMenu dinnerMenu = new DinnerMenu(breakfast, lunch, snack);
+
+        
+        System.out.println("Dining menu created successfully!"+dinnerMenu);
     }
 
     public static void declareTemporalAdmin() {
-
-    }
-/*
-    public static void changeGrade() {
-        String newGrade, foundAccount, fileName = "accounts.json";
-        int id;
-        boolean result;
-
-        System.out.println("Type the ID of the account you want to change the grade:");
-        id = scanner.nextInt();
-        System.out.println("What will be the new grade for the account?:");
-        newGrade = scanner.nextLine();
         
-        result = FileManager.changeAccountGrade(fileName, id, newGrade);
+        System.out.print("Enter the email of the account to declare as temporal admin: ");
+        String email = scanner.nextLine();
+
         
-        if(result){
-            System.out.println("");
-        }
+        System.out.println("Account with email " + email + " declared as temporal admin.");
     }
-*/
 }
+
