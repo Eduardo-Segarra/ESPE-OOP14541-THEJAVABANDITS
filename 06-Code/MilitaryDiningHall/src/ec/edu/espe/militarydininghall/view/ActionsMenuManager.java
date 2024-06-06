@@ -1,8 +1,9 @@
 package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.model.Accounts;
-import java.util.Scanner;
 import ec.edu.espe.militarydininghall.model.DinnerMenu;
+import Utils.Validations;
+import java.util.Scanner;
 
 /**
  *
@@ -13,13 +14,15 @@ public class ActionsMenuManager {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void bookADay() {
-        System.out.print("Enter the day to book (DD): ");
-        String day = scanner.nextLine();
+        int year = 2024;
         
-        System.out.print("Enter the month to book (MM): ");
-        String month = scanner.nextLine();
+        System.out.print("Enter the month to book : ");
+        int month = Validations.validateMonth();
         
-        String date = "2024-" + month + "-" + day;
+        System.out.print("Enter the day to book:");
+        int day = Validations.validateDay(year, month);
+        
+        String date = year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
         
         System.out.print("Enter the breakfast name: ");
         String breakfast = scanner.nextLine();
@@ -33,7 +36,7 @@ public class ActionsMenuManager {
         DinnerMenu dinnerMenu = new DinnerMenu(breakfast, lunch, snack);
 
         
-        System.out.println("Booking for " + date + " completed successfully!"+dinnerMenu);
+        System.out.println("Booking for " + date + " completed successfully!" + dinnerMenu);
     }
 
     public static void unbookADay() {
@@ -41,7 +44,6 @@ public class ActionsMenuManager {
     }
 
     public static void seeAccountBalance() {
-
         String accountName = Accounts.getCurrentAccountName();
 
         if (accountName != null) {
@@ -65,7 +67,7 @@ public class ActionsMenuManager {
         DinnerMenu dinnerMenu = new DinnerMenu(breakfast, lunch, snack);
 
         
-        System.out.println("Dining menu created successfully!"+dinnerMenu);
+        System.out.println("Dining menu created successfully!" + dinnerMenu);
     }
 
     public static void declareTemporalAdmin() {
