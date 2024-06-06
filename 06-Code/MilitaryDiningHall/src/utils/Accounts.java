@@ -95,7 +95,9 @@ public class Accounts {
         objectMapper.writeValue(file, accounts);
         System.out.println("Account successfully created!!!");
     }
-
+    public static int getCurrentAccountId() {
+        return currentAccount != null ? currentAccount.getId() : null;
+    }
     public static String getCurrentAccountName() {
         return currentAccount != null ? currentAccount.getName() : null;
     }

@@ -1,1 +1,1 @@
-{"ismael@test":{"id":123,"name":"Ismael","email":"ismael@test","password":"123","type":"Commensal","grade":"public servant"}}
+{"test@test":{"id":123,"name":"test","email":"test@test","password":"123","type":"Commensal","grade":"public servant"},"admin@test":{"id":345,"name":"ADMIN","email":"admin@test","password":"123","type":"Admin","grade":"commander"}}

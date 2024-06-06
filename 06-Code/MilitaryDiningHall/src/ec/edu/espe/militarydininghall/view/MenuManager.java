@@ -1,10 +1,16 @@
 package ec.edu.espe.militarydininghall.view;
 
+import Utils.FileManager;
 import Utils.Validations;
+import ec.edu.espe.militarydininghall.model.Commensal;
 import java.io.IOException;
 import java.util.Scanner;
 import utils.AccountsActions;
 import ec.edu.espe.militarydininghall.view.ActionsMenuManager;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.HashMap;
+import java.util.Map;
 import utils.Accounts;
 
 /**
@@ -15,18 +21,18 @@ public class MenuManager {
 
     public static void mainMenu() {
         try {
-            Accounts accountManager = new Accounts("accounts.json");
-            System.out.println("Wellcome to the The Military Dining Hall Aplication");
-            System.out.println("Select a option: \n1.- Login \n2.- Create a account \nEnter the option: ");
             int option;
             do {
+                Accounts accountManager = new Accounts("accounts.json");
+                System.out.println("Wellcome to the The Military Dining Hall Aplication");
+                System.out.println("Select a option: \n1.- Login \n2.- Create a account \nEnter the option: ");
+
                 option = Validations.valideAnyInt();
                 switch (option) {
                     case 1 -> {
                         while (!Accounts.login()) {
                             System.out.println("Account does not exist, try again.");
                         }
-
                     }
                     case 2 ->
                         Accounts.createAccount();
@@ -39,30 +45,52 @@ public class MenuManager {
         }
     }
 
-    public static void commensalMenu() throws IOException {
+    public static void commensalMenu(Commensal commensal) throws IOException {
         Scanner scanner = new Scanner(System.in);
         int option, loweOption = 1, higherOption = 4;
+        do {
+            System.out.println("Commensal Menu:");
+            System.out.println("1. Book a Day");
+            System.out.println("2. Unbook a Day");
+            System.out.println("3. See Account Balance");
+            System.out.println("4. Exit");
 
-        System.out.println("Commensal Menu:");
-        System.out.println("1. Book a Day");
-        System.out.println("2. Unbook a Day");
-        System.out.println("3. See Account Balance");
-        System.out.println("4. Exit");
-        option = Validations.valideInt(loweOption, higherOption);
+            String fileName = "reservations.json";
+            Map<Integer, Commensal> commensals = new HashMap<>();
 
-        switch (option) {
-            case 1 ->
-                ActionsMenuManager.bookADay();
+            option = Validations.valideInt(loweOption, higherOption);
+            switch (option) {
+                case 1 -> {
+                    System.out.print("Enter the day to book (DD): ");
+                    int day = Validations.valideInt(1, 31);
+                    System.out.print("Enter the month to book (MM): ");
+                    int month = Validations.valideInt(1, 12);
 
-            case 2 ->
-                ActionsMenuManager.unbookADay();
+                    commensal.bookDay("2024" + "-" + String.valueOf(day) + "-" + String.valueOf(month), commensal.getName());
+                    System.out.println("Day register!!");
 
-            case 3 ->
-                ActionsMenuManager.seeAccountBalance();
+                }
+                case 2 -> {
+                    System.out.print("Enter the day to remove (DD): ");
+                    int day = Validations.valideInt(1, 31);
+                    System.out.print("Enter the month to remove (MM): ");
+                    int month = Validations.valideInt(1, 12);
 
-            case 4 ->
-                MenuManager.mainMenu();
-        }
+                    commensal.unbookDay("2024" + "-" + String.valueOf(day) + "-" + String.valueOf(month));
+                    System.out.println("Day remove!!");
+                }
+
+                case 3 ->
+                    ActionsMenuManager.seeAccountBalance();
+
+                case 4 -> {
+                    commensals.put(commensal.getId(), commensal);
+                    FileManager.saveCommensal(fileName, commensals);
+                    MenuManager.mainMenu();
+                }
+            }
+        } while (option != 4);
+
     }
 
     public static void chefMenu() throws IOException {
