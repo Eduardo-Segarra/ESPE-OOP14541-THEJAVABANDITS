@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Carlos Pérez, TheJavaBandits, DCCO-ESPE
+ * @author  TheJavaBandits, DCCO-ESPE
  */
 public class ActionsMenuManager {
 
