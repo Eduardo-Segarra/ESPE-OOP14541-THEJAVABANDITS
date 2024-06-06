@@ -1,11 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utils;
 
-import ec.edu.espe.militarydininghall.model.Accounts.Account;
-import ec.edu.espe.militarydininghall.model.Accounts;
 import java.util.Scanner;
 import Utils.FileManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,8 +16,8 @@ import java.util.Map;
 
 public class AccountsActions {
     private static final Scanner scanner = new Scanner(System.in);
-    private static Map<String, ec.edu.espe.militarydininghall.model.Accounts.Account> accounts;
-    private static ec.edu.espe.militarydininghall.model.Accounts.Account currentAccount;
+    //private static Map<String, ec.edu.espe.militarydininghall.model.Accounts.Account> accounts;
+    //private static ec.edu.espe.militarydininghall.model.Accounts.Account currentAccount;
     private static ObjectMapper objectMapper;
     private static File file;
 
@@ -33,7 +27,7 @@ public class AccountsActions {
         System.out.print("Enter the password: ");
         String password = scanner.nextLine();
 
-        Account account = accounts.get(email);
+        /*Account account = accounts.get(email);
 
         if (account != null && account.getPassword().equals(password)) {
             currentAccount = account;
@@ -41,15 +35,20 @@ public class AccountsActions {
             System.out.println("You entered with a " + account.getType() + " account");
             return true;
         }
+        */
         return false;
     }
 
     public static void createAccount() throws IOException {
         int id;
-        String name, email, password, type, grade, fileName = "Accounts", newAccountData;
+        String name, email, password, type, grade, fileName = "Accounts.json", newAccountData;
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File(fileName);
         
         System.out.println("Enter the number of your identity card:");
         id = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Enter the name: ");
         name = scanner.nextLine();
         System.out.print("Enter the email: ");
@@ -59,18 +58,19 @@ public class AccountsActions {
         System.out.print("Enter the password: ");
         password = scanner.nextLine();
         type = "Commensal";
-
+        /*
         if (accounts == null) {
             accounts = new HashMap<>();
         }
-
+        
+        
         Account account = new Account(id, name, email, password, grade, type);
         accounts.put(email, account);
         objectMapper.writeValue(file, accounts);
         
         newAccountData = account.toStringJSON();
         FileManager.save(newAccountData, fileName);
-        
+        */
         System.out.println("Account successfully created!!!");
     }
 }

@@ -23,10 +23,28 @@ public class Validations {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry. Please type an entire number.");
+                scanner.next();
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+    public static int valideAnyInt() {
+        Scanner scanner = new Scanner(System.in);
+        int userInput = 0;
+        boolean isValid = false;
+
+        while (!isValid) {
+            try {
+                userInput = scanner.nextInt();
+                isValid = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Enter a INT number");
+                scanner.nextLine(); // Limpiar el buffer del scanner
+            }
+        }
+
+        return userInput;
     }
 
 }

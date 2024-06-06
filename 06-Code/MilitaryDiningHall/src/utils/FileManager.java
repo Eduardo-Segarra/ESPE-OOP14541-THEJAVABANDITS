@@ -4,7 +4,6 @@
  */
 package Utils;
 
-import ec.edu.espe.militarydininghall.model.Accounts.Account;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
@@ -47,7 +46,7 @@ public class FileManager {
     public static void findBookedDay() {
 
     }
-
+/*
     public static String findAccount(String fileName, int idSearch) {
         List<Account> foundAccount = new ArrayList<>();
         Gson gson = new Gson();
@@ -74,6 +73,7 @@ public class FileManager {
         }
         return null;
     }
+    */
     /*
     public static boolean changeAccountGrade(String fileName, int idSearch, String newGrade){
         List<Account> foundAccount = new ArrayList<>();
@@ -104,6 +104,7 @@ public class FileManager {
         return result;
     }
     */
+    /*
     public static String loadData(String fileName) {
         List<Account> accountRecord = new ArrayList<>();
         Gson gson = new Gson();
@@ -127,4 +128,5 @@ public class FileManager {
         }
         return null;
     }
+    */
 }
