@@ -4,27 +4,38 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import java.io.IOException;
+
 /**
  *
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
  */
 public class MilitaryDiningHallAplication {
-    public static void main(String[] args){
-        MenuManager.mainMenu();
 
-        switch ("Commensal") {
-            case "Commensal" -> {
-                MenuManager.commensalMenu();
+    public static void main(String[] args) throws IOException {
+        String accountType = "";
+
+        accountType = MenuManager.mainMenu();
+        
+        String[] parts = accountType.split(":");
+
+        String type = parts[0];
+        int id = Integer.parseInt(parts[1]);
+
+        switch (type) {
+            case "commensals" ->
+                MenuManager.commensalMenu(id);
+
+            case "administrators" ->
+                MenuManager.adminMenu(id);
+
+            //case "generalAdministrator" ->
+            //MenuManager.generalAdmin();
+            //case "militaryChef" ->
+            //MenuManager.chefMenu();
+            default -> {
+                break;
             }
-
-            case "Administrator" ->
-                MenuManager.adminMenu();
-
-            //case "General Administrator" ->
-                //MenuManager.generalAdmin();
-
-            //case "Military Chef" ->
-                //MenuManager.chefMenu();
         }
 
     }

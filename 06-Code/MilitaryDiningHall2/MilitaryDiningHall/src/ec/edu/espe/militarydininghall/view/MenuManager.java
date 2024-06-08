@@ -4,7 +4,7 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
-import java.util.Scanner;
+import utils.Accounts;
 import utils.Validations;
 
 /**
@@ -13,92 +13,83 @@ import utils.Validations;
  */
 public class MenuManager {
 
-    public static void mainMenu() {
-        int option = 0, loweOption = 1, higherOption = 2;
-        System.out.println("Wellcome to the The Military Dining Hall Aplication");
-        System.out.println("Select a option: \n1.- Login \n2.- Create a account \nEnter the option: ");
+    public static String mainMenu() {
+        int option, loweOption = 1, higherOption = 3;
+        String accountType = "";
 
-        Validations.valideInt(loweOption, higherOption, option);
-        /*
+        System.out.println("Wellcome to the The Military Dining Hall Aplication");
+        System.out.println("Select a option: \n1.- Login \n2.- Create a account \n3.- Exit\nEnter the option: ");
+
+        option = Validations.valideInt(loweOption, higherOption);
+
         switch (option) {
-            case 1 ->
-                MenuManager.commensalMenu();{
-            while (!Accounts.login()) {
-                    System.out.println("Account does not exist, try again.");
-                }
+            case 1 -> {
+                accountType = Accounts.logIn();
+                return accountType;
             }
-            case 2 ->
-                Accounts.createAccount();
+            case 2 -> {
+                accountType = Accounts.createNewAccount();
+                return accountType;
+            }
+            case 3 -> {
+                return "exit";
+            }
         }
-         */
+        return null;
     }
 
-    public static void commensalMenu() {
-        Scanner scanner = new Scanner(System.in);
-        int option = 0, loweOption = 1, higherOption = 4;
+    public static void commensalMenu(int id) {
+        int option, loweOption = 1, higherOption = 4;
+        String fileName = "commensals";
 
-        System.out.println("Commensal Menu:");
-        System.out.println("1. Book a Day");
-        System.out.println("2. Unbook a Day");
-        System.out.println("3. See Account Balance");
-        System.out.println("4. Exit");
+        do {
+            System.out.println("Commensal Menu:");
+            System.out.println("1. Book a Day");
+            System.out.println("2. Cancel a day's booking");
+            System.out.println("3. See Account Balance");
+            System.out.println("4. Exit");
 
-        Validations.valideInt(loweOption, higherOption, option);
-        /*
+            option = Validations.valideInt(loweOption, higherOption);
+
             switch (option) {
-                case 1 -> {
-                    System.out.print("Enter the day to book (DD): ");
-                    int day = Validations.valideInt(1, 31);
-                    System.out.print("Enter the month to book (MM): ");
-                    int month = Validations.valideInt(1, 12);
+                case 1 ->
+                    ActionsMenuManager.bookDay(id, fileName);
 
-                    commensal.bookDay("2024" + "-" + String.valueOf(day) + "-" + String.valueOf(month), commensal.getName());
-                    System.out.println("Day register!!");
-
-                }
-                case 2 -> {
-                    System.out.print("Enter the day to remove (DD): ");
-                    int day = Validations.valideInt(1, 31);
-                    System.out.print("Enter the month to remove (MM): ");
-                    int month = Validations.valideInt(1, 12);
-
-                    commensal.unbookDay("2024" + "-" + String.valueOf(day) + "-" + String.valueOf(month));
-                    System.out.println("Day remove!!");
-                }
+                case 2 ->
+                    ActionsMenuManager.cancelDayBook(id, fileName);
 
                 case 3 ->
-                    ActionsMenuManager.seeAccountBalance();
+                    ActionsMenuManager.seeAccountBalance(id, fileName);
 
-                case 4 -> {
-                    commensals.put(commensal.getId(), commensal);
-                    FileManager.saveCommensal(fileName, commensals);
+                case 4 ->
                     MenuManager.mainMenu();
-                }
+
             }
-         */
+        } while (option != 4);
     }
 
-    public static void adminMenu() {
-        int option = 0, loweOption = 1, higherOption = 5;
+    public static void adminMenu(int id) {
+        int option, loweOption = 1, higherOption = 5;
+        String fileName = "administrators";
 
         System.out.println("Admin Menu");
         System.out.println("1. Edit Register");
         System.out.println("2. Book a Day");
-        System.out.println("3. Unbook a Day");
+        System.out.println("3. Cancel a day's booking");
         System.out.println("4. See Account Balance");
         System.out.println("5. Exit");
 
-        Validations.valideInt(loweOption, higherOption, option);
+        option = Validations.valideInt(loweOption, higherOption);
         /*
         switch (option) {
             case 1 ->
-                ActionsMenuManager.createDiningMenu();
+                System.out.println("hi");
 
             case 2 ->
-                ActionsMenuManager.bookADay();
+                ActionsMenuManager.bookDay(, fileName);
 
             case 3 ->
-                ActionsMenuManager.unbookADay();
+                ActionsMenuManager.cancelDayBook();
 
             case 4 ->
                 ActionsMenuManager.seeAccountBalance();

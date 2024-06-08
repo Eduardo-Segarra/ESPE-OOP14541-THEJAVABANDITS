@@ -15,16 +15,17 @@ import java.util.Scanner;
  */
 public class Validations {
 
-    public static void valideInt(int lowerOption, int higherOption, int userInput) {
+    public static int valideInt(int lowerOption, int higherOption) {
         Scanner scanner = new Scanner(System.in);
-
+        int userInput;
+        
         while (true) {
             try {
                 userInput = scanner.nextInt();
                 if (userInput < lowerOption || userInput > higherOption) {
                     throw new IllegalArgumentException("The option can't be lower than " + lowerOption + " or higher than " + higherOption + ".");
                 } else {
-                    break;
+                    return userInput;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry. Please type an entire number.");
@@ -35,9 +36,9 @@ public class Validations {
         }
     }
 
-    public static void validateYear() {
+    public static int validateYear() {
         Scanner scanner = new Scanner(System.in);
-        int year;
+        int year = 0;
 
         while (true) {
             try {
@@ -46,7 +47,7 @@ public class Validations {
                 if (year < LocalDate.now().getYear()) {
                     throw new IllegalArgumentException("The year can't be higher than the current year.");
                 } else {
-                    break;
+                    return year;
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid entry. Please type an entire number for the year.");
@@ -56,9 +57,10 @@ public class Validations {
         }
     }
 
-    public static void validateMonth() {
+    public static int validateMonth() {
         Scanner scanner = new Scanner(System.in);
         int month;
+
         while (true) {
             System.out.print("Enter the month (1-12): ");
             try {
@@ -66,7 +68,7 @@ public class Validations {
                 if (month < 1 || month > 12) {
                     throw new IllegalArgumentException("Month must be between 1 and 12.");
                 } else {
-                    break;
+                    return month;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry. Please enter a number between 1 and 12.");
@@ -77,9 +79,10 @@ public class Validations {
         }
     }
 
-    public static void validateDay(int year, int month) {
+    public static int validateDay(int year, int month) {
         Scanner scanner = new Scanner(System.in);
         int day;
+
         while (true) {
             System.out.print("Enter the day: ");
             try {
@@ -89,7 +92,7 @@ public class Validations {
                 if (day < 1 || day > maxDay) {
                     throw new IllegalArgumentException("Day must be between 1 and " + maxDay + ".");
                 } else {
-                    break;
+                    return day;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry. Please enter a valid day.");
