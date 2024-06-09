@@ -36,5 +36,29 @@
       "30/6/2024",
       "1/7/2024"
     ]
+  },
+  {
+    "id": 1753597796,
+    "name": "Ismael Travez",
+    "email": "ismael@gmail.com",
+    "password": "123",
+    "grade": "publicServant",
+    "type": "commensals",
+    "balance": 0.0,
+    "daysReserved": [
+      "No days reserved yet"
+    ]
+  },
+  {
+    "id": 1753597796,
+    "name": "Ismael Travez",
+    "email": "ismael@gmail.com",
+    "password": "123",
+    "grade": "publicSevant",
+    "type": "commensals",
+    "balance": 0.0,
+    "daysReserved": [
+      "No days reserved yet"
+    ]
   }
 ]

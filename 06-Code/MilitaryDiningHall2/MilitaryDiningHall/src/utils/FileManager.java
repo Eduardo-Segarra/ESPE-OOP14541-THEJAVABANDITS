@@ -4,12 +4,16 @@
  */
 package utils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.militarydininghall.model.Commensal;
+import ec.edu.espe.militarydininghall.model.DateBook;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -174,4 +178,65 @@ public class FileManager {
         }
         return null;
     }
+
+    // Para el DateBook
+    public static void saveDateBook(DateBook dateBook) {
+        String fileName = "datebook.json";
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            List<DateBook> listDateBook = new ArrayList<>();
+            File file = new File(fileName);
+
+            if (file.exists()) {
+                listDateBook = mapper.readValue(file, new TypeReference<List<DateBook>>() {
+                });
+
+                boolean found = false;
+                for (int i = 0; i < listDateBook.size(); i++) {
+                    DateBook scannerDateBook = listDateBook.get(i);
+                    if (scannerDateBook.getId() == dateBook.getId()) {
+                        listDateBook.set(i, dateBook);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    listDateBook.add(dateBook);
+                }
+            } else {
+                listDateBook.add(dateBook);
+            }
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new FileWriter(fileName), listDateBook);
+            
+            System.out.println("DateBook saved.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error to load DateBook.");
+        }
+    }
+
+    public static DateBook loadDateBook(int id) {
+        String fileName = "datebook.json";
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            File file = new File(fileName);
+            List<DateBook> listDateBook = new ArrayList<>();
+            if (file.exists()) {
+                listDateBook = mapper.readValue(file, new TypeReference<List<DateBook>>() {
+                });
+            }
+
+            for (DateBook dateBook : listDateBook) {
+                if (dateBook.getId() == id) {
+                    return dateBook;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

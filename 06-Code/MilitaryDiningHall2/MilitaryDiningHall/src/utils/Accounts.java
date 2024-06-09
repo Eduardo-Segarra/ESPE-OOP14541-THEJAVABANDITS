@@ -5,8 +5,11 @@
 package utils;
 
 import ec.edu.espe.militarydininghall.model.Commensal;
+import ec.edu.espe.militarydininghall.model.DateBook;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -51,6 +54,12 @@ public class Accounts {
         Commensal newCommensal = new Commensal(id, name, email, password, grade, type, 0, daysReserved);
 
         FileManager.save(newCommensal, "commensals");
+        
+        // Crea su nombre dentro de la agenda
+        Map<String, Boolean> emptyDays = new HashMap<>();
+        DateBook datebook = new DateBook(id, emptyDays);
+        FileManager.saveDateBook(datebook);
+        
         return newCommensal.getType() + ":" + newCommensal.getId();
     }
 }
