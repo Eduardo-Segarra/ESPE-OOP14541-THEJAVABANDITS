@@ -5,10 +5,12 @@
 package utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,68 +24,69 @@ import java.lang.reflect.Type;
  */
 public class FileManager {
 
-    public static void saveNewData(String data, String fileName) {
+    public static void save(Commensal newCommensal, String fileName) {
         fileName = fileName + ".json";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Commensal> commensals = new ArrayList<>();
 
-        try (FileWriter fileWriter = new FileWriter(fileName, false); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+        // Leer el archivo JSON existente
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            Type listType = new TypeToken<ArrayList<Commensal>>() {
+            }.getType();
+            commensals = gson.fromJson(bufferedReader, listType);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, creating a new one.");
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
 
-            bufferedWriter.write(data);
-            bufferedWriter.newLine();
+        // Agregar el nuevo objeto a la lista
+        commensals.add(newCommensal);
 
+        // Guardar la lista actualizada de nuevo en el archivo JSON
+        try (FileWriter fileWriter = new FileWriter(fileName); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            gson.toJson(commensals, bufferedWriter);
         } catch (IOException e) {
             System.err.println("Error writing to the file: " + e.getMessage());
         }
     }
 
-    public static void save(String data, String fileName) {
+    public static void updateAccount(Commensal updatedCommensal, String fileName, Commensal oldCommensalInformation) {
         fileName = fileName + ".json";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Commensal> commensals = new ArrayList<>();
 
-        try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-
-            bufferedWriter.write(data);
-            bufferedWriter.newLine();
-
+        // Leer el archivo JSON existente
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            Type listType = new TypeToken<ArrayList<Commensal>>() {
+            }.getType();
+            commensals = gson.fromJson(bufferedReader, listType);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, creating a new one.");
         } catch (IOException e) {
-            System.err.println("Error writing to the file: " + e.getMessage());
+            System.err.println("Error reading the file: " + e.getMessage());
         }
-    }
 
-    public static void updateAccount(String newData, String fileName, int idSearch) {
-        List<Commensal> foundAccount = new ArrayList<>();
-        int interator = 0;
-        Gson gson = new Gson();
-
-        try (BufferedReader bufferReader = new BufferedReader(new FileReader(fileName))) {
-            StringBuilder dataInJSON = new StringBuilder();
-            String line;
-
-            while ((line = bufferReader.readLine()) != null) {
-                dataInJSON.append(line);
-                
-                Type accountListType = new TypeToken<ArrayList<Commensal>>(){}.getType();
-                foundAccount = gson.fromJson(dataInJSON.toString(), accountListType);
-
-                for (Commensal account : foundAccount) {
-                    if (account.getId() == idSearch) {
-                        if(interator == 0){
-                            saveNewData(newData, fileName);
-                            interator++;
-                        }else{
-                            save(newData, fileName);
-                        }
-                    }else{
-                        if(interator == 0){
-                            saveNewData(account.toStringJSON(), fileName);
-                            interator++;
-                        }else{
-                            save(account.toStringJSON(), fileName);
-                        }
-                    }
-                }
+        // Reemplazar la información antigua con la nueva
+        boolean found = false;
+        for (int i = 0; i < commensals.size(); i++) {
+            if (commensals.get(i).getId() == oldCommensalInformation.getId()) {
+                commensals.set(i, updatedCommensal);
+                found = true;
+                break;
             }
+        }
 
+        if (!found) {
+            System.out.println("Old commensal information not found, adding new commensal.");
+            commensals.add(updatedCommensal);
+        }
+
+        // Guardar la lista actualizada de nuevo en el archivo JSON
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
+            gson.toJson(commensals, bufferedWriter);
         } catch (IOException e) {
-            System.err.println("Error at finding data of the file: " + e.getMessage());
+            System.err.println("Error writing to the file: " + e.getMessage());
         }
     }
 
@@ -132,7 +135,7 @@ public class FileManager {
             foundAccount = gson.fromJson(dataInJSON.toString(), accountListType);
 
             for (Commensal account : foundAccount) {
-                if (account.getEmail() == Email) {
+                if (Email.equalsIgnoreCase(account.getEmail())) {
                     return account.getType() + ":" + account.getId();
                 }
             }
@@ -143,7 +146,7 @@ public class FileManager {
         return null;
     }
 
-    public static Commensal findAccount(String fileName, int idSearch) {
+    public static String findAccount(String fileName, int idSearch) {
         List<Commensal> foundAccount = new ArrayList<>();
         Gson gson = new Gson();
 
@@ -161,7 +164,8 @@ public class FileManager {
 
             for (Commensal account : foundAccount) {
                 if (account.getId() == idSearch) {
-                    return account;
+                    String data = account.getId() + ":" + account.getName() + ":" + account.getEmail() + ":" + account.getPassword() + ":" + account.getGrade() + ":" + account.getType() + ":" + account.getBalance() + ":" + account.getDaysReserved();
+                    return data;
                 }
             }
 

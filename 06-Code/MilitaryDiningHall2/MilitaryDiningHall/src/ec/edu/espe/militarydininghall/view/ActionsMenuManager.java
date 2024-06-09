@@ -7,6 +7,7 @@ package ec.edu.espe.militarydininghall.view;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import utils.FileManager;
 import utils.Validations;
 
@@ -18,36 +19,72 @@ public class ActionsMenuManager {
 
     public static void bookDay(int id, String fileName) {
         int day, month, year = 2024;
-        String bookDay, commenalData;
-        Commensal commensal;
-        List<String> daysReserved = new ArrayList<>();
+        String bookDay = "", data;
+        List<String> updatedDaysReserved = new ArrayList<>();
+        List<String> days = new ArrayList<>();
 
-        commensal = FileManager.findAccount(fileName, id);
+        data = FileManager.findAccount(fileName + ".json", id);
+        String[] parts = data.split(":");
 
-        daysReserved = commensal.getDaysReserved();
-
-        System.out.println("Please enter the month of your booking:");
+        System.out.print("Please enter the month of your booking ");
         month = Validations.validateMonth();
-        System.out.println("Please enter the day of your booking:");
+        System.out.print("Please enter the day of your booking ");
         day = Validations.validateDay(year, month);
-
         bookDay = day + "/" + month + "/" + year;
-        daysReserved.add(bookDay);
-        commensal.setDaysReserved(daysReserved);
-        commenalData = commensal.toStringJSON();
 
-        FileManager.updateAccount(commenalData, fileName, id);
+        if (!parts[7].equalsIgnoreCase("No days reserved yet")) {
+            updatedDaysReserved.add(bookDay);
+            updatedDaysReserved.add(parts[7]);
+        }else{
+            updatedDaysReserved.add(bookDay);
+        }
+
+        days.add(parts[7]);
+
+        Commensal updatedCommensal = new Commensal(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3], parts[4], parts[5], Float.parseFloat(parts[6]), updatedDaysReserved);
+        Commensal outdatedcommensal = new Commensal(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3], parts[4], parts[5], Float.parseFloat(parts[6]), days);
+
+        FileManager.updateAccount(updatedCommensal, fileName, outdatedcommensal);
     }
 
     public static void cancelDayBook(int id, String fileName) {
+        Scanner scanner = new Scanner(System.in);
+        String data = FileManager.findAccount(fileName + ".json", id), bookDayCancel;
+        List<String> updatedDaysReserved = new ArrayList<>();
+        List<String> outdatedDaysReserved = new ArrayList<>();
+
+        String[] parts = data.split(":");
+        String[] days = parts[7].split(",");
+
+        if (parts[7].equalsIgnoreCase("No days reserved yet")) {
+            System.out.println("You don't have any days reserved yet.");
+
+        } else {
+            System.out.println(parts[7] + "\nWhat day you want to cancel the booking?(Type the whole date):");
+            bookDayCancel = scanner.nextLine();
+
+            for (int i = 0; i < days.length; i++) {
+                if (!days[i].equalsIgnoreCase(bookDayCancel)) {
+                    updatedDaysReserved.add(days[i]);
+                }
+
+            }
+            outdatedDaysReserved.add(parts[7]);
+
+            Commensal updatedCommensal = new Commensal(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3], parts[4], parts[5], Float.parseFloat(parts[6]), updatedDaysReserved);
+            Commensal outdatedcommensal = new Commensal(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3], parts[4], parts[5], Float.parseFloat(parts[6]), outdatedDaysReserved);
+
+            FileManager.updateAccount(updatedCommensal, fileName, outdatedcommensal);
+        }
 
     }
 
     public static void seeAccountBalance(int id, String fileName) {
-        Commensal commensal;
-        commensal = FileManager.findAccount(fileName, id);
+        String data;
+        data = FileManager.findAccount(fileName + ".json", id);
 
-        System.out.println("Your account balance is: " + commensal.getBalance());
+        String[] parts = data.split(":");
+
+        System.out.println("Your account balance is: " + parts[6]);
     }
-
 }

@@ -5,6 +5,8 @@
 package utils;
 
 import ec.edu.espe.militarydininghall.model.Commensal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -18,11 +20,10 @@ public class Accounts {
         String email, password, accountType = "";
 
         System.out.println("Enter your email:");
-        email = scanner.nextLine();
-        scanner.nextLine();               
+        email = scanner.nextLine();               
         System.out.println("Enter your password:");
         password = scanner.nextLine();
-
+        
         accountType = FileManager.findAccountByEmail("commensals.json", email);
         return accountType;
     }
@@ -36,22 +37,20 @@ public class Accounts {
         id = scanner.nextInt();
         scanner.nextLine();        
         System.out.println("Enter your name:");
-        name = scanner.nextLine();
-        scanner.nextLine();                
-        System.out.println("Enter your military grade (if your are a public servant type publicServatn):");
+        name = scanner.nextLine();                
+        System.out.println("Enter your military grade (if your are a public servant type publicServant):");
         grade = scanner.nextLine();
-        scanner.nextLine();                
         System.out.println("Enter your email:");
         email = scanner.nextLine();
-        scanner.nextLine();
         System.out.println("Enter your password:");
         password = scanner.nextLine();
-        scanner.nextLine();                
         type = "commensals";
+        List<String> daysReserved = new ArrayList<>();
+        daysReserved.add("No days reserved yet");
 
-        Commensal newCommensal = new Commensal(id, name, email, password, grade, type, 0, null);
+        Commensal newCommensal = new Commensal(id, name, email, password, grade, type, 0, daysReserved);
 
-        FileManager.save(newCommensal.toStringJSON(), "commensals");
+        FileManager.save(newCommensal, "commensals");
         return newCommensal.getType() + ":" + newCommensal.getId();
     }
 }

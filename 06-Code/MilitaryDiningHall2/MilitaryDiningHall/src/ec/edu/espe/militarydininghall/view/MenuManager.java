@@ -17,8 +17,8 @@ public class MenuManager {
         int option, loweOption = 1, higherOption = 3;
         String accountType = "";
 
-        System.out.println("Wellcome to the The Military Dining Hall Aplication");
-        System.out.println("Select a option: \n1.- Login \n2.- Create a account \n3.- Exit\nEnter the option: ");
+        System.out.println("Welcome to the Military Dining Hall Application");
+        System.out.println("Select an option: \n1.- Login \n2.- Create an account \n3.- Exit\nEnter the option: ");
 
         option = Validations.valideInt(loweOption, higherOption);
 
@@ -32,10 +32,13 @@ public class MenuManager {
                 return accountType;
             }
             case 3 -> {
-                return "exit";
+                return "exit:0";
+            }
+            default -> {
+                return "invalid:0";
             }
         }
-        return null;
+
     }
 
     public static void commensalMenu(int id) {
@@ -61,9 +64,6 @@ public class MenuManager {
                 case 3 ->
                     ActionsMenuManager.seeAccountBalance(id, fileName);
 
-                case 4 ->
-                    MenuManager.mainMenu();
-
             }
         } while (option != 4);
     }
@@ -71,32 +71,31 @@ public class MenuManager {
     public static void adminMenu(int id) {
         int option, loweOption = 1, higherOption = 5;
         String fileName = "administrators";
+        do {
+            System.out.println("Admin Menu");
+            System.out.println("1. Edit Register");
+            System.out.println("2. Book a Day");
+            System.out.println("3. Cancel a day's booking");
+            System.out.println("4. See Account Balance");
+            System.out.println("5. Exit");
 
-        System.out.println("Admin Menu");
-        System.out.println("1. Edit Register");
-        System.out.println("2. Book a Day");
-        System.out.println("3. Cancel a day's booking");
-        System.out.println("4. See Account Balance");
-        System.out.println("5. Exit");
+            option = Validations.valideInt(loweOption, higherOption);
 
-        option = Validations.valideInt(loweOption, higherOption);
-        /*
-        switch (option) {
-            case 1 ->
-                System.out.println("hi");
+            switch (option) {
+                case 1 ->
+                    System.out.println("hi");
 
-            case 2 ->
-                ActionsMenuManager.bookDay(, fileName);
+                case 2 ->
+                    ActionsMenuManager.bookDay(id, fileName);
 
-            case 3 ->
-                ActionsMenuManager.cancelDayBook();
+                case 3 ->
+                    ActionsMenuManager.cancelDayBook(id, fileName);
 
-            case 4 ->
-                ActionsMenuManager.seeAccountBalance();
+                case 4 ->
+                    ActionsMenuManager.seeAccountBalance(id, fileName);
 
-            case 5 ->
-                MenuManager.mainMenu();
-        }
-         */
+            }
+        } while (option != 5);
+
     }
 }

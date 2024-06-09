@@ -16,26 +16,26 @@ public class MilitaryDiningHallAplication {
         String accountType = "";
 
         accountType = MenuManager.mainMenu();
-        
-        String[] parts = accountType.split(":");
 
-        String type = parts[0];
-        int id = Integer.parseInt(parts[1]);
+        if (accountType.contains(":")) {
+            String[] parts = accountType.split(":");
 
-        switch (type) {
-            case "commensals" ->
-                MenuManager.commensalMenu(id);
-
-            case "administrators" ->
-                MenuManager.adminMenu(id);
-
-            //case "generalAdministrator" ->
-            //MenuManager.generalAdmin();
-            //case "militaryChef" ->
-            //MenuManager.chefMenu();
-            default -> {
-                break;
+            switch (parts[0]) {
+                case "commensals" ->
+                    MenuManager.commensalMenu(Integer.parseInt(parts[1]));
+                case "administrators" ->
+                    MenuManager.adminMenu(Integer.parseInt(parts[1]));
+              /*case "generalAdministrator" -> 
+                    MenuManager.generalAdmin();
+                case "militaryChef" -> 
+                    MenuManager.chefMenu();*/
+                case "exit" ->
+                    System.out.println("Thanks for using the program.");
+                default ->
+                    System.out.println("Unknown account type.");
             }
+        } else {
+            System.out.println("Invalid account type returned: " + accountType);
         }
 
     }
