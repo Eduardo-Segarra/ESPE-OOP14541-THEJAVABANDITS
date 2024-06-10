@@ -5,7 +5,6 @@
 package ec.edu.espe.militarydininghall.model;
 
 import com.google.gson.Gson;
-import java.util.List;
 
 /**
  *

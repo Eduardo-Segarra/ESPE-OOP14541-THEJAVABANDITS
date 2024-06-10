@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package utils;
 
 import java.time.LocalDate;
@@ -95,7 +99,6 @@ public class Validations {
             }
         }
     }
-    public class CedulaValidator {
 
     public static boolean validarCedula(long cedula) {
         int[] digitos = extraerDigitos(cedula);
@@ -146,6 +149,4 @@ public class Validations {
         }
         return digitoVerificador;
     }
-}
-
 }

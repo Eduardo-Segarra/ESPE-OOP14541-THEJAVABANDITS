@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package ec.edu.espe.militarydininghall.view;
 
 import utils.Accounts;
@@ -17,7 +21,7 @@ public class MenuManager {
         System.out.println("Select an option: \n1.- Login \n2.- Create an account \n3.- Exit\nEnter the option: ");
 
         option = Validations.valideInt(loweOption, higherOption);
-        
+
         switch (option) {
             case 1 -> {
                 accountType = Accounts.logIn();
@@ -81,9 +85,9 @@ public class MenuManager {
             switch (option) {
                 case 1 ->
                     System.out.println("hi");
-                
+
                 case 2 ->
-                    System.out.println("hi2");
+                    ActionsMenuManager.updateAccountBalance(id, email, password);
 
                 case 3 ->
                     ActionsMenuManager.bookDay(id);
@@ -97,7 +101,7 @@ public class MenuManager {
             }
         } while (option != 6);
     }
-    
+
     public static void generalAdminMenu(int id, String email, String password) {
         int option, loweOption = 1, higherOption = 5;
         String fileName = "generalAdministrator";
@@ -111,9 +115,9 @@ public class MenuManager {
 
             option = Validations.valideInt(loweOption, higherOption);
 
-            switch (option) {       
+            switch (option) {
                 case 1 ->
-                    ActionsMenuManager.setAdministrator(fileName);
+                    ActionsMenuManager.setAdministrator(id, email, password);
 
                 case 2 ->
                     ActionsMenuManager.bookDay(id);
@@ -127,5 +131,5 @@ public class MenuManager {
             }
         } while (option != 5);
     }
-    
+
 }

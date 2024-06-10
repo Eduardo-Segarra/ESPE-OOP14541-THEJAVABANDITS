@@ -7,5 +7,14 @@
     "grade": "Cabo",
     "type": "administrators",
     "balance": 0.0
+  },
+  {
+    "id": 1722779277,
+    "name": "Eduardo Segarra",
+    "email": "edusegarra6@gmail.com",
+    "password": "Dinky450",
+    "grade": "publicServant",
+    "type": "administrators",
+    "balance": 0.0
   }
 ]
