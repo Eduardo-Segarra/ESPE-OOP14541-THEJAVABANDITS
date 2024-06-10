@@ -18,16 +18,8 @@ import utils.Validations;
  */
 public class ActionsMenuManager {
 
-    public static void bookDay(int id, String fileName) {
+    public static void bookDay(int id) {
         int day, month, year = 2024;
-        /*
-        String bookDay = "", data;
-        List<String> updatedDaysReserved = new ArrayList<>();
-        List<String> days = new ArrayList<>();
-
-        data = FileManager.findAccount(fileName + ".json", id);
-        String[] parts = data.split(":");
-         */
 
         DateBook dateBook = FileManager.loadDateBook(id);
         String date;
@@ -36,23 +28,7 @@ public class ActionsMenuManager {
         month = Validations.validateMonth();
         System.out.print("Please enter the day of your booking ");
         day = Validations.validateDay(year, month);
-        /*bookDay = day + "/" + month + "/" + year;
         
-       
-        if (!parts[7].equalsIgnoreCase("No days reserved yet")) {
-            updatedDaysReserved.add(bookDay);
-            updatedDaysReserved.add(parts[7]);
-        }else{
-            updatedDaysReserved.add(bookDay);
-        }
-
-        days.add(parts[7]);
-
-        Commensal updatedCommensal = new Commensal(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3], parts[4], parts[5], Float.parseFloat(parts[6]), updatedDaysReserved);
-        Commensal outdatedcommensal = new Commensal(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3], parts[4], parts[5], Float.parseFloat(parts[6]), days);
-
-        FileManager.updateAccount(updatedCommensal, fileName, outdatedcommensal);
-         */
         date = day + "/" + month + "/" + year;
         dateBook.addDay(date);
         FileManager.saveDateBook(dateBook);
@@ -60,35 +36,7 @@ public class ActionsMenuManager {
 
     public static void cancelDayBook(int id) {
         Scanner scanner = new Scanner(System.in);
-        /*
-        String data = FileManager.findAccount(fileName + ".json", id), bookDayCancel;
-        List<String> updatedDaysReserved = new ArrayList<>();
-        List<String> outdatedDaysReserved = new ArrayList<>();
-
-        String[] parts = data.split(":");
-        String[] days = parts[7].split(",");
-
-        if (parts[7].equalsIgnoreCase("No days reserved yet")) {
-            System.out.println("You don't have any days reserved yet.");
-
-        } else {
-            System.out.println(parts[7] + "\nWhat day you want to cancel the booking?(Type the whole date):");
-            bookDayCancel = scanner.nextLine();
-
-            for (int i = 0; i < days.length; i++) {
-                if (!days[i].equalsIgnoreCase(bookDayCancel)) {
-                    updatedDaysReserved.add(days[i]);
-                }
-
-            }
-            outdatedDaysReserved.add(parts[7]);
-
-            Commensal updatedCommensal = new Commensal(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3], parts[4], parts[5], Float.parseFloat(parts[6]), updatedDaysReserved);
-            Commensal outdatedcommensal = new Commensal(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3], parts[4], parts[5], Float.parseFloat(parts[6]), outdatedDaysReserved);
-
-            FileManager.updateAccount(updatedCommensal, fileName, outdatedcommensal);
-        }
-         */
+        
         DateBook dateBook = FileManager.loadDateBook(id);
         if (dateBook.ListOfDays().isBlank()== false) {
             System.out.println(dateBook.ListOfDays());
@@ -100,12 +48,35 @@ public class ActionsMenuManager {
 
     }
 
-    public static void seeAccountBalance(int id, String fileName) {
-        String data;
-        data = FileManager.findAccount(fileName + ".json", id);
-
+    public static void seeAccountBalance(int id, String fileName, String email, String password) {
+        String data = "";
+        data = FileManager.findAccount(fileName + ".json", id, email, password);
         String[] parts = data.split(":");
 
         System.out.println("Your account balance is: " + parts[6]);
     }
+    
+    public static void setAdministrator(String fileName){
+        Scanner scanner = new Scanner(System.in);
+        int id;
+        String foundAccount = "";
+        String[] parts;
+        
+        System.out.println("Please type the ID to set a new administrator for the following month:");
+        id = scanner.nextInt();
+        
+        foundAccount = FileManager.findAccount("commensals.json", id, "", "");
+        
+        parts = foundAccount.split(":");
+        
+        parts[5] = "administrators";
+        
+        Commensal newAdministrator = new Commensal(Integer.parseInt(parts[0]), parts[1], parts[2], parts[3], parts[4], parts[5], Float.parseFloat(parts[6]));
+        
+        FileManager.save(newAdministrator, "administrators");
+        FileManager.eraseAccount("commensals", id);
+        
+        System.out.println("A new administrator has establish");
+    }
+    
 }

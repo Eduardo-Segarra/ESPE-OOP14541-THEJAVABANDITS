@@ -19,9 +19,8 @@ public class Admin {
     private String grade;
     private String type;
     private float balance;
-    private List<String> daysReserved;
 
-    public Admin(int id, String name, String email, String password, String grade, String type, float balance, List<String> daysReserved) {
+    public Admin(int id, String name, String email, String password, String grade, String type, float balance) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -29,7 +28,6 @@ public class Admin {
         this.grade = grade;
         this.type = type;
         this.balance = balance;
-        this.daysReserved = daysReserved;
     }
 
     /**
@@ -130,23 +128,9 @@ public class Admin {
         this.balance = balance;
     }
 
-    /**
-     * @return the daysReserved
-     */
-    public List<String> getDaysReserved() {
-        return daysReserved;
-    }
-
-    /**
-     * @param daysReserved the daysReserved to set
-     */
-    public void setDaysReserved(List<String> daysReserved) {
-        this.daysReserved = daysReserved;
-    }
-
     @Override
     public String toString() {
-        return "Admin{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", grade=" + grade + ", type=" + type + ", balance=" + balance + ", daysReserved=" + daysReserved + '}';
+        return "Admin{" + "id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", grade=" + grade + ", type=" + type + ", balance=" + balance + '}';
     }
 
     public String toStringJSON() {

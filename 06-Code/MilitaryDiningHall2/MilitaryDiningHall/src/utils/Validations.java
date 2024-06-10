@@ -42,7 +42,6 @@ public class Validations {
 
         while (true) {
             try {
-                System.out.println("Enter the born year of the chicken: ");
                 year = Integer.parseInt(scanner.nextLine());
                 if (year < LocalDate.now().getYear()) {
                     throw new IllegalArgumentException("The year can't be higher than the current year.");
@@ -62,11 +61,10 @@ public class Validations {
         int month;
 
         while (true) {
-            System.out.print("Enter the month (1-12): ");
             try {
                 month = scanner.nextInt();
-                if (month < 1 || month > 12) {
-                    throw new IllegalArgumentException("Month must be between 1 and 12.");
+                if (month < LocalDate.now().getMonthValue()) {
+                    throw new IllegalArgumentException("Month must be between " + LocalDate.now().getMonthValue() + " and 12.");
                 } else {
                     return month;
                 }
@@ -84,13 +82,12 @@ public class Validations {
         int day;
 
         while (true) {
-            System.out.print("Enter the day: ");
             try {
                 day = scanner.nextInt();
                 YearMonth yearMonth = YearMonth.of(year, month);
                 int maxDay = yearMonth.lengthOfMonth();
-                if (day < 1 || day > maxDay) {
-                    throw new IllegalArgumentException("Day must be between 1 and " + maxDay + ".");
+                if (day < LocalDate.now().getDayOfMonth() || day > maxDay) {
+                    throw new IllegalArgumentException("Day must be between " + LocalDate.now().getDayOfMonth() + " and " + maxDay + ".");
                 } else {
                     return day;
                 }

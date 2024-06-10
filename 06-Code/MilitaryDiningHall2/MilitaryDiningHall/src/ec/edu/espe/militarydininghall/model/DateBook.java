@@ -53,6 +53,7 @@ public class DateBook {
         reservedDays.put(date, false);
         System.out.println("Date added");
     }
+    
     public void removeDay(String date){
         reservedDays.remove(date);
         System.out.println("Date removed");

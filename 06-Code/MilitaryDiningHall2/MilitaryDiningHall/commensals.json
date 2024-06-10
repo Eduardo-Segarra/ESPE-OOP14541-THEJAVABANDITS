@@ -6,23 +6,7 @@
     "password": "Dinky450",
     "grade": "publicServant",
     "type": "commensals",
-    "balance": 0.0,
-    "daysReserved": [
-      "5/7/2024",
-      "[4/7/2024, 3/7/2024, 2/7/2024, 1/7/2024, 30/6/2024]"
-    ]
-  },
-  {
-    "id": 1632942581,
-    "name": "Roberto Gomez",
-    "email": "robet34@hotmail.com",
-    "password": "pepe",
-    "grade": "Cabo",
-    "type": "commensals",
-    "balance": 0.0,
-    "daysReserved": [
-      "30/10/2024"
-    ]
+    "balance": 0.0
   },
   {
     "id": 1516141917,
@@ -31,11 +15,7 @@
     "password": "Lola",
     "grade": "publicServant",
     "type": "commensals",
-    "balance": 0.0,
-    "daysReserved": [
-      "30/6/2024",
-      "1/7/2024"
-    ]
+    "balance": 0.0
   },
   {
     "id": 1753597796,
@@ -44,9 +24,6 @@
     "password": "123",
     "grade": "publicServant",
     "type": "commensals",
-    "balance": 0.0,
-    "daysReserved": [
-      "No days reserved yet"
-    ]
+    "balance": 0.0
   }
 ]

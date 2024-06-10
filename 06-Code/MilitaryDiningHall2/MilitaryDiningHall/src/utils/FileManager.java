@@ -94,7 +94,7 @@ public class FileManager {
         }
     }
 
-    public static String findAccountById(String fileName, int idSearch) {
+    public static String findAccount(String fileName, int idSearch, String email, String password) {
         List<Commensal> foundAccount = new ArrayList<>();
         Gson gson = new Gson();
 
@@ -111,8 +111,8 @@ public class FileManager {
             foundAccount = gson.fromJson(dataInJSON.toString(), accountListType);
 
             for (Commensal account : foundAccount) {
-                if (account.getId() == idSearch) {
-                    return gson.toJson(account);
+                if ((account.getId() == idSearch) || ((account.getEmail().equals(email)) && (account.getPassword().equals(password)))) {
+                    return account.getId() + ":" + account.getName() + ":" + account.getEmail() + ":" + account.getPassword() + ":" + account.getGrade() + ":" + account.getType() + ":" + account.getBalance();
                 }
             }
 
@@ -122,9 +122,10 @@ public class FileManager {
         return null;
     }
 
-    public static String findAccountByEmail(String fileName, String Email) {
-        List<Commensal> foundAccount = new ArrayList<>();
-        Gson gson = new Gson();
+    public static void eraseAccount(String fileName, int idSearch) {
+        fileName = fileName + ".json";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Commensal> accounts = new ArrayList<>();
 
         try (BufferedReader bufferReader = new BufferedReader(new FileReader(fileName))) {
             StringBuilder dataInJSON = new StringBuilder();
@@ -136,47 +137,26 @@ public class FileManager {
 
             Type accountListType = new TypeToken<ArrayList<Commensal>>() {
             }.getType();
-            foundAccount = gson.fromJson(dataInJSON.toString(), accountListType);
+            accounts = gson.fromJson(dataInJSON.toString(), accountListType);
 
-            for (Commensal account : foundAccount) {
-                if (Email.equalsIgnoreCase(account.getEmail())) {
-                    return account.getType() + ":" + account.getId();
+            // Filtrar las cuentas para excluir la que tiene el idSearch
+            List<Commensal> updatedAccounts = new ArrayList<>();
+            for (Commensal account : accounts) {
+                if (account.getId() != idSearch) {
+                    updatedAccounts.add(account);
                 }
             }
 
-        } catch (IOException e) {
-            System.err.println("Error at finding data of the file: " + e.getMessage());
-        }
-        return null;
-    }
-
-    public static String findAccount(String fileName, int idSearch) {
-        List<Commensal> foundAccount = new ArrayList<>();
-        Gson gson = new Gson();
-
-        try (BufferedReader bufferReader = new BufferedReader(new FileReader(fileName))) {
-            StringBuilder dataInJSON = new StringBuilder();
-            String line;
-
-            while ((line = bufferReader.readLine()) != null) {
-                dataInJSON.append(line);
-            }
-
-            Type accountListType = new TypeToken<ArrayList<Commensal>>() {
-            }.getType();
-            foundAccount = gson.fromJson(dataInJSON.toString(), accountListType);
-
-            for (Commensal account : foundAccount) {
-                if (account.getId() == idSearch) {
-                    String data = account.getId() + ":" + account.getName() + ":" + account.getEmail() + ":" + account.getPassword() + ":" + account.getGrade() + ":" + account.getType() + ":" + account.getBalance() + ":" + account.getDaysReserved();
-                    return data;
-                }
+            // Escribir las cuentas actualizadas de nuevo en el archivo
+            try (FileWriter fileWriter = new FileWriter(fileName); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+                gson.toJson(updatedAccounts, bufferedWriter);
+            } catch (IOException e) {
+                System.err.println("Error writing to the file: " + e.getMessage());
             }
 
         } catch (IOException e) {
-            System.err.println("Error at finding data of the file: " + e.getMessage());
+            System.err.println("Error at erasing data from the file: " + e.getMessage());
         }
-        return null;
     }
 
     // Para el DateBook
@@ -209,7 +189,7 @@ public class FileManager {
             }
 
             mapper.writerWithDefaultPrettyPrinter().writeValue(new FileWriter(fileName), listDateBook);
-            
+
             System.out.println("DateBook saved.");
         } catch (IOException e) {
             e.printStackTrace();

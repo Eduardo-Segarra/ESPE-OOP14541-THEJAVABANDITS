@@ -23,12 +23,30 @@ public class Accounts {
         String email, password, accountType = "";
 
         System.out.println("Enter your email:");
-        email = scanner.nextLine();               
+        email = scanner.nextLine();
         System.out.println("Enter your password:");
         password = scanner.nextLine();
+
+        accountType = FileManager.findAccount("commensals.json", 0, email, password);
+        if (accountType != null) {
+            return accountType;
+        }
+
+        /*accountType = FileManager.findAccount("militaryChefs.json", 0, email, password);
+        if(accountType != null){
+            return accountType;
+        }
         
-        accountType = FileManager.findAccountByEmail("commensals.json", email);
-        return accountType;
+        accountType = FileManager.findAccount("administratos.json", 0, email, password);
+        if(accountType != null){
+            return accountType;
+        }*/
+        accountType = FileManager.findAccount("generalAdministrator.json", 0, email, password);
+        if (accountType != null) {
+            return accountType;
+        }
+
+        return null;
     }
 
     public static String createNewAccount() {
@@ -38,9 +56,9 @@ public class Accounts {
 
         System.out.println("Enter your id:");
         id = scanner.nextInt();
-        scanner.nextLine();        
+        scanner.nextLine();
         System.out.println("Enter your name:");
-        name = scanner.nextLine();                
+        name = scanner.nextLine();
         System.out.println("Enter your military grade (if your are a public servant type publicServant):");
         grade = scanner.nextLine();
         System.out.println("Enter your email:");
@@ -48,18 +66,16 @@ public class Accounts {
         System.out.println("Enter your password:");
         password = scanner.nextLine();
         type = "commensals";
-        List<String> daysReserved = new ArrayList<>();
-        daysReserved.add("No days reserved yet");
 
-        Commensal newCommensal = new Commensal(id, name, email, password, grade, type, 0, daysReserved);
+        Commensal newCommensal = new Commensal(id, name, email, password, grade, type, 0);
 
         FileManager.save(newCommensal, "commensals");
-        
+
         // Crea su nombre dentro de la agenda
         Map<String, Boolean> emptyDays = new HashMap<>();
         DateBook datebook = new DateBook(id, emptyDays);
         FileManager.saveDateBook(datebook);
-        
-        return newCommensal.getType() + ":" + newCommensal.getId();
+
+        return newCommensal.getId() + ":" + newCommensal.getName() + ":" + newCommensal.getEmail() + ":" + newCommensal.getPassword() + ":" + newCommensal.getGrade() + ":" + newCommensal.getType() + ":" + newCommensal.getBalance();
     }
 }

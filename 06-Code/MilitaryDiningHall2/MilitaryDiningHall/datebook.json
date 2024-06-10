@@ -1,13 +1,19 @@
 [ {
   "id" : 1722779277,
-  "reservedDays" : { }
-}, {
-  "id" : 1632942581,
-  "reservedDays" : { }
-}, {
-  "id" : 1516141917,
-  "reservedDays" : { }
-}, {
-  "id" : 1753597796,
-  "reservedDays" : { }
+  "reservedDays" : {
+    "11/6/2024" : false,
+    "9/6/2024" : false
+  }, {
+    "id" : 1632942581,
+    "reservedDays" : { }
+  }, {
+    "id" : 1516141917,
+    "reservedDays" : { }
+  }, {
+    "id" : 1753597796,
+    "reservedDays" : { }
+  }, {
+    "id" : 1526483601,
+    "reservedDays" : { }
+  }
 } ]

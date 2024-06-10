@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1632942581,
+    "name": "Roberto Gomez",
+    "email": "robet34@hotmail.com",
+    "password": "pepe",
+    "grade": "Cabo",
+    "type": "administrators",
+    "balance": 0.0
+  }
+]
