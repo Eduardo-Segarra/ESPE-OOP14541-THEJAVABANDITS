@@ -88,7 +88,7 @@ public class Dishes {
     }
 
     public String notification() {
-        return "This month the dishes are:" + "\nBreakfast: " + breakfast + " / Lunch: " + lunch + " / Dinner: " + dinner;
+        return "This month the dishes are:\nBreakfast: " + breakfast + " / Lunch: " + lunch + " / Dinner: " + dinner;
     }
 
 }

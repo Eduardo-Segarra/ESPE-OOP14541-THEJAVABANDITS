@@ -11,14 +11,14 @@ import java.util.Scanner;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author TheJavaBandits, DCCO-ESPE
  */
 public class Validations {
 
     public static int valideInt(int lowerOption, int higherOption) {
         Scanner scanner = new Scanner(System.in);
         int userInput;
-        
+
         while (true) {
             try {
                 userInput = scanner.nextInt();
@@ -36,6 +36,25 @@ public class Validations {
         }
     }
 
+    public static boolean validBoolean() {
+        Scanner scanner = new Scanner(System.in);
+        boolean userInput;
+
+        while (true) {
+            try {
+                userInput = scanner.nextBoolean();
+                if (userInput == true || userInput == false) {
+                    return userInput;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid entry. Please type true or false.");
+                scanner.next();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public static int validateYear() {
         Scanner scanner = new Scanner(System.in);
         int year = 0;
@@ -44,7 +63,7 @@ public class Validations {
             try {
                 year = Integer.parseInt(scanner.nextLine());
                 if (year < LocalDate.now().getYear()) {
-                    throw new IllegalArgumentException("The year can't be higher than the current year.");
+                    throw new IllegalArgumentException("The year can't be lower than the current year.");
                 } else {
                     return year;
                 }
@@ -63,7 +82,7 @@ public class Validations {
         while (true) {
             try {
                 month = scanner.nextInt();
-                if (month <= LocalDate.now().getMonthValue() && month >= 12) {
+                if (month < LocalDate.now().getMonthValue() || month > 12) {
                     throw new IllegalArgumentException("Month must be between " + LocalDate.now().getMonthValue() + " and 12.");
                 } else {
                     return month;
@@ -86,7 +105,7 @@ public class Validations {
                 day = scanner.nextInt();
                 YearMonth yearMonth = YearMonth.of(year, month);
                 int maxDay = yearMonth.lengthOfMonth();
-                if (day > LocalDate.now().getDayOfMonth() && day < maxDay) {
+                if (day < LocalDate.now().getDayOfMonth() || day > maxDay) {
                     throw new IllegalArgumentException("Day must be between " + LocalDate.now().getDayOfMonth() + " and " + maxDay + ".");
                 } else {
                     return day;
@@ -99,7 +118,7 @@ public class Validations {
             }
         }
     }
-    
+
     /*
      THIS CAUSE A ERROR
     
@@ -152,5 +171,5 @@ public class Validations {
         }
         return digitoVerificador;
     }
-    */
+     */
 }

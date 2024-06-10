@@ -4,7 +4,11 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.model.Admin;
+import ec.edu.espe.militarydininghall.model.Chef;
+import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.Dishes;
+import ec.edu.espe.militarydininghall.model.GeneralAdmin;
 import java.time.LocalDate;
 import utils.Accounts;
 import utils.FileManager;
@@ -61,13 +65,13 @@ public class MenuManager {
 
             switch (option) {
                 case 1 ->
-                    ActionsMenuManager.bookDay(id);
+                    Commensal.bookDay(id);
 
                 case 2 ->
-                    ActionsMenuManager.cancelDayBook(id);
+                    Commensal.cancelDayBook(id);
 
                 case 3 ->
-                    ActionsMenuManager.seeAccountBalance(id, fileName, email, password);
+                    Commensal.seeAccountBalance(id, fileName, email, password);
 
             }
         } while (option != 4);
@@ -89,19 +93,19 @@ public class MenuManager {
 
             switch (option) {
                 case 1 ->
-                    ActionsMenuManager.editRegister();
+                    Admin.editRegister(id, email, password);
 
                 case 2 ->
-                    ActionsMenuManager.updateAccountBalance(id, email, password);
+                    Admin.updateAccountBalance(id, email, password);
 
                 case 3 ->
-                    ActionsMenuManager.bookDay(id);
+                    Admin.bookDay(id);
 
                 case 4 ->
-                    ActionsMenuManager.cancelDayBook(id);
+                    Admin.cancelDayBook(id);
 
                 case 5 ->
-                    ActionsMenuManager.seeAccountBalance(id, fileName, email, password);
+                    Admin.seeAccountBalance(id, fileName, email, password);
 
             }
         } while (option != 6);
@@ -122,16 +126,16 @@ public class MenuManager {
 
             switch (option) {
                 case 1 ->
-                    ActionsMenuManager.setAdministrator(id, email, password);
+                    GeneralAdmin.setAdministrator(id, email, password);
 
                 case 2 ->
-                    ActionsMenuManager.bookDay(id);
+                    GeneralAdmin.bookDay(id);
 
                 case 3 ->
-                    ActionsMenuManager.cancelDayBook(id);
+                    GeneralAdmin.cancelDayBook(id);
 
                 case 4 ->
-                    ActionsMenuManager.seeAccountBalance(id, fileName, email, password);
+                    GeneralAdmin.seeAccountBalance(id, fileName, email, password);
 
             }
         } while (option != 5);
@@ -150,8 +154,9 @@ public class MenuManager {
 
             switch (option) {
                 case 1 ->
-                    ActionsMenuManager.chooseMonthMenu();
+                    Chef.chooseMonthMenu();
             }
         } while (option != 2);
     }
+    
 }

@@ -6,9 +6,7 @@ package utils;
 
 import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.DateBook;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -34,10 +32,10 @@ public class Accounts {
                 return accountType;
             }
 
-            /*accountType = FileManager.findAccount("militaryChefs.json", 0, email, password);
+            accountType = FileManager.findAccount("militaryChefs.json", 0, email, password);
             if (accountType != null) {
                 return accountType;
-            }*/
+            }
 
             accountType = FileManager.findAccount("administrators.json", 0, email, password);
             if (accountType != null) {
@@ -82,7 +80,7 @@ public class Accounts {
 
         FileManager.save(newCommensal, "commensals");
 
-        // Crea su nombre dentro de la agenda
+        // Create his name in the date book
         Map<String, Boolean> emptyDays = new HashMap<>();
         DateBook datebook = new DateBook(id, emptyDays);
         FileManager.saveDateBook(datebook);

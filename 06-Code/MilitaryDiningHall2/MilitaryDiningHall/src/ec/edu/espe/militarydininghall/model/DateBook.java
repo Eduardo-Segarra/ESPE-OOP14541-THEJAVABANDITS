@@ -4,10 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
 import java.util.Scanner;
+import utils.Validations;
 
 /**
  *
- * @author Ismael Travez, The Java Bandits, DCCO-ESPE
+ * @author The Java Bandits, DCCO-ESPE
  */
 public class DateBook {
 
@@ -15,7 +16,7 @@ public class DateBook {
     private Map<String, Boolean> reservedDays;
 
     public DateBook() {
-        // Se debe dejar vacio para poder funcionar
+        // It have to be empty for working
     }
 
     /**
@@ -90,8 +91,8 @@ public class DateBook {
                 status = "Missing";
             }
             System.out.println(date + " : " + status); 
-            System.out.println("Change status: \nAttended = true \nMissing = false");
-            Boolean dateStatus = scanner.nextBoolean();
+            System.out.println("Change status: \ntrue = Attended \nfalse = Missing");
+            Boolean dateStatus = Validations.validBoolean();
             reservedDays.put(date, dateStatus);
         }
         else{

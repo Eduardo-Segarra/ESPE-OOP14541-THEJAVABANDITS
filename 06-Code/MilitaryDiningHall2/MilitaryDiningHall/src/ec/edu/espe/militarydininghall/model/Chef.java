@@ -6,12 +6,16 @@ package ec.edu.espe.militarydininghall.model;
 
 import com.google.gson.Gson;
 import java.util.List;
+import java.util.Scanner;
+import utils.FileManager;
+import utils.Validations;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author TheJavaBandits, DCCO-ESPE
  */
 public class Chef {
+
     private int id;
     private String name;
     private String email;
@@ -126,6 +130,21 @@ public class Chef {
      */
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    public static void chooseMonthMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("In what month will the menu be made?:");
+        int month = Validations.validateMonth();
+        System.out.println("What dishes will be served that month?:");
+        System.out.println("Breakfast:");
+        String breakfast = scanner.nextLine();
+        System.out.println("Lunch:");
+        String lunch = scanner.nextLine();
+        System.out.println("Dinner:");
+        String dinner = scanner.nextLine();
+        Dishes dishes = new Dishes(month, breakfast, lunch, dinner);
+        FileManager.saveDishes(dishes);
     }
 
     @Override
