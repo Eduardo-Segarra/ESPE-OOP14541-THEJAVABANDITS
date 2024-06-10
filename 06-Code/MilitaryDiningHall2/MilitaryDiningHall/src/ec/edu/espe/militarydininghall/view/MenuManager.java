@@ -89,7 +89,7 @@ public class MenuManager {
 
             switch (option) {
                 case 1 ->
-                    System.out.println("hi");
+                    ActionsMenuManager.editRegister();
 
                 case 2 ->
                     ActionsMenuManager.updateAccountBalance(id, email, password);
@@ -137,8 +137,6 @@ public class MenuManager {
         } while (option != 5);
     }
 
-<<<<<<< Updated upstream
-=======
     public static void chefMenu(int id, String email, String password) {
         int option, loweOption = 1, higherOption = 2;
         String fileName = "militaryChef";
@@ -156,5 +154,4 @@ public class MenuManager {
             }
         } while (option != 2);
     }
->>>>>>> Stashed changes
 }

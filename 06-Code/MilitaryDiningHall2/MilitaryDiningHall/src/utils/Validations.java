@@ -99,7 +99,10 @@ public class Validations {
             }
         }
     }
-
+    
+    /*
+     THIS CAUSE A ERROR
+    
     public static boolean validarCedula(long cedula) {
         int[] digitos = extraerDigitos(cedula);
         
@@ -149,4 +152,5 @@ public class Validations {
         }
         return digitoVerificador;
     }
+    */
 }
