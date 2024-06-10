@@ -63,7 +63,7 @@ public class Validations {
         while (true) {
             try {
                 month = scanner.nextInt();
-                if (month < LocalDate.now().getMonthValue()) {
+                if (month > LocalDate.now().getMonthValue() && month < 12) {
                     throw new IllegalArgumentException("Month must be between " + LocalDate.now().getMonthValue() + " and 12.");
                 } else {
                     return month;
@@ -86,7 +86,7 @@ public class Validations {
                 day = scanner.nextInt();
                 YearMonth yearMonth = YearMonth.of(year, month);
                 int maxDay = yearMonth.lengthOfMonth();
-                if (day < LocalDate.now().getDayOfMonth() || day > maxDay) {
+                if (day > LocalDate.now().getDayOfMonth() && day < maxDay) {
                     throw new IllegalArgumentException("Day must be between " + LocalDate.now().getDayOfMonth() + " and " + maxDay + ".");
                 } else {
                     return day;

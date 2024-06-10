@@ -32,12 +32,12 @@ public class Accounts {
             return accountType;
         }
 
-        /*accountType = FileManager.findAccount("militaryChefs.json", 0, email, password);
+        accountType = FileManager.findAccount("militaryChefs.json", 0, email, password);
         if(accountType != null){
             return accountType;
         }
         
-        accountType = FileManager.findAccount("administratos.json", 0, email, password);
+        /*accountType = FileManager.findAccount("administratos.json", 0, email, password);
         if(accountType != null){
             return accountType;
         }*/

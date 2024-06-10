@@ -25,5 +25,14 @@
     "grade": "publicServant",
     "type": "commensals",
     "balance": 0.0
+  },
+  {
+    "id": 1635294817,
+    "name": "Pepe",
+    "email": "pepe@gmail.com",
+    "password": "pepe123",
+    "grade": "publicServant",
+    "type": "commensals",
+    "balance": 0.0
   }
 ]
