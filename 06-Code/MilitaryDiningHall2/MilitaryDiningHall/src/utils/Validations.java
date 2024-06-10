@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utils;
 
 import java.time.LocalDate;
@@ -99,4 +95,57 @@ public class Validations {
             }
         }
     }
+    public class CedulaValidator {
+
+    public static boolean validarCedula(long cedula) {
+        int[] digitos = extraerDigitos(cedula);
+        
+        int sumaPares = calcularSumaPares(digitos);
+        int sumaImpares = calcularSumaImpares(digitos);
+        
+        int sumaTotal = sumaPares + sumaImpares;
+        int digitoVerificador = calcularDigitoVerificador(sumaTotal);
+        
+        return digitoVerificador == digitos[9];
+    }
+
+    private static int[] extraerDigitos(long cedula) {
+        int[] digitos = new int[10];
+        for (int i = 9; i >= 0; i--) {
+            digitos[i] = (int) (cedula % 10);
+            cedula /= 10;
+        }
+        return digitos;
+    }
+
+    private static int calcularSumaPares(int[] digitos) {
+        int sumaPares = 0;
+        for (int i = 0; i < 9; i += 2) {
+            int producto = digitos[i] * 2;
+            if (producto > 9) {
+                producto -= 9;
+            }
+            sumaPares += producto;
+        }
+        return sumaPares;
+    }
+
+    private static int calcularSumaImpares(int[] digitos) {
+        int sumaImpares = 0;
+        for (int i = 1; i < 9; i += 2) {
+            sumaImpares += digitos[i];
+        }
+        return sumaImpares;
+    }
+
+    private static int calcularDigitoVerificador(int sumaTotal) {
+        int residuo = sumaTotal % 10;
+        int digitoVerificador = 10 - residuo;
+        if (digitoVerificador == 10) {
+            digitoVerificador = 0;
+        }
+        return digitoVerificador;
+    }
+}
+
 }
