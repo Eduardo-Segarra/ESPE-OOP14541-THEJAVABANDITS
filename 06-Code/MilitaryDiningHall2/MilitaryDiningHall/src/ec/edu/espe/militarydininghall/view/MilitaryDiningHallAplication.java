@@ -16,8 +16,8 @@ import utils.FileManager;
  */
 public class MilitaryDiningHallAplication {
 
-    public static void main(String[] args) throws IOException {   
-        String accountType = "";
+    public static void main(String[] args) throws IOException {
+    String accountType = "";
 
         accountType = MenuManager.mainMenu();
 

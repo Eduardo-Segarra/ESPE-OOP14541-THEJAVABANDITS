@@ -48,17 +48,5 @@
     "daysReserved": [
       "No days reserved yet"
     ]
-  },
-  {
-    "id": 1753597796,
-    "name": "Ismael Travez",
-    "email": "ismael@gmail.com",
-    "password": "123",
-    "grade": "publicSevant",
-    "type": "commensals",
-    "balance": 0.0,
-    "daysReserved": [
-      "No days reserved yet"
-    ]
   }
 ]

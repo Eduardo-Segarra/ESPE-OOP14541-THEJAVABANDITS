@@ -51,9 +51,11 @@ public class DateBook {
     
     public void addDay(String date) {
         reservedDays.put(date, false);
+        System.out.println("Date added");
     }
     public void removeDay(String date){
         reservedDays.remove(date);
+        System.out.println("Date removed");
     }
     
     
@@ -67,12 +69,12 @@ public class DateBook {
         }
     }
 
-    
-    
     @Override
     public String toString() {
         return "DateBook{" + "id=" + id + ", reservedDays=" + reservedDays + '}';
     }
     
-    
+    public String ListOfDays(){
+        return "ReservedDays:\n" + reservedDays.keySet();
+    }
 }

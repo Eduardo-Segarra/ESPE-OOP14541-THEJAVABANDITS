@@ -59,7 +59,7 @@ public class MenuManager {
                     ActionsMenuManager.bookDay(id, fileName);
 
                 case 2 ->
-                    ActionsMenuManager.cancelDayBook(id, fileName);
+                    ActionsMenuManager.cancelDayBook(id);
 
                 case 3 ->
                     ActionsMenuManager.seeAccountBalance(id, fileName);
@@ -89,7 +89,7 @@ public class MenuManager {
                     ActionsMenuManager.bookDay(id, fileName);
 
                 case 3 ->
-                    ActionsMenuManager.cancelDayBook(id, fileName);
+                    ActionsMenuManager.cancelDayBook(id);
 
                 case 4 ->
                     ActionsMenuManager.seeAccountBalance(id, fileName);

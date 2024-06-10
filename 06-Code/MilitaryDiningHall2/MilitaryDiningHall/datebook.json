@@ -1,6 +1,13 @@
 [ {
-  "id" : 2,
-  "reservedDays" : {
-    "2024-06-09" : true
-  }
+  "id" : 1722779277,
+  "reservedDays" : { }
+}, {
+  "id" : 1632942581,
+  "reservedDays" : { }
+}, {
+  "id" : 1516141917,
+  "reservedDays" : { }
+}, {
+  "id" : 1753597796,
+  "reservedDays" : { }
 } ]
