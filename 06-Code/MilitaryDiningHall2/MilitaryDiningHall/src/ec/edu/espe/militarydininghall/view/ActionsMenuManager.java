@@ -6,6 +6,7 @@ package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.DateBook;
+import ec.edu.espe.militarydininghall.model.Dishes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ import utils.Validations;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author TheJavaBandits, DCCO-ESPE
  */
 public class ActionsMenuManager {
 
@@ -26,6 +27,11 @@ public class ActionsMenuManager {
 
         System.out.print("Please enter the month of your booking ");
         month = Validations.validateMonth();
+        
+        // Notification for the month selected
+        Dishes dishes = FileManager.loadDishesByMonth(month);
+        System.out.println(dishes.notification());
+        
         System.out.print("Please enter the day of your booking ");
         day = Validations.validateDay(year, month);
 
@@ -103,6 +109,7 @@ public class ActionsMenuManager {
 
         System.out.println("A new administrator has establish");
     }
+<<<<<<< Updated upstream
 
     public static void updateAccountBalance(int id, String email, String password) {
         Scanner scanner = new Scanner(System.in);
@@ -167,4 +174,22 @@ public class ActionsMenuManager {
         FileManager.updateAccount(newAccountBalance, fileName, outdatedAccountBalance);
     }
 
+=======
+    
+        public static void chooseMonthMenu(){
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("In what month will the menu be made?:");
+            int month = Validations.validateMonth();
+            System.out.println("What dishes will be served that month?:");
+            System.out.println("Breakfast:");
+            String breakfast = scanner.nextLine();
+            System.out.println("Lunch:");
+            String lunch = scanner.nextLine();
+            System.out.println("Dinner:");
+            String dinner = scanner.nextLine();
+            Dishes dishes = new Dishes(month, breakfast, lunch, dinner);
+            FileManager.saveDishes(dishes);
+        }
+    
+>>>>>>> Stashed changes
 }

@@ -4,12 +4,15 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.model.Dishes;
+import java.time.LocalDate;
 import utils.Accounts;
+import utils.FileManager;
 import utils.Validations;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author TheJavaBandits, DCCO-ESPE
  */
 public class MenuManager {
 
@@ -42,11 +45,13 @@ public class MenuManager {
     }
 
     public static void commensalMenu(int id, String email, String password) {
+        Dishes dishes = FileManager.loadDishesByMonth(LocalDate.now().getMonthValue());
         int option, loweOption = 1, higherOption = 4;
         String fileName = "commensals";
 
         do {
             System.out.println("Commensal Menu:");
+            System.out.println(dishes.notification());
             System.out.println("1. Book a Day");
             System.out.println("2. Cancel a day's booking");
             System.out.println("3. See Account Balance");
@@ -132,4 +137,24 @@ public class MenuManager {
         } while (option != 5);
     }
 
+<<<<<<< Updated upstream
+=======
+    public static void chefMenu(int id, String email, String password) {
+        int option, loweOption = 1, higherOption = 2;
+        String fileName = "militaryChef";
+
+        do {
+            System.out.println("Chef Menu:");
+            System.out.println("1. Choose the menu for the month");
+            System.out.println("2. Exit");
+
+            option = Validations.valideInt(loweOption, higherOption);
+
+            switch (option) {
+                case 1 ->
+                    ActionsMenuManager.chooseMonthMenu();
+            }
+        } while (option != 2);
+    }
+>>>>>>> Stashed changes
 }

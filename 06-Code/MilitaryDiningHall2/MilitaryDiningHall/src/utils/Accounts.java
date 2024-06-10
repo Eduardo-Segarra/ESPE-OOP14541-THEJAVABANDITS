@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author TheJavaBandits, DCCO-ESPE
  */
 public class Accounts {
 

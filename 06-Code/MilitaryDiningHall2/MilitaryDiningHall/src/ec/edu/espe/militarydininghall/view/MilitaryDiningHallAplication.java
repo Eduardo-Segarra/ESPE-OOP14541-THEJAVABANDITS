@@ -12,7 +12,7 @@ import utils.FileManager;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author TheJavaBandits, DCCO-ESPE
  */
 public class MilitaryDiningHallAplication {
 
@@ -30,8 +30,8 @@ public class MilitaryDiningHallAplication {
                 MenuManager.adminMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
             case "generalAdministrator" ->
                 MenuManager.generalAdminMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
-            /*case "militaryChef" -> 
-                    MenuManager.chefMenu();*/
+            case "militaryChef" -> 
+                    MenuManager.chefMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
             case "exit" ->
                 System.out.println("Thanks for using the program.");
             default ->

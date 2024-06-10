@@ -1,0 +1,61 @@
+[{
+  "month" : 1,
+  "breakfast" : "Not assigned",
+  "lunch" : "Not assigned",
+  "dinner" : "Not assigned"
+}, {
+  "month" : 2,
+  "breakfast" : "Not assigned",
+  "lunch" : "Not assigned",
+  "dinner" : "Not assigned"
+}, {
+  "month" : 3,
+  "breakfast" : "Not assigned",
+  "lunch" : "Not assigned",
+  "dinner" : "Not assigned"
+}, {
+  "month" : 4,
+  "breakfast" : "Not assigned",
+  "lunch" : "Not assigned",
+  "dinner" : "Not assigned"
+}, {
+  "month" : 5,
+  "breakfast" : "Not assigned",
+  "lunch" : "Not assigned",
+  "dinner" : "Not assigned"
+}, {
+  "month" : 6,
+  "breakfast" : "Ham sandwich",
+  "lunch" : "Breaded Chicken",
+  "dinner" : "Chicken Soup"
+}, {
+  "month" : 7,
+  "breakfast" : "Bacon, egg and cheese sandwich",
+  "lunch" : "Cauliflower soup",
+  "dinner" : "Waffles"
+}, {
+  "month" : 8,
+  "breakfast" : "Bagel and cream cheese",
+  "lunch" : "Spaghetti",
+  "dinner" : "Cheeseburger"
+}, {
+  "month" : 9,
+  "breakfast" : "Pancakes",
+  "lunch" : "Chicken burrito",
+  "dinner" : "Fruit salad"
+}, {
+  "month" : 10,
+  "breakfast" : "Not assigned",
+  "lunch" : "Not assigned",
+  "dinner" : "Not assigned"
+}, {
+  "month" : 11,
+  "breakfast" : "Not assigned",
+  "lunch" : "Not assigned",
+  "dinner" : "Not assigned"
+}, {
+  "month" : 12,
+  "breakfast" : "Not assigned",
+  "lunch" : "Not assigned",
+  "dinner" : "Not assigned"
+}]

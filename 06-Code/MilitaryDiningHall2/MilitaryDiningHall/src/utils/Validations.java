@@ -63,7 +63,7 @@ public class Validations {
         while (true) {
             try {
                 month = scanner.nextInt();
-                if (month > LocalDate.now().getMonthValue() && month < 12) {
+                if (month <= LocalDate.now().getMonthValue() && month >= 12) {
                     throw new IllegalArgumentException("Month must be between " + LocalDate.now().getMonthValue() + " and 12.");
                 } else {
                     return month;
