@@ -105,11 +105,20 @@ public class Validations {
                 day = scanner.nextInt();
                 YearMonth yearMonth = YearMonth.of(year, month);
                 int maxDay = yearMonth.lengthOfMonth();
-                if (day < LocalDate.now().getDayOfMonth() || day > maxDay) {
-                    throw new IllegalArgumentException("Day must be between " + LocalDate.now().getDayOfMonth() + " and " + maxDay + ".");
-                } else {
-                    return day;
+                if (month == LocalDate.now().getMonthValue()) {
+                    if (day < LocalDate.now().getDayOfMonth() || day > maxDay) {
+                        throw new IllegalArgumentException("Day must be between " + LocalDate.now().getDayOfMonth() + " and " + maxDay + ".");
+                    } else {
+                        return day;
+                    }
+                }else{
+                    if (day < 1 || day > maxDay) {
+                        throw new IllegalArgumentException("Day must be between 1 and " + maxDay + ".");
+                    } else {
+                        return day;
+                    }
                 }
+
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry. Please enter a valid day.");
                 scanner.next();

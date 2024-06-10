@@ -34,5 +34,14 @@
     "grade": "publicServant",
     "type": "commensals",
     "balance": 0.0
+  },
+  {
+    "id": 1635290428,
+    "name": "Marco",
+    "email": "marco@hotmail.com",
+    "password": "marco123",
+    "grade": "Lieutenant",
+    "type": "commensals",
+    "balance": 0.0
   }
 ]

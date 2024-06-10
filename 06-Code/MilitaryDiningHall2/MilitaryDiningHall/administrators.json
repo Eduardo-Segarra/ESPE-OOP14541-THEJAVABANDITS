@@ -4,7 +4,7 @@
     "name": "Roberto Gomez",
     "email": "robet34@hotmail.com",
     "password": "pepe",
-    "grade": "Cabo",
+    "grade": "Corporal",
     "type": "administrators",
     "balance": 0.0
   },
@@ -14,7 +14,7 @@
     "email": "edusegarra6@gmail.com",
     "password": "Dinky450",
     "grade": "publicServant",
-    "type": "administrators",
+    "type": "publicServant",
     "balance": 0.0
   }
 ]
