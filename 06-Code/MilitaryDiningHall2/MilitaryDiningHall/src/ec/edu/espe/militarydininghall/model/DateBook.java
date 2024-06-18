@@ -12,7 +12,7 @@ import utils.Validations;
  */
 public class DateBook {
 
-    private int id;
+    private long id;
     private Map<String, Boolean> reservedDays;
 
     public DateBook() {
@@ -22,14 +22,14 @@ public class DateBook {
     /**
      * @return the id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -47,7 +47,7 @@ public class DateBook {
         this.reservedDays = reservedDays;
     }
 
-    public DateBook(int id, Map<String, Boolean> reservedDays) {
+    public DateBook(long id, Map<String, Boolean> reservedDays) {
         this.id = id;
         this.reservedDays = reservedDays;
     }

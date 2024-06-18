@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ec.edu.espe.militarydininghall.model;
 
 import com.google.gson.Gson;
@@ -17,7 +13,7 @@ import utils.Validations;
  */
 public class GeneralAdmin {
 
-    private int id;
+    private long id;
     private String name;
     private String email;
     private String password;
@@ -25,7 +21,7 @@ public class GeneralAdmin {
     private String type;
     private float balance;
 
-    public GeneralAdmin(int id, String name, String email, String password, String grade, String type, float balance) {
+    public GeneralAdmin(long id, String name, String email, String password, String grade, String type, float balance) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -35,10 +31,11 @@ public class GeneralAdmin {
         this.balance = balance;
     }
 
+
     /**
      * @return the id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utils;
 
 import ec.edu.espe.militarydininghall.model.Commensal;
@@ -41,16 +37,15 @@ public class Accounts {
             if (accountType != null) {
                 return accountType;
             }
-            
+
             accountType = FileManager.findAccount("generalAdministrator.json", 0, email, password);
             if (accountType != null) {
                 return accountType;
             }
 
-            
             if (attempts < 2) { // Check to avoid printing after the last attempt
                 System.out.println("Incorrect email or password. You have " + (2 - attempts) + " attempt(s) left.");
-            }else if(attempts == 2){
+            } else if (attempts == 2) {
                 return "0: : : : :exit: : ";
             }
         }
@@ -60,11 +55,28 @@ public class Accounts {
 
     public static String createNewAccount() {
         Scanner scanner = new Scanner(System.in);
-        int id;
+        long id = 0;
+        boolean isValid = false;
+        boolean isDuplicate = false;
         String name, grade, type, email, password;
 
-        System.out.println("Enter your id:");
-        id = scanner.nextInt();
+        while (!isValid || isDuplicate) {
+            System.out.println("Enter your id:");
+            id = scanner.nextLong();
+            isValid = Validations.IdValidator.validateId(id);
+            if (!isValid) {
+                System.out.println("The ID is not valid. Please try again.");
+                continue;
+            }
+
+            isDuplicate = FileManager.findAccountById("commensals.json", id);
+            if (isDuplicate) {
+                System.out.println("The ID has already been entered. Please try again.");
+            }
+        }
+
+        System.out.println("The ID is valid and not a duplicate.");
+
         scanner.nextLine();
         System.out.println("Enter your name:");
         name = scanner.nextLine();

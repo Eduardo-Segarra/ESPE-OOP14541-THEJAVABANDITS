@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -22,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.Type;
+
 
 /**
  *
@@ -122,6 +119,33 @@ public class FileManager {
         }
         return null;
     }
+public static boolean findAccountById(String fileName, long idToCheck) {
+        Gson gson = new Gson();
+        List<Commensal> commensalList = new ArrayList<>();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            StringBuilder dataInJSON = new StringBuilder();
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                dataInJSON.append(line);
+            }
+
+            Type accountListType = new TypeToken<ArrayList<Commensal>>() {}.getType();
+            commensalList = gson.fromJson(dataInJSON.toString(), accountListType);
+
+            for (Commensal commensal : commensalList) {
+                if (commensal.getId() == idToCheck) {
+                    return true; // El ID ya existe en los registros
+                }
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error at finding data of the file: " + e.getMessage());
+        }
+
+        return false; // El ID no existe en los registros
+    }
 
     public static void eraseAccount(String fileName, int idSearch) {
         fileName = fileName + ".json";
@@ -159,7 +183,6 @@ public class FileManager {
             System.err.println("Error at erasing data from the file: " + e.getMessage());
         }
     }
-
     // Para el DateBook
     public static void saveDateBook(DateBook dateBook) {
         String fileName = "datebook.json";

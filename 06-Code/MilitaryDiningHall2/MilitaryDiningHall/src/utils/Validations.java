@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utils;
 
 import java.time.LocalDate;
@@ -111,7 +107,7 @@ public class Validations {
                     } else {
                         return day;
                     }
-                }else{
+                } else {
                     if (day < 1 || day > maxDay) {
                         throw new IllegalArgumentException("Day must be between 1 and " + maxDay + ".");
                     } else {
@@ -128,57 +124,46 @@ public class Validations {
         }
     }
 
-    /*
-     THIS CAUSE A ERROR
-    
-    public static boolean validarCedula(long cedula) {
-        int[] digitos = extraerDigitos(cedula);
-        
-        int sumaPares = calcularSumaPares(digitos);
-        int sumaImpares = calcularSumaImpares(digitos);
-        
-        int sumaTotal = sumaPares + sumaImpares;
-        int digitoVerificador = calcularDigitoVerificador(sumaTotal);
-        
-        return digitoVerificador == digitos[9];
-    }
+    public class IdValidator {
 
-    private static int[] extraerDigitos(long cedula) {
-        int[] digitos = new int[10];
-        for (int i = 9; i >= 0; i--) {
-            digitos[i] = (int) (cedula % 10);
-            cedula /= 10;
-        }
-        return digitos;
-    }
-
-    private static int calcularSumaPares(int[] digitos) {
-        int sumaPares = 0;
-        for (int i = 0; i < 9; i += 2) {
-            int producto = digitos[i] * 2;
-            if (producto > 9) {
-                producto -= 9;
+        public static boolean validateId(long id) {
+            String idStr = String.valueOf(id);
+            if (idStr.length()!= 10){
+                return false;
             }
-            sumaPares += producto;
-        }
-        return sumaPares;
-    }
+            int[] digits = new int[10];
+            int remainder, mul, evenSum = 0, oddSum = 0, totalSum, checkDigit;
 
-    private static int calcularSumaImpares(int[] digitos) {
-        int sumaImpares = 0;
-        for (int i = 1; i < 9; i += 2) {
-            sumaImpares += digitos[i];
-        }
-        return sumaImpares;
-    }
+            for (int i = 9; i >= 0; i--) {
+                long quotient = id / 10;
+                remainder = (int) (id % 10);
+                digits[i] = remainder;
+                id = quotient;
+            }
 
-    private static int calcularDigitoVerificador(int sumaTotal) {
-        int residuo = sumaTotal % 10;
-        int digitoVerificador = 10 - residuo;
-        if (digitoVerificador == 10) {
-            digitoVerificador = 0;
+            for (int i = 0; i < 9; i += 2) {
+                mul = digits[i] * 2;
+                if (mul > 9) {
+                    mul -= 9;
+                }
+                evenSum += mul;
+            }
+
+            for (int i = 1; i < 9; i += 2) {
+                oddSum += digits[i];
+            }
+
+            totalSum = evenSum + oddSum;
+            remainder = totalSum % 10;
+            checkDigit = 10 - remainder;
+            if (checkDigit == 10) {
+                checkDigit = 0;
+            }
+
+            return checkDigit == digits[9];
         }
-        return digitoVerificador;
     }
-     */
+    
 }
+
+

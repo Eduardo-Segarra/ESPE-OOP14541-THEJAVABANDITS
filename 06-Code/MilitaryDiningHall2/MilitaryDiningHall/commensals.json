@@ -43,5 +43,14 @@
     "grade": "Lieutenant",
     "type": "commensals",
     "balance": 0.0
+  },
+  {
+    "id": 1752874568,
+    "name": "Carlos Perez",
+    "email": "carlospe0505@gmail.com",
+    "password": "carlitos24",
+    "grade": "publicServant",
+    "type": "commensals",
+    "balance": 0.0
   }
 ]
