@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import utils.Validations.IdValidator;
 
 /**
  *
@@ -56,16 +57,25 @@ public class Accounts {
 
     public static String createNewAccount() {
         Scanner scanner = new Scanner(System.in);
-        int id;
+        long id;
         String name, grade, type, email, password;
 
-        System.out.println("Enter your id:");
-        id = scanner.nextInt();
-        scanner.nextLine();
+        while (true) {
+            System.out.println("Enter your id:");
+            id = scanner.nextLong();
+            scanner.nextLine(); // Consumir el newline que queda en el buffer
+            if (IdValidator.validateId(id)) {
+                break;
+            } else {
+                System.out.println("Invalid ID. Please enter a valid 10-digit ID.");
+            }
+        }
+
         System.out.println("Enter your name:");
         name = scanner.nextLine();
-        System.out.println("Enter your military grade (if your are a public servant type publicServant):");
+        System.out.println("Enter your military grade (if you are a public servant type publicServant):");
         grade = scanner.nextLine();
+
          // FileManager para obtener la lista de correos electrónicos existentes
     List<String> existingEmails = FileManager.getAllEmailsFromCommensals();
 
