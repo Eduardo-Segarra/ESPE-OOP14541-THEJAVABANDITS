@@ -61,13 +61,19 @@ public class Accounts {
         String name, grade, type, email, password;
 
         while (true) {
-            System.out.println("Enter your id:");
-            id = scanner.nextLong();
-            scanner.nextLine(); // Consumir el newline que queda en el buffer
-            if (IdValidator.validateId(id)) {
-                break;
+            System.out.println("Enter your ID (10 digits):");
+            String input = scanner.nextLine();
+
+            // Verificar que la entrada sea solo numérica y tenga exactamente 10 dígitos
+            if (input.matches("\\d{10}")) {
+                id = Long.parseLong(input);
+                if (IdValidator.validateId(id)) {
+                    break;
+                } else {
+                    System.out.println("Invalid ID. Please enter a valid 10-digit ID.");
+                }
             } else {
-                System.out.println("Invalid ID. Please enter a valid 10-digit ID.");
+                System.out.println("Invalid input. Please enter a numeric 10-digit ID.");
             }
         }
 
@@ -75,14 +81,9 @@ public class Accounts {
         name = scanner.nextLine();
         System.out.println("Enter your military grade (if you are a public servant type publicServant):");
         grade = scanner.nextLine();
-<<<<<<< HEAD
 
          // FileManager para obtener la lista de correos electrónicos existentes
-    List<String> existingEmails = FileManager.getAllEmailsFromCommensals();
-=======
-        // FileManager para obtener la lista de correos electrónicos existentes
         List<String> existingEmails = FileManager.getAllEmails();
->>>>>>> d07485b1822413d17d9c37ad0f8bae4c80cdf851
 
         // Validación del correo electrónico hasta que sea correcto y único
         while (true) {

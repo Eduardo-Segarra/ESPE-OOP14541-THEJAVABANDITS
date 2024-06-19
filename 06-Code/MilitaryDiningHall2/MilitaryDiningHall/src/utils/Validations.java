@@ -127,41 +127,42 @@ public class Validations {
     public class IdValidator {
 
         public static boolean validateId(long id) {
-            String idStr = String.valueOf(id);
-            if (idStr.length()!= 10){
-                return false;
-            }
-            int[] digits = new int[10];
-            int remainder, mul, evenSum = 0, oddSum = 0, totalSum, checkDigit;
-
-            for (int i = 9; i >= 0; i--) {
-                long quotient = id / 10;
-                remainder = (int) (id % 10);
-                digits[i] = remainder;
-                id = quotient;
-            }
-
-            for (int i = 0; i < 9; i += 2) {
-                mul = digits[i] * 2;
-                if (mul > 9) {
-                    mul -= 9;
-                }
-                evenSum += mul;
-            }
-
-            for (int i = 1; i < 9; i += 2) {
-                oddSum += digits[i];
-            }
-
-            totalSum = evenSum + oddSum;
-            remainder = totalSum % 10;
-            checkDigit = 10 - remainder;
-            if (checkDigit == 10) {
-                checkDigit = 0;
-            }
-
-            return checkDigit == digits[9];
+        // Verificar que el ID tiene exactamente 10 dígitos
+        if (String.valueOf(id).length() != 10) {
+            return false;
         }
+
+        int[] digits = new int[10];
+        int remainder, mul, evenSum = 0, oddSum = 0, totalSum, checkDigit;
+
+        // Convertir el long en dígitos numéricos
+        for (int i = 9; i >= 0; i--) {
+            digits[i] = (int) (id % 10);
+            id /= 10;
+        }
+
+        // Sumar los dígitos en posiciones pares (índices 0, 2, 4, 6, 8)
+        for (int i = 0; i < 9; i += 2) {
+            mul = digits[i] * 2;
+            if (mul > 9) {
+                mul -= 9;
+            }
+            evenSum += mul;
+        }
+
+        // Sumar los dígitos en posiciones impares (índices 1, 3, 5, 7)
+        for (int i = 1; i < 9; i += 2) {
+            oddSum += digits[i];
+        }
+
+        totalSum = evenSum + oddSum;
+        remainder = totalSum % 10;
+        checkDigit = 10 - remainder;
+        if (checkDigit == 10) {
+            checkDigit = 0;
+        }
+
+        return checkDigit == digits[9];
     }
-    
+    }
 }
