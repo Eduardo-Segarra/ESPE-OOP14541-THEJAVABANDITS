@@ -21,7 +21,6 @@ import java.lang.reflect.Type;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
  *
  * @author TheJavaBandits, DCCO-ESPE
@@ -121,7 +120,8 @@ public class FileManager {
         }
         return null;
     }
-public static boolean findAccountById(String fileName, long idToCheck) {
+
+    public static boolean findAccountById(String fileName, long idToCheck) {
         Gson gson = new Gson();
         List<Commensal> commensalList = new ArrayList<>();
 
@@ -133,7 +133,8 @@ public static boolean findAccountById(String fileName, long idToCheck) {
                 dataInJSON.append(line);
             }
 
-            Type accountListType = new TypeToken<ArrayList<Commensal>>() {}.getType();
+            Type accountListType = new TypeToken<ArrayList<Commensal>>() {
+            }.getType();
             commensalList = gson.fromJson(dataInJSON.toString(), accountListType);
 
             for (Commensal commensal : commensalList) {
@@ -185,6 +186,7 @@ public static boolean findAccountById(String fileName, long idToCheck) {
             System.err.println("Error at erasing data from the file: " + e.getMessage());
         }
     }
+
     // Para el DateBook
     public static void saveDateBook(DateBook dateBook) {
         String fileName = "datebook.json";
@@ -301,23 +303,38 @@ public static boolean findAccountById(String fileName, long idToCheck) {
         }
         return null;
     }
-    
-    public static List<String> getAllEmailsFromCommensals() {
-        String fileName = "commensals.json";
+
+    public static List<String> getAllEmails() {
+        int switchFileName;
+        String fileName = "";
         List<String> emails = new ArrayList<>();
-
         Gson gson = new Gson();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-            Type listType = new TypeToken<ArrayList<Commensal>>() {}.getType();
-            List<Commensal> commensals = gson.fromJson(bufferedReader, listType);
-
-            for (Commensal commensal : commensals) {
-                emails.add(commensal.getEmail().toLowerCase()); // Asegurar que los correos electrónicos estén en minúsculas
+        
+        //The function of this for is to repeat the algorithm to read all the .json file with the information of the users
+        for (switchFileName = 0; switchFileName < 4; switchFileName++) {
+            if (switchFileName == 0) {
+                fileName = "commensals.json";
+            } else if (switchFileName == 1) {
+                fileName = "administrators.json";
+            } else if (switchFileName == 2) {
+                fileName = "generalAdministrator.json";
+            } else if (switchFileName == 3) {
+                fileName = "militaryChefs.json";
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + fileName);
-        } catch (IOException e) {
-            System.err.println("Error reading the file: " + e.getMessage());
+
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+                Type listType = new TypeToken<ArrayList<Commensal>>() {
+                }.getType();
+                List<Commensal> commensals = gson.fromJson(bufferedReader, listType);
+
+                for (Commensal commensal : commensals) {
+                    emails.add(commensal.getEmail().toLowerCase()); // Asegurar que los correos electrónicos estén en minúsculas
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found: " + fileName);
+            } catch (IOException e) {
+                System.err.println("Error reading the file: " + e.getMessage());
+            }
         }
 
         return emails;
@@ -335,6 +352,5 @@ public static boolean findAccountById(String fileName, long idToCheck) {
         // Implementación para validar que el correo electrónico no esté duplicado
         return !existingEmails.contains(email.toLowerCase());
     }
-
 
 }
