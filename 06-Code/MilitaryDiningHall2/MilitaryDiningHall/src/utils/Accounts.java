@@ -3,6 +3,7 @@ package utils;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.DateBook;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -55,48 +56,43 @@ public class Accounts {
 
     public static String createNewAccount() {
         Scanner scanner = new Scanner(System.in);
-        long id = 0;
-        boolean isValid = false;
-        boolean isDuplicate = false;
+        int id;
         String name, grade, type, email, password;
 
-        while (!isValid || isDuplicate) {
-            System.out.println("Enter your id:");
-            id = scanner.nextLong();
-            isValid = Validations.IdValidator.validateId(id);
-            if (!isValid) {
-                System.out.println("The ID is not valid. Please try again.");
-                continue;
-            }
-
-            isDuplicate = FileManager.findAccountById("commensals.json", id);
-            if (isDuplicate) {
-                System.out.println("The ID has already been entered. Please try again.");
-            }
-        }
-
-        System.out.println("The ID is valid and not a duplicate.");
-
+        System.out.println("Enter your id:");
+        id = scanner.nextInt();
         scanner.nextLine();
         System.out.println("Enter your name:");
         name = scanner.nextLine();
         System.out.println("Enter your military grade (if your are a public servant type publicServant):");
         grade = scanner.nextLine();
+         // FileManager para obtener la lista de correos electrónicos existentes
+    List<String> existingEmails = FileManager.getAllEmailsFromCommensals();
+
+    // Validación del correo electrónico hasta que sea correcto y único
+    while (true) {
         System.out.println("Enter your email:");
         email = scanner.nextLine();
-        System.out.println("Enter your password:");
-        password = scanner.nextLine();
-        type = "commensals";
-
-        Commensal newCommensal = new Commensal(id, name, email, password, grade, type, 0);
-
-        FileManager.save(newCommensal, "commensals");
-
-        // Create his name in the date book
-        Map<String, Boolean> emptyDays = new HashMap<>();
-        DateBook datebook = new DateBook(id, emptyDays);
-        FileManager.saveDateBook(datebook);
-
-        return newCommensal.getId() + ":" + newCommensal.getName() + ":" + newCommensal.getEmail() + ":" + newCommensal.getPassword() + ":" + newCommensal.getGrade() + ":" + newCommensal.getType() + ":" + newCommensal.getBalance();
+        if (FileManager.isValidEmailFormat(email) && FileManager.isUniqueEmail(email, existingEmails)) {
+            break;
+        } else {
+            System.out.println("Invalid email or email already exists. Please enter a valid email.");
+        }
     }
+
+    System.out.println("Enter your password:");
+    password = scanner.nextLine();
+    type = "commensals";
+
+    Commensal newCommensal = new Commensal(id, name, email, password, grade, type, 0);
+
+    FileManager.save(newCommensal, "commensals");
+
+    // Crear su nombre en el libro de fecha
+    Map<String, Boolean> emptyDays = new HashMap<>();
+    DateBook datebook = new DateBook(id, emptyDays);
+    FileManager.saveDateBook(datebook);
+
+    return newCommensal.getId() + ":" + newCommensal.getName() + ":" + newCommensal.getEmail() + ":" + newCommensal.getPassword() + ":" + newCommensal.getGrade() + ":" + newCommensal.getType() + ":" + newCommensal.getBalance();
+}
 }

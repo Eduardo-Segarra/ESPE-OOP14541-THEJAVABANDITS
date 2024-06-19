@@ -52,5 +52,14 @@
     "grade": "publicServant",
     "type": "commensals",
     "balance": 0.0
+  },
+  {
+    "id": 1726440538,
+    "name": "David Rodriguez",
+    "email": "david2@hotmail.com",
+    "password": "123456",
+    "grade": "publicServant",
+    "type": "commensals",
+    "balance": 0.0
   }
 ]

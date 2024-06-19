@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.Type;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -299,4 +301,40 @@ public static boolean findAccountById(String fileName, long idToCheck) {
         }
         return null;
     }
+    
+    public static List<String> getAllEmailsFromCommensals() {
+        String fileName = "commensals.json";
+        List<String> emails = new ArrayList<>();
+
+        Gson gson = new Gson();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            Type listType = new TypeToken<ArrayList<Commensal>>() {}.getType();
+            List<Commensal> commensals = gson.fromJson(bufferedReader, listType);
+
+            for (Commensal commensal : commensals) {
+                emails.add(commensal.getEmail().toLowerCase()); // Asegurar que los correos electrónicos estén en minúsculas
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+
+        return emails;
+    }
+
+    public static boolean isValidEmailFormat(String email) {
+        // Implementación para validar el formato del correo electrónico
+        String regex = "^[\\w-\\.]+@(hotmail\\.com|gmail\\.com|outlook\\.com|yahoo\\.com)$";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public static boolean isUniqueEmail(String email, List<String> existingEmails) {
+        // Implementación para validar que el correo electrónico no esté duplicado
+        return !existingEmails.contains(email.toLowerCase());
+    }
+
+
 }
