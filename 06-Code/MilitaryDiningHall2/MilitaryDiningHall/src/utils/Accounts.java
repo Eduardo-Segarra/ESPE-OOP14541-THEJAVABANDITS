@@ -75,34 +75,39 @@ public class Accounts {
         name = scanner.nextLine();
         System.out.println("Enter your military grade (if you are a public servant type publicServant):");
         grade = scanner.nextLine();
+<<<<<<< HEAD
 
          // FileManager para obtener la lista de correos electrónicos existentes
     List<String> existingEmails = FileManager.getAllEmailsFromCommensals();
+=======
+        // FileManager para obtener la lista de correos electrónicos existentes
+        List<String> existingEmails = FileManager.getAllEmails();
+>>>>>>> d07485b1822413d17d9c37ad0f8bae4c80cdf851
 
-    // Validación del correo electrónico hasta que sea correcto y único
-    while (true) {
-        System.out.println("Enter your email:");
-        email = scanner.nextLine();
-        if (FileManager.isValidEmailFormat(email) && FileManager.isUniqueEmail(email, existingEmails)) {
-            break;
-        } else {
-            System.out.println("Invalid email or email already exists. Please enter a valid email.");
+        // Validación del correo electrónico hasta que sea correcto y único
+        while (true) {
+            System.out.println("Enter your email:");
+            email = scanner.nextLine();
+            if (FileManager.isValidEmailFormat(email) && FileManager.isUniqueEmail(email, existingEmails)) {
+                break;
+            } else {
+                System.out.println("Invalid email or email already exists. Please enter a valid email.");
+            }
         }
+
+        System.out.println("Enter your password:");
+        password = scanner.nextLine();
+        type = "commensals";
+
+        Commensal newCommensal = new Commensal(id, name, email, password, grade, type, 0);
+
+        FileManager.save(newCommensal, "commensals");
+
+        // Crear su nombre en el libro de fecha
+        Map<String, Boolean> emptyDays = new HashMap<>();
+        DateBook datebook = new DateBook(id, emptyDays);
+        FileManager.saveDateBook(datebook);
+
+        return newCommensal.getId() + ":" + newCommensal.getName() + ":" + newCommensal.getEmail() + ":" + newCommensal.getPassword() + ":" + newCommensal.getGrade() + ":" + newCommensal.getType() + ":" + newCommensal.getBalance();
     }
-
-    System.out.println("Enter your password:");
-    password = scanner.nextLine();
-    type = "commensals";
-
-    Commensal newCommensal = new Commensal(id, name, email, password, grade, type, 0);
-
-    FileManager.save(newCommensal, "commensals");
-
-    // Crear su nombre en el libro de fecha
-    Map<String, Boolean> emptyDays = new HashMap<>();
-    DateBook datebook = new DateBook(id, emptyDays);
-    FileManager.saveDateBook(datebook);
-
-    return newCommensal.getId() + ":" + newCommensal.getName() + ":" + newCommensal.getEmail() + ":" + newCommensal.getPassword() + ":" + newCommensal.getGrade() + ":" + newCommensal.getType() + ":" + newCommensal.getBalance();
-}
 }
