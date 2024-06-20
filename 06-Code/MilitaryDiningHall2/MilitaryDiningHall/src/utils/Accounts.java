@@ -45,7 +45,7 @@ public class Accounts {
                 return accountType;
             }
 
-            if (attempts < 2) { // Check to avoid printing after the last attempt
+            if (attempts < 2) { 
                 System.out.println("Incorrect email or password. You have " + (2 - attempts) + " attempt(s) left.");
             } else if (attempts == 2) {
                 return "0: : : : :exit: : ";
@@ -57,35 +57,40 @@ public class Accounts {
 
     public static String createNewAccount() {
         Scanner scanner = new Scanner(System.in);
-        long id;
+        long id = 0;
+        boolean isValid = false;
+        boolean isDuplicate = false;
         String name, grade, type, email, password;
 
-        while (true) {
+        while (!isValid || isDuplicate) {
             System.out.println("Enter your ID (10 digits):");
             String input = scanner.nextLine();
 
-            // Verificar que la entrada sea solo numérica y tenga exactamente 10 dígitos
             if (input.matches("\\d{10}")) {
                 id = Long.parseLong(input);
                 if (IdValidator.validateId(id)) {
-                    break;
+                    isDuplicate=FileManager.findAccountById("commensals.json", id);
+                    if (isDuplicate){
+                    System.out.println("The ID has already been entered. Please try again.");    
+                    }else{
+                        isValid=true;
+                    }
                 } else {
-                    System.out.println("Invalid ID. Please enter a valid 10-digit ID.");
+                     System.out.println("Invalid ID format. Please enter a valid 10-digit ID.");
                 }
             } else {
                 System.out.println("Invalid input. Please enter a numeric 10-digit ID.");
             }
         }
-
         System.out.println("Enter your name:");
         name = scanner.nextLine();
         System.out.println("Enter your military grade (if you are a public servant type publicServant):");
         grade = scanner.nextLine();
 
-         // FileManager para obtener la lista de correos electrónicos existentes
+         
         List<String> existingEmails = FileManager.getAllEmails();
 
-        // Validación del correo electrónico hasta que sea correcto y único
+        
         while (true) {
             System.out.println("Enter your email:");
             email = scanner.nextLine();
@@ -104,7 +109,7 @@ public class Accounts {
 
         FileManager.save(newCommensal, "commensals");
 
-        // Crear su nombre en el libro de fecha
+        
         Map<String, Boolean> emptyDays = new HashMap<>();
         DateBook datebook = new DateBook(id, emptyDays);
         FileManager.saveDateBook(datebook);
