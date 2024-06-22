@@ -1,4 +1,6 @@
-The purpose of this document is to define and specify the requirements for the development of a military dining hall management system (MDHMS) for the special forces brigade. This system aims to streamline canteen operations, enhance efficiency in meal management, and ensure secure and easy payment processes.
+The purpose of this document is to define and specify the requirements for the development of a military dining hall 
+management system (MDHMS) for the special forces brigade. This system aims to streamline canteen operations, 
+enhance efficiency in meal management, and ensure secure and easy payment processes.
 
 Target audience
 
