@@ -1,0 +1,42 @@
+[ {
+  "id" : 1722779277,
+  "reservedDays" : { }
+}, {
+  "id" : 1632942581,
+  "reservedDays" : { }
+}, {
+  "id" : 1516141917,
+  "reservedDays" : { }
+}, {
+  "id" : 1753597796,
+  "reservedDays" : { }
+}, {
+  "id" : 1526483601,
+  "reservedDays" : { }
+}, {
+  "id" : 1635294817,
+  "reservedDays" : { }
+}, {
+  "id" : 1936251847,
+  "reservedDays" : {
+    "9/6/2024" : false,
+    "12/6/2024" : false
+  }
+}, {
+  "id" : 1635290428,
+  "reservedDays" : {
+    "15/6/2024" : false,
+    "12/7/2024" : false,
+    "11/8/2024" : false,
+    "15/9/2024" : false,
+    "10/10/2024" : false,
+    "26/11/2024" : false,
+    "13/12/2024" : false
+  }
+}, {
+  "id" : 1752874568,
+  "reservedDays" : { }
+}, {
+  "id" : 1726440538,
+  "reservedDays" : { }
+}]
