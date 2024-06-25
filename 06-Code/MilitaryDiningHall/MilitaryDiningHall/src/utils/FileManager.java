@@ -215,43 +215,7 @@ public class FileManager {
             System.out.println("Error to load DateBook.");
         }
     }
-/*
-    public static void updateDateBook(DateBook dateBook, String date) {
-        String fileName = "datebook.json";
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Commensal> commensals = new ArrayList<>();
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-            Type listType = new TypeToken<ArrayList<Commensal>>() {
-            }.getType();
-            commensals = gson.fromJson(bufferedReader, listType);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found, creating a new one.");
-        } catch (IOException e) {
-            System.err.println("Error reading the file: " + e.getMessage());
-        }
-
-        boolean found = false;
-        for (int i = 0; i < commensals.size(); i++) {
-            if (commensals.get(i).getId() == oldCommensalInformation.getId()) {
-                commensals.set(i, updatedCommensal);
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
-            System.out.println("Old commensal information not found, adding new commensal.");
-            commensals.add(updatedCommensal);
-        }
-
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
-            gson.toJson(commensals, bufferedWriter);
-        } catch (IOException e) {
-            System.err.println("Error writing to the file: " + e.getMessage());
-        }
-    }
-  */  
     public static DateBook loadDateBook(int id) {
         String fileName = "datebook.json";
         try {

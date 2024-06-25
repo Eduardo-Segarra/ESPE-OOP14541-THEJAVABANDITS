@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import utils.Validations.IdValidator;
+import utils.Validation.IdValidator;
 
 /**
  *
@@ -77,7 +77,7 @@ public class Accounts {
         System.out.println("Enter your name:");
         name = scanner.nextLine();
         System.out.println("Enter your military grade (if you are a public servant type publicServant):");
-        grade = Validations.validateGradeAccount();
+        grade = Validation.validateGradeAccount();
 
         List<String> existingEmails = FileManager.getAllEmails();
 

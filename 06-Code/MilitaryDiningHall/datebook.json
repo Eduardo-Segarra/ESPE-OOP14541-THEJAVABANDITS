@@ -9,7 +9,9 @@
   "reservedDays" : { }
 }, {
   "id" : 1753597796,
-  "reservedDays" : { }
+  "reservedDays" : {
+    "15/6/2024" : false
+   }
 }, {
   "id" : 1526483601,
   "reservedDays" : { }

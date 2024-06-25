@@ -19,11 +19,11 @@ public class MilitaryDiningHallAplication {
             case "commensals" ->
                 MenuManager.displayCommensalMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
             case "administrators" ->
-                MenuManager.adminMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
+                MenuManager.displayAdminMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
             case "generalAdministrator" ->
-                MenuManager.generalAdminMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
+                MenuManager.displayGeneralAdminMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
             case "militaryChef" -> 
-                    MenuManager.chefMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
+                    MenuManager.displayChefMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
             case "exit" ->
                 System.out.println("Thanks for using the program.");
             default ->

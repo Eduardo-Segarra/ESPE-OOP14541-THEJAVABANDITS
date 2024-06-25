@@ -9,7 +9,7 @@ import java.util.Scanner;
  *
  * @author TheJavaBandits, DCCO-ESPE
  */
-public class Validations {
+public class Validation {
 
     public static int valideInt(int lowerOption, int higherOption) {
         Scanner scanner = new Scanner(System.in);
@@ -81,13 +81,19 @@ public class Validations {
                 day = scanner.nextInt();
                 YearMonth yearMonth = YearMonth.of(year, month);
                 int maxDay = yearMonth.lengthOfMonth();
-                if (month == LocalDate.now().getMonthValue()) {
-                    if (day < LocalDate.now().getDayOfMonth() || day > maxDay) {
-                        throw new IllegalArgumentException("Day must be between " + LocalDate.now().getDayOfMonth() + " and " + maxDay + ".");
-                    } else {
-                        return day;
+                LocalDate today = LocalDate.now();
+
+                if (month == today.getMonthValue() && year == today.getYear()) {
+                    if (day < today.getDayOfMonth() || day > maxDay) {
+                        throw new IllegalArgumentException("Day must be between " + today.getDayOfMonth() + " and " + maxDay + ".");
+                    }
+                } else {
+                    if (day < 1 || day > maxDay) {
+                        throw new IllegalArgumentException("Day must be between 1 and " + maxDay + ".");
                     }
                 }
+
+                return day;
 
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry. Please enter a valid day.");

@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import ec.edu.espe.militarydininghall.view.MenuManager;
 import java.util.Scanner;
 import utils.FileManager;
-import utils.Validations;
+import utils.Validation;
 
 /**
  *
@@ -131,41 +131,6 @@ public class Admin {
         this.balance = balance;
     }
 
-    public static void bookDay(int id) {
-        int day, month, year = 2024;
-
-        DateBook dateBook = FileManager.loadDateBook(id);
-        String date;
-
-        System.out.print("Please enter the month of your booking ");
-        month = Validations.validateMonth();
-
-        // Notification for the month selected
-        Dish dishes = FileManager.loadDishesByMonth(month);
-        System.out.println(dishes.notification());
-
-        System.out.print("Please enter the day of your booking ");
-        day = Validations.validateDay(year, month);
-
-        date = day + "/" + month + "/" + year;
-        dateBook.addDay(date);
-        FileManager.saveDateBook(dateBook);
-    }
-
-    public static void cancelDayBook(int id) {
-        Scanner scanner = new Scanner(System.in);
-
-        DateBook dateBook = FileManager.loadDateBook(id);
-        if (dateBook.ListOfDays().isBlank() == false) {
-            System.out.println(dateBook.ListOfDays());
-            System.out.println("What day you want to cancel the booking?(Type the whole date):");
-            String date = scanner.nextLine();
-        } else {
-            System.out.println("No dates added");
-        }
-
-    }
-
     public static void seeAccountBalance(int id, String fileName, String email, String password) {
         String data = "";
         data = FileManager.findAccount(fileName + ".json", id, email, password);
@@ -208,7 +173,7 @@ public class Admin {
                 if (attempts < 4) {
                     System.out.println("Incorrect ID. You have " + (4 - attempts) + " attempt(s) left.");
                 } else if (attempts == 4) {
-                    MenuManager.adminMenu(id, email, password);
+                    MenuManager.displayAdminMenu(id, email, password);
                     return;
                 }
             } catch (Exception e) {
@@ -220,7 +185,7 @@ public class Admin {
 
         if (foundAccount == null) {
             System.out.println("Account not found. Returning to admin menu.");
-            MenuManager.adminMenu(id, email, password);
+            MenuManager.displayAdminMenu(id, email, password);
             return;
         }
 
@@ -266,7 +231,7 @@ public class Admin {
                 if (attempts < 5 && foundAccount == null) { // Check to avoid printing after the last attempt
                     System.out.println("Incorrect ID. You have " + (5 - attempts) + " attempt(s) left.");
                 } else if (attempts == 5) {
-                    MenuManager.adminMenu(id, email, password);
+                    MenuManager.displayAdminMenu(id, email, password);
                     return;
                 }
             } catch (Exception e) {
@@ -279,7 +244,7 @@ public class Admin {
 
         if (foundAccount == null) {
             System.out.println("Account not found. Returning to the admin menu.");
-            MenuManager.adminMenu(id, email, password);
+            MenuManager.displayAdminMenu(id, email, password);
             return;
         }
 

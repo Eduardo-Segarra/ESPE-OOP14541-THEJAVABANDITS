@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import java.util.List;
 import java.util.Scanner;
 import utils.FileManager;
-import utils.Validations;
+import utils.Validation;
 
 /**
  *
@@ -132,7 +132,7 @@ public class Chef {
     public static void chooseMonthMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("In what month will the menu be made?:");
-        int month = Validations.validateMonth();
+        int month = Validation.validateMonth();
         System.out.println("What dishes will be served that month?:");
         System.out.println("Breakfast:");
         String breakfast = scanner.nextLine();

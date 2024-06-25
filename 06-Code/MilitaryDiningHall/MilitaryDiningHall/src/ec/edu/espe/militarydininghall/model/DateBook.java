@@ -2,15 +2,47 @@ package ec.edu.espe.militarydininghall.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Scanner;
-import utils.Validations;
+import utils.FileManager;
+import utils.Validation;
 
 /**
  *
  * @author The Java Bandits, DCCO-ESPE
  */
 public class DateBook {
+
+    public static void bookDay(int id) {
+        int day;
+        int month;
+        int year = 2024;
+        DateBook dateBook = FileManager.loadDateBook(id);
+        String date;
+        System.out.print("Please enter the month of your booking ");
+        month = Validation.validateMonth();
+        // Notification for the month selected
+        Dish dishes = FileManager.loadDishesByMonth(month);
+        System.out.println(dishes.notification());
+        System.out.print("Please enter the day of your booking ");
+        day = Validation.validateDay(year, month);
+        date = day + "/" + month + "/" + year;
+        dateBook.addDay(date);
+        FileManager.saveDateBook(dateBook);
+    }
+
+    public static void cancelDayBook(int id) {
+        Scanner scanner = new Scanner(System.in);
+        DateBook dateBook = FileManager.loadDateBook(id);
+        if (dateBook.ListOfDays().isBlank() == false) {
+            System.out.println(dateBook.ListOfDays());
+            System.out.println("What day you want to cancel the booking?(Type the whole date):");
+            String date = scanner.nextLine();
+        } else {
+            System.out.println("No dates added");
+        }
+    }
 
     private long id;
     private Map<String, Boolean> reservedDays;
@@ -92,12 +124,13 @@ public class DateBook {
             }
             System.out.println(date + " : " + status); 
             System.out.println("Change status: \ntrue = Attended \nfalse = Missing");
-            Boolean dateStatus = Validations.validBoolean();
+            Boolean dateStatus = Validation.validBoolean();
             reservedDays.put(date, dateStatus);
         }
         else{
             System.out.println("Date not assigned");
         }
     }
-
+    
+  
 }
