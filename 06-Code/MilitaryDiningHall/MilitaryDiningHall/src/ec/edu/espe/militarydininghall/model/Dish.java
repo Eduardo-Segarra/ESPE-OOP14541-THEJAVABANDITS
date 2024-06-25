@@ -2,7 +2,7 @@ package ec.edu.espe.militarydininghall.model;
 
 /**
  *
- * @author The Java Bandits, DCCO-ESPE
+ * @author TheJavaBandits, DCCO-ESPE
  */
 public class Dish {
 
