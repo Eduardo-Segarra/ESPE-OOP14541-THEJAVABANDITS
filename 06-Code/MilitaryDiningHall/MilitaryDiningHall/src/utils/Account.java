@@ -12,7 +12,7 @@ import utils.Validation.IdValidator;
  *
  * @author TheJavaBandits, DCCO-ESPE
  */
-public class Accounts {
+public class Account {
 
     private static final String[] ACCOUNT_FILES = {
         "commensals.json", "militaryChefs.json", "administrators.json", "generalAdministrator.json"

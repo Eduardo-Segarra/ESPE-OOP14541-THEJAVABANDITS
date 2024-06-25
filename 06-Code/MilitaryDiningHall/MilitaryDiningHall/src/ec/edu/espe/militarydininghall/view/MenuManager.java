@@ -7,7 +7,7 @@ import ec.edu.espe.militarydininghall.model.DateBook;
 import ec.edu.espe.militarydininghall.model.Dish;
 import ec.edu.espe.militarydininghall.model.GeneralAdmin;
 import java.time.LocalDate;
-import utils.Accounts;
+import utils.Account;
 import utils.FileManager;
 import utils.Validation;
 
@@ -28,11 +28,11 @@ public class MenuManager {
 
         switch (option) {
             case 1 -> {
-                accountType = Accounts.logIn();
+                accountType = Account.logIn();
                 return accountType;
             }
             case 2 -> {
-                accountType = Accounts.createNewAccount();
+                accountType = Account.createNewAccount();
                 return accountType;
             }
             case 3 -> {

@@ -193,14 +193,24 @@ public class Admin {
 
         Commensal outdatedAccountBalance = new Commensal(Integer.parseInt(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
 
+        do {
         System.out.println("Enter the desired amount: ");
+        while (!scanner.hasNextFloat()) {
+            System.out.println("Invalid input. Please enter a valid amount.");
+            scanner.next(); // Consume the invalid input
+        }
         updateBalance = scanner.nextFloat();
-        partsData[6] = Float.toString(updateBalance);
+        if (updateBalance <= 0) {
+            System.out.println("Amount must be greater than zero. Please try again.");
+        }
+    } while (updateBalance <= 0);
 
-        Commensal newAccountBalance = new Commensal(Integer.parseInt(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
+    partsData[6] = Float.toString(updateBalance);
 
-        FileManager.updateAccount(newAccountBalance, fileName, outdatedAccountBalance);
-    }
+    Commensal newAccountBalance = new Commensal(Integer.parseInt(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
+
+    FileManager.updateAccount(newAccountBalance, fileName, outdatedAccountBalance);
+}
 
     public static void editRegister(int id, String email, String password) {
         Scanner scanner = new Scanner(System.in);
