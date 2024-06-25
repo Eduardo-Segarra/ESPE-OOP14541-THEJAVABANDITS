@@ -140,7 +140,7 @@ public class Chef {
         String lunch = scanner.nextLine();
         System.out.println("Dinner:");
         String dinner = scanner.nextLine();
-        Dishes dishes = new Dishes(month, breakfast, lunch, dinner);
+        Dish dishes = new Dish(month, breakfast, lunch, dinner);
         FileManager.saveDishes(dishes);
     }
 

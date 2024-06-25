@@ -14,44 +14,33 @@ import utils.Validations.IdValidator;
  */
 public class Accounts {
 
+
+    private static final String[] ACCOUNT_FILES = {
+        "commensals.json", "militaryChefs.json", "administrators.json", "generalAdministrator.json"
+    };
+
     public static String logIn() {
         Scanner scanner = new Scanner(System.in);
-        String email, password, accountType = "";
-        int attempts;
-
-        for (attempts = 0; attempts < 3; attempts++) {
+        String email, password, accountType;
+        for (int attempts = 0; attempts < 3; attempts++) {
             System.out.println("Enter your email:");
             email = scanner.nextLine();
             System.out.println("Enter your password:");
             password = scanner.nextLine();
 
-            accountType = FileManager.findAccount("commensals.json", 0, email, password);
-            if (accountType != null) {
-                return accountType;
-            }
-
-            accountType = FileManager.findAccount("militaryChefs.json", 0, email, password);
-            if (accountType != null) {
-                return accountType;
-            }
-
-            accountType = FileManager.findAccount("administrators.json", 0, email, password);
-            if (accountType != null) {
-                return accountType;
-            }
-
-            accountType = FileManager.findAccount("generalAdministrator.json", 0, email, password);
-            if (accountType != null) {
-                return accountType;
+            for (String accountFile : ACCOUNT_FILES) {
+                accountType = FileManager.findAccount(accountFile, 0, email, password);
+                if (accountType != null) {
+                    return accountType;
+                }
             }
 
             if (attempts < 2) { 
                 System.out.println("Incorrect email or password. You have " + (2 - attempts) + " attempt(s) left.");
-            } else if (attempts == 2) {
+            } else {
                 return "0: : : : :exit: : ";
             }
         }
-
         return null;
     }
 
@@ -61,7 +50,6 @@ public class Accounts {
         boolean isValid = false;
         boolean isDuplicate = false;
         String name, grade, type, email, password;
-
         while (!isValid || isDuplicate) {
             System.out.println("Enter your ID (10 digits):");
             String input = scanner.nextLine();

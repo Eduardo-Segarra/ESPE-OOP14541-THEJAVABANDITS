@@ -133,7 +133,12 @@ public class Validations {
         }
 
         int[] digits = new int[10];
-        int remainder, mul, evenSum = 0, oddSum = 0, totalSum, checkDigit;
+        int remainder;
+        int doubledDigit;
+        int evenPositionSum = 0;
+        int oddPositionSum = 0;
+        int totalSum;
+        int checkDigit;
 
         // Convertir el long en dígitos numéricos
         for (int i = 9; i >= 0; i--) {
@@ -143,19 +148,19 @@ public class Validations {
 
         // Sumar los dígitos en posiciones pares (índices 0, 2, 4, 6, 8)
         for (int i = 0; i < 9; i += 2) {
-            mul = digits[i] * 2;
-            if (mul > 9) {
-                mul -= 9;
+            doubledDigit = digits[i] * 2;
+            if (doubledDigit > 9) {
+                doubledDigit -= 9;
             }
-            evenSum += mul;
+            evenPositionSum += doubledDigit;
         }
 
         // Sumar los dígitos en posiciones impares (índices 1, 3, 5, 7)
         for (int i = 1; i < 9; i += 2) {
-            oddSum += digits[i];
+            oddPositionSum += digits[i];
         }
 
-        totalSum = evenSum + oddSum;
+        totalSum = evenPositionSum + oddPositionSum;
         remainder = totalSum % 10;
         checkDigit = 10 - remainder;
         if (checkDigit == 10) {

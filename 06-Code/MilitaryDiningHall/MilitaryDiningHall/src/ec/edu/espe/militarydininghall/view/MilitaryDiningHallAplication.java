@@ -17,7 +17,7 @@ public class MilitaryDiningHallAplication {
 
         switch (parts[5]) {
             case "commensals" ->
-                MenuManager.commensalMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
+                MenuManager.displayCommensalMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
             case "administrators" ->
                 MenuManager.adminMenu(Integer.parseInt(parts[0]), parts[2], parts[3]);
             case "generalAdministrator" ->

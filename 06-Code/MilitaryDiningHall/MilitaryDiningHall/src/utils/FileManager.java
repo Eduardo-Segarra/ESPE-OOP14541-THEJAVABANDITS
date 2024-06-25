@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.DateBook;
-import ec.edu.espe.militarydininghall.model.Dishes;
+import ec.edu.espe.militarydininghall.model.Dish;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -247,21 +247,21 @@ public class FileManager {
         return null;
     }
 
-    public static void saveDishes(Dishes dish) {
+    public static void saveDishes(Dish dish) {
         String filename = "dishes.json";
         try {
             ObjectMapper mapper = new ObjectMapper();
-            List<Dishes> dishesList = new ArrayList<>();
+            List<Dish> dishesList = new ArrayList<>();
             File file = new File(filename);
 
             if (file.exists()) {
-                dishesList = mapper.readValue(file, new TypeReference<List<Dishes>>() {
+                dishesList = mapper.readValue(file, new TypeReference<List<Dish>>() {
                 });
             }
 
             boolean found = false;
             for (int i = 0; i < dishesList.size(); i++) {
-                Dishes existingDish = dishesList.get(i);
+                Dish existingDish = dishesList.get(i);
                 if (existingDish.getMonth() == dish.getMonth()) {
                     dishesList.set(i, dish);
                     found = true;
@@ -281,19 +281,19 @@ public class FileManager {
         }
     }
 
-    public static Dishes loadDishesByMonth(int month) {
+    public static Dish loadDishesByMonth(int month) {
         String filename = "dishes.json";
         try {
             ObjectMapper mapper = new ObjectMapper();
             File file = new File(filename);
-            List<Dishes> dishesList = new ArrayList<>();
+            List<Dish> dishesList = new ArrayList<>();
 
             if (file.exists()) {
-                dishesList = mapper.readValue(file, new TypeReference<List<Dishes>>() {
+                dishesList = mapper.readValue(file, new TypeReference<List<Dish>>() {
                 });
             }
 
-            for (Dishes dish : dishesList) {
+            for (Dish dish : dishesList) {
                 if (dish.getMonth() == month) {
                     return dish;
                 }

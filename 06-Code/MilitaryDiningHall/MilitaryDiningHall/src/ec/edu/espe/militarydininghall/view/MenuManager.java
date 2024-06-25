@@ -3,7 +3,7 @@ package ec.edu.espe.militarydininghall.view;
 import ec.edu.espe.militarydininghall.model.Admin;
 import ec.edu.espe.militarydininghall.model.Chef;
 import ec.edu.espe.militarydininghall.model.Commensal;
-import ec.edu.espe.militarydininghall.model.Dishes;
+import ec.edu.espe.militarydininghall.model.Dish;
 import ec.edu.espe.militarydininghall.model.GeneralAdmin;
 import java.time.LocalDate;
 import utils.Accounts;
@@ -44,8 +44,8 @@ public class MenuManager {
 
     }
 
-    public static void commensalMenu(int id, String email, String password) {
-        Dishes dishes = FileManager.loadDishesByMonth(LocalDate.now().getMonthValue());
+    public static void displayCommensalMenu(int id, String email, String password) {
+        Dish dishes = FileManager.loadDishesByMonth(LocalDate.now().getMonthValue());
         int option, loweOption = 1, higherOption = 4;
         String fileName = "commensals";
 

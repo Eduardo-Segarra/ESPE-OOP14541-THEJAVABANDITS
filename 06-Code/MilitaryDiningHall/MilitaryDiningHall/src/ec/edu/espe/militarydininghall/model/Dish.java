@@ -4,18 +4,18 @@ package ec.edu.espe.militarydininghall.model;
  *
  * @author The Java Bandits, DCCO-ESPE
  */
-public class Dishes {
+public class Dish {
 
     private int month;
     private String breakfast;
     private String lunch;
     private String dinner;
 
-    public Dishes() {
+    public Dish() {
         // keep empty for it to work
     }
 
-    public Dishes(int month, String breakfast, String lunch, String dinner) {
+    public Dish(int month, String breakfast, String lunch, String dinner) {
         this.month = month;
         this.breakfast = breakfast;
         this.lunch = lunch;

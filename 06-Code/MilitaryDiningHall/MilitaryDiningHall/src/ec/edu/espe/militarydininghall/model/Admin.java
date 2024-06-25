@@ -141,7 +141,7 @@ public class Admin {
         month = Validations.validateMonth();
 
         // Notification for the month selected
-        Dishes dishes = FileManager.loadDishesByMonth(month);
+        Dish dishes = FileManager.loadDishesByMonth(month);
         System.out.println(dishes.notification());
 
         System.out.print("Please enter the day of your booking ");
