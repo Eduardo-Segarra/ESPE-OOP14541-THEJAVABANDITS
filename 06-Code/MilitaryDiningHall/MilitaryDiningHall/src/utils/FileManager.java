@@ -32,7 +32,6 @@ public class FileManager {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Commensal> commensals = new ArrayList<>();
 
-        // Leer el archivo JSON existente
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             Type listType = new TypeToken<ArrayList<Commensal>>() {
             }.getType();
@@ -43,10 +42,8 @@ public class FileManager {
             System.err.println("Error reading the file: " + e.getMessage());
         }
 
-        // Agregar el nuevo objeto a la lista
         commensals.add(newCommensal);
 
-        // Guardar la lista actualizada de nuevo en el archivo JSON
         try (FileWriter fileWriter = new FileWriter(fileName); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             gson.toJson(commensals, bufferedWriter);
         } catch (IOException e) {
@@ -59,7 +56,6 @@ public class FileManager {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Commensal> commensals = new ArrayList<>();
 
-        // Leer el archivo JSON existente
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             Type listType = new TypeToken<ArrayList<Commensal>>() {
             }.getType();
@@ -70,7 +66,6 @@ public class FileManager {
             System.err.println("Error reading the file: " + e.getMessage());
         }
 
-        // Reemplazar la información antigua con la nueva
         boolean found = false;
         for (int i = 0; i < commensals.size(); i++) {
             if (commensals.get(i).getId() == oldCommensalInformation.getId()) {
@@ -85,7 +80,6 @@ public class FileManager {
             commensals.add(updatedCommensal);
         }
 
-        // Guardar la lista actualizada de nuevo en el archivo JSON
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
             gson.toJson(commensals, bufferedWriter);
         } catch (IOException e) {
@@ -139,7 +133,7 @@ public class FileManager {
 
             for (Commensal commensal : commensalList) {
                 if (commensal.getId() == idToCheck) {
-                    return true; // El ID ya existe en los registros
+                    return true; // The ID already exists in the records
                 }
             }
 
@@ -147,7 +141,7 @@ public class FileManager {
             System.err.println("Error at finding data of the file: " + e.getMessage());
         }
 
-        return false; // El ID no existe en los registros
+        return false; // The ID does not exist in the records
     }
 
     public static void eraseAccount(String fileName, int idSearch) {
@@ -167,7 +161,6 @@ public class FileManager {
             }.getType();
             accounts = gson.fromJson(dataInJSON.toString(), accountListType);
 
-            // Filtrar las cuentas para excluir la que tiene el idSearch
             List<Commensal> updatedAccounts = new ArrayList<>();
             for (Commensal account : accounts) {
                 if (account.getId() != idSearch) {
@@ -175,7 +168,6 @@ public class FileManager {
                 }
             }
 
-            // Escribir las cuentas actualizadas de nuevo en el archivo
             try (FileWriter fileWriter = new FileWriter(fileName); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
                 gson.toJson(updatedAccounts, bufferedWriter);
             } catch (IOException e) {
@@ -187,7 +179,6 @@ public class FileManager {
         }
     }
 
-    // Para el DateBook
     public static void saveDateBook(DateBook dateBook) {
         String fileName = "datebook.json";
         try {
@@ -224,7 +215,43 @@ public class FileManager {
             System.out.println("Error to load DateBook.");
         }
     }
+/*
+    public static void updateDateBook(DateBook dateBook, String date) {
+        String fileName = "datebook.json";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Commensal> commensals = new ArrayList<>();
 
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            Type listType = new TypeToken<ArrayList<Commensal>>() {
+            }.getType();
+            commensals = gson.fromJson(bufferedReader, listType);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found, creating a new one.");
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+
+        boolean found = false;
+        for (int i = 0; i < commensals.size(); i++) {
+            if (commensals.get(i).getId() == oldCommensalInformation.getId()) {
+                commensals.set(i, updatedCommensal);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Old commensal information not found, adding new commensal.");
+            commensals.add(updatedCommensal);
+        }
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
+            gson.toJson(commensals, bufferedWriter);
+        } catch (IOException e) {
+            System.err.println("Error writing to the file: " + e.getMessage());
+        }
+    }
+  */  
     public static DateBook loadDateBook(int id) {
         String fileName = "datebook.json";
         try {
@@ -328,7 +355,7 @@ public class FileManager {
                 List<Commensal> commensals = gson.fromJson(bufferedReader, listType);
 
                 for (Commensal commensal : commensals) {
-                    emails.add(commensal.getEmail().toLowerCase()); // Asegurar que los correos electrónicos estén en minúsculas
+                    emails.add(commensal.getEmail().toLowerCase()); // Ensure emails are in lower case
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("File not found: " + fileName);
@@ -341,7 +368,6 @@ public class FileManager {
     }
 
     public static boolean isValidEmailFormat(String email) {
-        // Implementación para validar el formato del correo electrónico
         String regex = "^[\\w-\\.]+@(hotmail\\.com|gmail\\.com|outlook\\.com|yahoo\\.com)$";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
@@ -349,7 +375,6 @@ public class FileManager {
     }
 
     public static boolean isUniqueEmail(String email, List<String> existingEmails) {
-        // Implementación para validar que el correo electrónico no esté duplicado
         return !existingEmails.contains(email.toLowerCase());
     }
 

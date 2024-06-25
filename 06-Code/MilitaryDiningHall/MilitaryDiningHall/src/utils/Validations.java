@@ -51,26 +51,6 @@ public class Validations {
         }
     }
 
-    public static int validateYear() {
-        Scanner scanner = new Scanner(System.in);
-        int year = 0;
-
-        while (true) {
-            try {
-                year = Integer.parseInt(scanner.nextLine());
-                if (year < LocalDate.now().getYear()) {
-                    throw new IllegalArgumentException("The year can't be lower than the current year.");
-                } else {
-                    return year;
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid entry. Please type an entire number for the year.");
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
     public static int validateMonth() {
         Scanner scanner = new Scanner(System.in);
         int month;
@@ -107,12 +87,6 @@ public class Validations {
                     } else {
                         return day;
                     }
-                } else {
-                    if (day < 1 || day > maxDay) {
-                        throw new IllegalArgumentException("Day must be between 1 and " + maxDay + ".");
-                    } else {
-                        return day;
-                    }
                 }
 
             } catch (InputMismatchException e) {
@@ -124,51 +98,76 @@ public class Validations {
         }
     }
 
+    public static String validateGradeAccount() {
+        Scanner scanner = new Scanner(System.in);
+        String grade;
+
+        while (true) {
+            grade = scanner.nextLine();
+
+            if (grade.equals("Army General") || grade.equals("Major General")
+                    || grade.equals("Brigadier General") || grade.equals("Colonel")
+                    || grade.equals("Lieutenant Colonel") || grade.equals("Major")
+                    || grade.equals("Captain") || grade.equals("Lieutenant")
+                    || grade.equals("Second lieutenant") || grade.equals("Cadet")
+                    || grade.equals("Senior sub officer") || grade.equals("1st Sub officer")
+                    || grade.equals("2nd Sub officer") || grade.equals("1st Sergeant")
+                    || grade.equals("2nd Sergeant") || grade.equals("1st Corporal")
+                    || grade.equals("2nd Corporal") || grade.equals("Soldier")
+                    || grade.equals("Conscript") || grade.equals("publicServant")) {
+                return grade;
+            } else {
+                System.out.println("Invalid entry. Please enter a valid grade.");
+            }
+        }
+
+    }
+
     public class IdValidator {
 
         public static boolean validateId(long id) {
-        // Verificar que el ID tiene exactamente 10 dígitos
-        if (String.valueOf(id).length() != 10) {
-            return false;
-        }
-
-        int[] digits = new int[10];
-        int remainder;
-        int doubledDigit;
-        int evenPositionSum = 0;
-        int oddPositionSum = 0;
-        int totalSum;
-        int checkDigit;
-
-        // Convertir el long en dígitos numéricos
-        for (int i = 9; i >= 0; i--) {
-            digits[i] = (int) (id % 10);
-            id /= 10;
-        }
-
-        // Sumar los dígitos en posiciones pares (índices 0, 2, 4, 6, 8)
-        for (int i = 0; i < 9; i += 2) {
-            doubledDigit = digits[i] * 2;
-            if (doubledDigit > 9) {
-                doubledDigit -= 9;
+            // Verify that the ID has exactly 10 digits
+            if (String.valueOf(id).length() != 10) {
+                return false;
             }
-            evenPositionSum += doubledDigit;
-        }
 
-        // Sumar los dígitos en posiciones impares (índices 1, 3, 5, 7)
-        for (int i = 1; i < 9; i += 2) {
-            oddPositionSum += digits[i];
-        }
+            int[] digits = new int[10];
+            int remainder;
+            int doubledDigit;
+            int evenPositionSum = 0;
+            int oddPositionSum = 0;
+            int totalSum;
+            int checkDigit;
 
-        totalSum = evenPositionSum + oddPositionSum;
-        remainder = totalSum % 10;
-        checkDigit = 10 - remainder;
-        if (checkDigit == 10) {
-            checkDigit = 0;
-        }
+            // Convert long to numerical digits
+            for (int i = 9; i >= 0; i--) {
+                digits[i] = (int) (id % 10);
+                id /= 10;
+            }
 
-        return checkDigit == digits[9];
+            // Add the digits in even positions (indexes 0, 2, 4, 6, 8)
+            for (int i = 0; i < 9; i += 2) {
+                doubledDigit = digits[i] * 2;
+                if (doubledDigit > 9) {
+                    doubledDigit -= 9;
+                }
+                evenPositionSum += doubledDigit;
+            }
+
+            // Add the digits in odd positions (indexes 1, 3, 5, 7)
+            for (int i = 1; i < 9; i += 2) {
+                oddPositionSum += digits[i];
+            }
+
+            totalSum = evenPositionSum + oddPositionSum;
+            remainder = totalSum % 10;
+            checkDigit = 10 - remainder;
+            if (checkDigit == 10) {
+                checkDigit = 0;
+            }
+
+            return checkDigit == digits[9];
+        }
     }
-    }
-    
+
 }

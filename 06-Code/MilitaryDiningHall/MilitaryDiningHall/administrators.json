@@ -14,7 +14,7 @@
     "email": "edusegarra6@gmail.com",
     "password": "Dinky450",
     "grade": "publicServant",
-    "type": "publicServant",
-    "balance": 0.0
+    "type": "administrators",
+    "balance": 50.0
   }
 ]

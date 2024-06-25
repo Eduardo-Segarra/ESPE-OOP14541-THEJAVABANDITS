@@ -14,7 +14,6 @@ import utils.Validations.IdValidator;
  */
 public class Accounts {
 
-
     private static final String[] ACCOUNT_FILES = {
         "commensals.json", "militaryChefs.json", "administrators.json", "generalAdministrator.json"
     };
@@ -35,7 +34,7 @@ public class Accounts {
                 }
             }
 
-            if (attempts < 2) { 
+            if (attempts < 2) {
                 System.out.println("Incorrect email or password. You have " + (2 - attempts) + " attempt(s) left.");
             } else {
                 return "0: : : : :exit: : ";
@@ -57,14 +56,19 @@ public class Accounts {
             if (input.matches("\\d{10}")) {
                 id = Long.parseLong(input);
                 if (IdValidator.validateId(id)) {
-                    isDuplicate=FileManager.findAccountById("commensals.json", id);
-                    if (isDuplicate){
-                    System.out.println("The ID has already been entered. Please try again.");    
-                    }else{
-                        isValid=true;
+                    isDuplicate = false;
+                    for (String accountFile : ACCOUNT_FILES) {
+                         if(isDuplicate = FileManager.findAccountById(accountFile, id)){
+                             break;
+                         }
+                    }
+                    if (isDuplicate) {
+                        System.out.println("The ID has already been entered. Please try again.");
+                    } else {
+                        isValid = true;
                     }
                 } else {
-                     System.out.println("Invalid ID format. Please enter a valid 10-digit ID.");
+                    System.out.println("Invalid ID format. Please enter a valid 10-digit ID.");
                 }
             } else {
                 System.out.println("Invalid input. Please enter a numeric 10-digit ID.");
@@ -73,12 +77,10 @@ public class Accounts {
         System.out.println("Enter your name:");
         name = scanner.nextLine();
         System.out.println("Enter your military grade (if you are a public servant type publicServant):");
-        grade = scanner.nextLine();
+        grade = Validations.validateGradeAccount();
 
-         
         List<String> existingEmails = FileManager.getAllEmails();
 
-        
         while (true) {
             System.out.println("Enter your email:");
             email = scanner.nextLine();
@@ -97,7 +99,6 @@ public class Accounts {
 
         FileManager.save(newCommensal, "commensals");
 
-        
         Map<String, Boolean> emptyDays = new HashMap<>();
         DateBook datebook = new DateBook(id, emptyDays);
         FileManager.saveDateBook(datebook);
