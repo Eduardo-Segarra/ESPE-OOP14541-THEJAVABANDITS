@@ -61,5 +61,23 @@
     "grade": "publicServant",
     "type": "commensals",
     "balance": 200.0
+  },
+  {
+    "id": 2300684442,
+    "name": "Mario Zambrano",
+    "email": "mariozambrano32@hotmail.com",
+    "password": "Mario2003125",
+    "grade": "publicServant",
+    "type": "commensals",
+    "balance": 0.0
+  },
+  {
+    "id": 811234569,
+    "name": "p",
+    "email": "e@gmail.com",
+    "password": "p",
+    "grade": "publicServant",
+    "type": "commensals",
+    "balance": 0.0
   }
 ]

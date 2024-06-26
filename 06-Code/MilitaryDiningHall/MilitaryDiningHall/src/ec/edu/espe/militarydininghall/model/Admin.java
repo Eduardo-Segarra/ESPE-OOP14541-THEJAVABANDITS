@@ -191,7 +191,7 @@ public class Admin {
 
         partsData = foundAccount.split(":");
 
-        Commensal outdatedAccountBalance = new Commensal(Integer.parseInt(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
+        Commensal outdatedAccountBalance = new Commensal(Long.parseLong(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
 
         do {
         System.out.println("Enter the desired amount: ");
@@ -207,7 +207,7 @@ public class Admin {
 
     partsData[6] = Float.toString(updateBalance);
 
-    Commensal newAccountBalance = new Commensal(Integer.parseInt(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
+    Commensal newAccountBalance = new Commensal(Long.parseLong(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
 
     FileManager.updateAccount(newAccountBalance, fileName, outdatedAccountBalance);
 }
@@ -261,7 +261,7 @@ public class Admin {
         partsData = foundAccount.split(":");
         scanner.nextLine();
 
-        DateBook dateBook = FileManager.loadDateBook(Integer.parseInt(partsData[0]));
+        DateBook dateBook = FileManager.loadDateBook(Long.parseLong(partsData[0]));
         if (dateBook != null) {
             System.out.println(dateBook.ListOfDays());
             System.out.println("Select the date to check: ");

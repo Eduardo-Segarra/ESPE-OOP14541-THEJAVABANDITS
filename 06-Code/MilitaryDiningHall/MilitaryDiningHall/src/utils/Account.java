@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import utils.Validation.IdValidator;
 
 /**
  *
@@ -48,32 +47,31 @@ public class Account {
         long id = 0;
         boolean isValid = false;
         boolean isDuplicate = false;
-        String name, grade, type, email, password;
+        String name, grade, type, email, password, idInput;
+
         while (!isValid || isDuplicate) {
             System.out.println("Enter your ID (10 digits):");
-            String input = scanner.nextLine();
+            idInput = scanner.nextLine();
+            isDuplicate = false;
 
-            if (input.matches("\\d{10}")) {
-                id = Long.parseLong(input);
-                if (IdValidator.validateId(id)) {
-                    isDuplicate = false;
-                    for (String accountFile : jsonFiles) {
-                         if(isDuplicate = FileManager.findAccountById(jsonFiles, id)){
-                             break;
-                         }
+            if (idInput.length() == 10) {
+                id = Long.parseLong(idInput);
+                for (String accountFile : jsonFiles) {
+                    if (isDuplicate = FileManager.findAccountById(accountFile, id)) {
+                        break;
                     }
-                    if (isDuplicate) {
-                        System.out.println("The ID has already been entered. Please try again.");
-                    } else {
-                        isValid = true;
-                    }
-                } else {
-                    System.out.println("Invalid ID format. Please enter a valid 10-digit ID.");
                 }
+                if (isDuplicate) {
+                    System.out.println("The ID has already been entered. Please try again.");
+                } else {
+                    isValid = true;
+                }
+
             } else {
                 System.out.println("Invalid input. Please enter a numeric 10-digit ID.");
             }
         }
+        
         System.out.println("Enter your name:");
         name = scanner.nextLine();
         System.out.println("Enter your military grade (if you are a public servant type publicServant):");

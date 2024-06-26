@@ -129,51 +129,44 @@ public class Validation {
 
     }
 
-    public class IdValidator {
+    public static boolean validateId(long id) {
 
-        public static boolean validateId(long id) {
-            // Verify that the ID has exactly 10 digits
-            if (String.valueOf(id).length() != 10) {
-                return false;
-            }
+        long[] digits = new long[10];
+        long remainder;
+        long doubledDigit;
+        long evenPositionSum = 0;
+        long oddPositionSum = 0;
+        long totalSum;
+        long checkDigit;
 
-            int[] digits = new int[10];
-            int remainder;
-            int doubledDigit;
-            int evenPositionSum = 0;
-            int oddPositionSum = 0;
-            int totalSum;
-            int checkDigit;
-
-            // Convert long to numerical digits
-            for (int i = 9; i >= 0; i--) {
-                digits[i] = (int) (id % 10);
-                id /= 10;
-            }
-
-            // Add the digits in even positions (indexes 0, 2, 4, 6, 8)
-            for (int i = 0; i < 9; i += 2) {
-                doubledDigit = digits[i] * 2;
-                if (doubledDigit > 9) {
-                    doubledDigit -= 9;
-                }
-                evenPositionSum += doubledDigit;
-            }
-
-            // Add the digits in odd positions (indexes 1, 3, 5, 7)
-            for (int i = 1; i < 9; i += 2) {
-                oddPositionSum += digits[i];
-            }
-
-            totalSum = evenPositionSum + oddPositionSum;
-            remainder = totalSum % 10;
-            checkDigit = 10 - remainder;
-            if (checkDigit == 10) {
-                checkDigit = 0;
-            }
-
-            return checkDigit == digits[9];
+        // Convert long to numerical digits
+        for (int i = 9; i >= 0; i--) {
+            digits[i] = (int) (id % 10);
+            id /= 10;
         }
+
+        // Add the digits in even positions (indexes 0, 2, 4, 6, 8)
+        for (int i = 0; i < 9; i += 2) {
+            doubledDigit = digits[i] * 2;
+            if (doubledDigit > 9) {
+                doubledDigit -= 9;
+            }
+            evenPositionSum += doubledDigit;
+        }
+
+        // Add the digits in odd positions (indexes 1, 3, 5, 7)
+        for (int i = 1; i < 9; i += 2) {
+            oddPositionSum += digits[i];
+        }
+
+        totalSum = evenPositionSum + oddPositionSum;
+        remainder = totalSum % 10;
+        checkDigit = 10 - remainder;
+        if (checkDigit == 10) {
+            checkDigit = 0;
+        }
+
+        return checkDigit == digits[9];
     }
 
 }

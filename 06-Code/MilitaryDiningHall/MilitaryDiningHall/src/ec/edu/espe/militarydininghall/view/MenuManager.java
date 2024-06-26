@@ -47,7 +47,7 @@ public class MenuManager {
 
     public static void displayCommensalMenu(int id, String email, String password) {
         Dish dishes = FileManager.loadDishesByMonth(LocalDate.now().getMonthValue());
-        int option, loweOption = 1, higherOption = 4;
+        int option, loweOption = 1, higherOption = 5;
         String fileName = "commensals";
 
         do {
@@ -84,7 +84,7 @@ public class MenuManager {
     }
 
     public static void displayAdminMenu(int id, String email, String password) {
-        int option, loweOption = 1, higherOption = 6;
+        int option, loweOption = 1, higherOption = 7;
         String fileName = "administrators";
         do {
             System.out.println("Admin Menu");
@@ -126,7 +126,7 @@ public class MenuManager {
     }
 
     public static void displayGeneralAdminMenu(int id, String email, String password) {
-        int option, loweOption = 1, higherOption = 5;
+        int option, loweOption = 1, higherOption = 6;
         String fileName = "generalAdministrator";
         do {
             System.out.println("Menu for general admins");

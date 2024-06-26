@@ -115,11 +115,10 @@ public class FileManager {
         return null;
     }
 
-    public static boolean findAccountById(String [] jsonFiles, long idToCheck) {
+    public static boolean findAccountById(String fileName, long idToCheck) {
         Gson gson = new Gson();
         List<Commensal> commensalList;
 
-        for (String fileName : jsonFiles) {
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
                 StringBuilder dataInJSON = new StringBuilder();
                 String line;
@@ -133,16 +132,15 @@ public class FileManager {
 
                 for (Commensal commensal : commensalList) {
                     if (commensal.getId() == idToCheck) {
-                        return true; // El ID ya existe en los registros
+                        return true; // The ID already exists in the records
                     }
                 }
 
             } catch (IOException e) {
                 System.err.println("Error at finding data in the file " + fileName + ": " + e.getMessage());
             }
-        }
 
-        return false; // El ID no existe en los registros
+        return false; // The ID does not exist in the records
     }
     public static void eraseAccount(String fileName, int idSearch) {
         fileName = fileName + ".json";
@@ -216,7 +214,7 @@ public class FileManager {
         }
     }
 
-    public static DateBook loadDateBook(int id) {
+    public static DateBook loadDateBook(long id) {
         String fileName = "datebook.json";
         try {
             ObjectMapper mapper = new ObjectMapper();
