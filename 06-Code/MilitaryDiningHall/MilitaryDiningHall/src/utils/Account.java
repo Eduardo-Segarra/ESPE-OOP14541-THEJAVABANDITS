@@ -14,7 +14,7 @@ import utils.Validation.IdValidator;
  */
 public class Account {
 
-    private static final String[] ACCOUNT_FILES = {
+    private static final String[] jsonFiles = {
         "commensals.json", "militaryChefs.json", "administrators.json", "generalAdministrator.json"
     };
 
@@ -27,7 +27,7 @@ public class Account {
             System.out.println("Enter your password:");
             password = scanner.nextLine();
 
-            for (String accountFile : ACCOUNT_FILES) {
+            for (String accountFile : jsonFiles) {
                 accountType = FileManager.findAccount(accountFile, 0, email, password);
                 if (accountType != null) {
                     return accountType;
@@ -57,8 +57,8 @@ public class Account {
                 id = Long.parseLong(input);
                 if (IdValidator.validateId(id)) {
                     isDuplicate = false;
-                    for (String accountFile : ACCOUNT_FILES) {
-                         if(isDuplicate = FileManager.findAccountById(accountFile, id)){
+                    for (String accountFile : jsonFiles) {
+                         if(isDuplicate = FileManager.findAccountById(jsonFiles, id)){
                              break;
                          }
                     }

@@ -115,35 +115,35 @@ public class FileManager {
         return null;
     }
 
-    public static boolean findAccountById(String fileName, long idToCheck) {
+    public static boolean findAccountById(String [] jsonFiles, long idToCheck) {
         Gson gson = new Gson();
-        List<Commensal> commensalList = new ArrayList<>();
+        List<Commensal> commensalList;
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-            StringBuilder dataInJSON = new StringBuilder();
-            String line;
+        for (String fileName : jsonFiles) {
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+                StringBuilder dataInJSON = new StringBuilder();
+                String line;
 
-            while ((line = bufferedReader.readLine()) != null) {
-                dataInJSON.append(line);
-            }
-
-            Type accountListType = new TypeToken<ArrayList<Commensal>>() {
-            }.getType();
-            commensalList = gson.fromJson(dataInJSON.toString(), accountListType);
-
-            for (Commensal commensal : commensalList) {
-                if (commensal.getId() == idToCheck) {
-                    return true; // The ID already exists in the records
+                while ((line = bufferedReader.readLine()) != null) {
+                    dataInJSON.append(line);
                 }
-            }
 
-        } catch (IOException e) {
-            System.err.println("Error at finding data of the file: " + e.getMessage());
+                Type accountListType = new TypeToken<ArrayList<Commensal>>() {}.getType();
+                commensalList = gson.fromJson(dataInJSON.toString(), accountListType);
+
+                for (Commensal commensal : commensalList) {
+                    if (commensal.getId() == idToCheck) {
+                        return true; // El ID ya existe en los registros
+                    }
+                }
+
+            } catch (IOException e) {
+                System.err.println("Error at finding data in the file " + fileName + ": " + e.getMessage());
+            }
         }
 
-        return false; // The ID does not exist in the records
+        return false; // El ID no existe en los registros
     }
-
     public static void eraseAccount(String fileName, int idSearch) {
         fileName = fileName + ".json";
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
