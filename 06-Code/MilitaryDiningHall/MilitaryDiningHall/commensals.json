@@ -79,5 +79,14 @@
     "grade": "publicServant",
     "type": "commensals",
     "balance": 0.0
+  },
+  {
+    "id": 1633668366,
+    "name": "Daniel Segarra",
+    "email": "danielsegarra12@gmail.com",
+    "password": "Lola123",
+    "grade": "Colonel",
+    "type": "commensals",
+    "balance": 0.0
   }
 ]

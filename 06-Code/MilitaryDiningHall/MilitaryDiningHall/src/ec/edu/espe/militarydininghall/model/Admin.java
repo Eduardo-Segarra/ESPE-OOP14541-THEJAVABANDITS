@@ -1,4 +1,3 @@
-
 package ec.edu.espe.militarydininghall.model;
 
 import com.google.gson.Gson;
@@ -30,8 +29,6 @@ public class Admin {
         this.type = type;
         this.balance = balance;
     }
-
-
 
     /**
      * @return the id
@@ -144,7 +141,8 @@ public class Admin {
         int idSearch = 0, attempts;
         float updateBalance;
         String foundAccount = "", fileName = "";
-        String[] partsData;
+        String[] partsData, jsonFiles = {"commensals.json", "militaryChefs.json", "administrators.json",
+            "generalAdministrator.json"};
 
         for (attempts = 0; attempts < 5; attempts++) {
             System.out.println("Please type the ID of the account you want to update the account balance:");
@@ -152,22 +150,12 @@ public class Admin {
                 idSearch = scanner.nextInt();
                 scanner.nextLine(); // Consume the newline character
 
-                foundAccount = FileManager.findAccount("commensals.json", idSearch, "", "");
-                if (foundAccount != null) {
-                    fileName = "commensals";
-                    break;
-                }
-
-                foundAccount = FileManager.findAccount("administrators.json", idSearch, "", "");
-                if (foundAccount != null) {
-                    fileName = "administrators";
-                    break;
-                }
-
-                foundAccount = FileManager.findAccount("generalAdministrator.json", idSearch, "", "");
-                if (foundAccount != null) {
-                    fileName = "generalAdministrator";
-                    break;
+                for (String accountFile : jsonFiles) {
+                    foundAccount = FileManager.findAccount(accountFile, idSearch, "", "");
+                    if (foundAccount != null) {
+                        fileName = accountFile;
+                        break;
+                    }
                 }
 
                 if (attempts < 4) {
@@ -194,48 +182,41 @@ public class Admin {
         Commensal outdatedAccountBalance = new Commensal(Long.parseLong(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
 
         do {
-        System.out.println("Enter the desired amount: ");
-        while (!scanner.hasNextFloat()) {
-            System.out.println("Invalid input. Please enter a valid amount.");
-            scanner.next(); // Consume the invalid input
-        }
-        updateBalance = scanner.nextFloat();
-        if (updateBalance <= 0) {
-            System.out.println("Amount must be greater than zero. Please try again.");
-        }
-    } while (updateBalance <= 0);
+            System.out.println("Enter the desired amount: ");
+            while (!scanner.hasNextFloat()) {
+                System.out.println("Invalid input. Please enter a valid amount.");
+                scanner.next(); // Consume the invalid input
+            }
+            updateBalance = scanner.nextFloat();
+            if (updateBalance <= 0) {
+                System.out.println("Amount must be greater than zero. Please try again.");
+            }
+        } while (updateBalance <= 0);
 
-    partsData[6] = Float.toString(updateBalance);
+        partsData[6] = Float.toString(updateBalance);
 
-    Commensal newAccountBalance = new Commensal(Long.parseLong(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
+        Commensal newAccountBalance = new Commensal(Long.parseLong(partsData[0]), partsData[1], partsData[2], partsData[3], partsData[4], partsData[5], Float.parseFloat(partsData[6]));
 
-    FileManager.updateAccount(newAccountBalance, fileName, outdatedAccountBalance);
-}
+        FileManager.updateAccount(newAccountBalance, fileName, outdatedAccountBalance);
+    }
 
     public static void editRegister(int id, String email, String password) {
         Scanner scanner = new Scanner(System.in);
         int attempts, idSearch = 0;
-        String foundAccount = "", fileName = "";
-        String[] partsData;
+        String foundAccount = "";
+        String[] partsData, jsonFiles = {"commensals.json", "militaryChefs.json", "administrators.json",
+            "generalAdministrator.json"};
 
         for (attempts = 0; attempts < 5; attempts++) {
             System.out.println("Enter de ID: ");
             try {
                 idSearch = scanner.nextInt();
 
-                foundAccount = FileManager.findAccount("commensals.json", idSearch, "", "");
-                if (foundAccount != null) {
-                    break;
-                }
-
-                foundAccount = FileManager.findAccount("administrators.json", idSearch, "", "");
-                if (foundAccount != null) {
-                    break;
-                }
-
-                foundAccount = FileManager.findAccount("generalAdministrator.json", idSearch, "", "");
-                if (foundAccount != null) {
-                    break;
+                for (String accountFile : jsonFiles) {
+                    foundAccount = FileManager.findAccount(accountFile, idSearch, "", "");
+                    if (foundAccount != null) {
+                        break;
+                    }
                 }
 
                 if (attempts < 5 && foundAccount == null) { // Check to avoid printing after the last attempt

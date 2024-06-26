@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import static utils.Validation.validateId;
 
 /**
  *
@@ -43,33 +42,13 @@ public class Account {
         return null;
     }
 
-public static String createNewAccount() {
+    public static String createNewAccount() {
         Scanner scanner = new Scanner(System.in);
         long id = 0;
-        boolean isValid = false;
-        boolean isDuplicate = false;
-        String name, grade, type, email, password, idInput;
+        String name, grade, type, email, password;
 
-        while (!isValid || isDuplicate) {
-            System.out.println("Enter your ID (10 digits):");
-            idInput = scanner.nextLine();
-            isDuplicate = false;
-            isValid = validateId(idInput);
-            if (isValid) {
-                id = Long.parseLong(idInput);  
-                for (String accountFile : jsonFiles) {
-                    if (isDuplicate = FileManager.findAccountById(accountFile, id)) {
-                        break;
-                    }
-                }
-                if (isDuplicate) {
-                    System.out.println("The ID has already been entered. Please try again.");
-                }
-            } else {
-                System.out.println("Invalid input. Please enter a numeric 10-digit ID.");
-            }
-        }
-   
+        id = Validation.validateId();
+
         System.out.println("Enter your name:");
         name = scanner.nextLine();
         System.out.println("Enter your military grade (if you are a public servant type publicServant):");
