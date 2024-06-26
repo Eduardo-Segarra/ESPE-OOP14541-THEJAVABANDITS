@@ -129,8 +129,13 @@ public class Validation {
 
     }
 
-    public static boolean validateId(long id) {
-
+    public static boolean validateId(String idInput) {
+        long id=0;
+        if (idInput.length() == 10){
+            id = Long.parseLong(idInput);
+        }else{
+            return false;
+        }
         long[] digits = new long[10];
         long remainder;
         long doubledDigit;
