@@ -88,5 +88,14 @@
     "grade": "Colonel",
     "type": "commensals",
     "balance": 0.0
+  },
+  {
+    "id": 850595455,
+    "name": "jennifer",
+    "email": "jenny@gmail.com",
+    "password": "1234",
+    "grade": "publicServant",
+    "type": "commensals",
+    "balance": 0.0
   }
 ]
