@@ -4,6 +4,9 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.controller.CloudController;
+import static ec.edu.espe.militarydininghall.controller.CloudController.create;
+import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
 import utils.Validation;
 
@@ -38,9 +41,9 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btmCreateAccount = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        pwdPassword = new javax.swing.JPasswordField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        pwdName1 = new javax.swing.JTextField();
+        pwfPassword = new javax.swing.JPasswordField();
+        cmbGrade = new javax.swing.JComboBox<>();
+        txfName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txfId = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
@@ -88,16 +91,16 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
 
         jLabel5.setText("Enter your password:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Army General", "Major General", "Brigadier General", "Colonel", "Lieutenat Colonel", "Major", "Captian", "Lieutenant", "Seconde lieutenant", "Cadet", "Senior sub officer", "1st Sub officer", "2nd Sergeant", "1st Corporal", "2nd Corporal", "Soldier", "Conscript", "publicServant" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cmbGrade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Army General", "Major General", "Brigadier General", "Colonel", "Lieutenat Colonel", "Major", "Captian", "Lieutenant", "Seconde lieutenant", "Cadet", "Senior sub officer", "1st Sub officer", "2nd Sergeant", "1st Corporal", "2nd Corporal", "Soldier", "Conscript", "publicServant" }));
+        cmbGrade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cmbGradeActionPerformed(evt);
             }
         });
 
-        pwdName1.addActionListener(new java.awt.event.ActionListener() {
+        txfName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pwdName1ActionPerformed(evt);
+                txfNameActionPerformed(evt);
             }
         });
 
@@ -115,11 +118,11 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(44, 44, 44)
-                                .addComponent(pwdName1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txfName, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cmbGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -128,7 +131,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                                 .addGap(24, 24, 24)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txfId, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                                    .addComponent(pwdPassword)
+                                    .addComponent(pwfPassword)
                                     .addComponent(txfEmail)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
@@ -141,11 +144,11 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(pwdName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -153,7 +156,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(pwdPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -199,13 +202,13 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txfEmailActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cmbGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGradeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cmbGradeActionPerformed
 
-    private void pwdName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdName1ActionPerformed
+    private void txfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pwdName1ActionPerformed
+    }//GEN-LAST:event_txfNameActionPerformed
 
     private void btmCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCreateAccountActionPerformed
         String emai = txfEmail.getText();
@@ -224,9 +227,15 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
             FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
             this.setVisible(false);
             frmCommensalMenu.setVisible(true);
+            
+            Commensal commensal = new Commensal(txfId.getText(), txfName.getText(), txfEmail.getText(), pwfPassword.getText(), cmbGrade.getSelectedItem().toString(), "commensal", 0.0F);
+            CloudController.create(commensal);
             break;
         }
-
+ 
+ 
+ 
+ 
     }//GEN-LAST:event_btmCreateAccountActionPerformed
 
     /**
@@ -273,7 +282,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmCreateAccount;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbGrade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -283,9 +292,9 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTextField pwdName1;
-    private javax.swing.JPasswordField pwdPassword;
+    private javax.swing.JPasswordField pwfPassword;
     private javax.swing.JTextField txfEmail;
     private javax.swing.JTextField txfId;
+    private javax.swing.JTextField txfName;
     // End of variables declaration//GEN-END:variables
 }
