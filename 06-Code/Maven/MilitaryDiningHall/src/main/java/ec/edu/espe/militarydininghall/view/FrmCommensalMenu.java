@@ -34,12 +34,15 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        itmLogout = new javax.swing.JMenuItem();
+        itmExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        itmBookDay = new javax.swing.JMenuItem();
+        itmCancelDayBooking = new javax.swing.JMenuItem();
+        itmSeeReservations = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        itmSeeAccountBalance = new javax.swing.JMenuItem();
+        itmHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,25 +60,25 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(100, 100, 100))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(24, 24, 24)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
@@ -88,41 +91,66 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
         jMenu1.setText("MilitaryDinningHall");
 
-        jMenuItem4.setText("Logout");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        itmLogout.setText("Logout");
+        itmLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                itmLogoutActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        jMenu1.add(itmLogout);
 
-        jMenuItem5.setText("Exit");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        itmExit.setText("Exit");
+        itmExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                itmExitActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        jMenu1.add(itmExit);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Day managment");
 
-        jMenuItem1.setText("Book a Day");
-        jMenu2.add(jMenuItem1);
-
-        jMenuItem2.setText("Cancel a day's booking");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        itmBookDay.setText("Book a Day");
+        itmBookDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                itmBookDayActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(itmBookDay);
 
-        jMenuItem3.setText("See reservations");
-        jMenu2.add(jMenuItem3);
+        itmCancelDayBooking.setText("Cancel a day's booking");
+        itmCancelDayBooking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmCancelDayBookingActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmCancelDayBooking);
+
+        itmSeeReservations.setText("See reservations");
+        itmSeeReservations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmSeeReservationsActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmSeeReservations);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Account");
+
+        itmSeeAccountBalance.setText("See account balance");
+        itmSeeAccountBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmSeeAccountBalanceActionPerformed(evt);
+            }
+        });
+        jMenu3.add(itmSeeAccountBalance);
+
+        jMenuBar1.add(jMenu3);
+
+        itmHelp.setText("Help");
+        jMenuBar1.add(itmHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -146,17 +174,39 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void itmCancelDayBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCancelDayBookingActionPerformed
+        FrmCancelAppointment frmCancelAppointment = new FrmCancelAppointment();
+        this.setAlwaysOnTop(false);
+        frmCancelAppointment.setVisible(true);
+    }//GEN-LAST:event_itmCancelDayBookingActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    private void itmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmLogoutActionPerformed
+        FrmLogin frmLogin = new FrmLogin();
+        this.setVisible(false);
+        frmLogin.setVisible(true);
+    }//GEN-LAST:event_itmLogoutActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_itmExitActionPerformed
+
+    private void itmBookDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBookDayActionPerformed
+        FrmBookDay frmBookDay = new FrmBookDay();
+        this.setVisible(false);
+        frmBookDay.setVisible(true);
+    }//GEN-LAST:event_itmBookDayActionPerformed
+
+    private void itmSeeReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeReservationsActionPerformed
+        FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment();
+        this.setVisible(false);
+        frmSeeAppointment.setVisible(true);
+    }//GEN-LAST:event_itmSeeReservationsActionPerformed
+
+    private void itmSeeAccountBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeAccountBalanceActionPerformed
+        FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment();
+        this.setVisible(false);
+        frmSeeAppointment.setVisible(true);
+    }//GEN-LAST:event_itmSeeAccountBalanceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,6 +247,13 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itmBookDay;
+    private javax.swing.JMenuItem itmCancelDayBooking;
+    private javax.swing.JMenuItem itmExit;
+    private javax.swing.JMenu itmHelp;
+    private javax.swing.JMenuItem itmLogout;
+    private javax.swing.JMenuItem itmSeeAccountBalance;
+    private javax.swing.JMenuItem itmSeeReservations;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -204,12 +261,8 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
