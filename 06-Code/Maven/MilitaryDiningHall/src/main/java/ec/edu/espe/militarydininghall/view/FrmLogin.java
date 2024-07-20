@@ -4,6 +4,11 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.model.Admin;
+import ec.edu.espe.militarydininghall.model.Chef;
+import ec.edu.espe.militarydininghall.model.Commensal;
+import ec.edu.espe.militarydininghall.model.GeneralAdmin;
+
 /**
  *
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
@@ -92,7 +97,7 @@ public class FrmLogin extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btmCreateNewAccount)
                     .addComponent(jLabel3)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -100,8 +105,8 @@ public class FrmLogin extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pwdEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pwdEmail)
                             .addComponent(pwdPassword))))
                 .addContainerGap(131, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -173,9 +178,31 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btmLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmLoginActionPerformed
         //read user for the data base
-        FrmAdminMenu frmMilitaryDinindHallSystemAdminMenu = new FrmAdminMenu();
-        this.setVisible(false);
-        frmMilitaryDinindHallSystemAdminMenu.setVisible(true);
+        String typeOfAccount = "";
+        
+        switch (typeOfAccount){
+            case "commensals":
+                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
+                Commensal commensal = new Commensal(typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, TOP_ALIGNMENT);
+                this.setVisible(false);
+                frmCommensalMenu.setVisible(true);
+            case "administrators":
+                FrmAdminMenu frmAdminMenu = new FrmAdminMenu();
+                Admin admin = new Admin(typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, TOP_ALIGNMENT);
+                this.setVisible(false);
+                frmAdminMenu.setVisible(true);
+            case "militaryChef":
+                FrmChefMenu frmChefMenu = new FrmChefMenu();
+                Chef chef = new Chef(typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, TOP_ALIGNMENT);
+                this.setVisible(false);
+                frmChefMenu.setVisible(true);
+            case "generalAdministrator":
+                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin();
+                GeneralAdmin generalAdmin = new GeneralAdmin(typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, TOP_ALIGNMENT);
+                this.setVisible(false);
+                frmGeneralAdmin.setVisible(true);
+        }
+
     }//GEN-LAST:event_btmLoginActionPerformed
 
     /**

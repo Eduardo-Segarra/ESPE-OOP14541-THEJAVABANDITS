@@ -61,5 +61,23 @@ public class Validation {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-        
+     
+    public static boolean validBoolean() {
+        Scanner scanner = new Scanner(System.in);
+        boolean userInput;
+
+        while (true) {
+            try {
+                userInput = scanner.nextBoolean();
+                if (userInput == true || userInput == false) {
+                    return userInput;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid entry. Please type true or false.");
+                scanner.next();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }
