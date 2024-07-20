@@ -48,7 +48,7 @@ public class CloudController {
 
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase("oop");
-            
+
             for (String accountFiles : collections) {
                 MongoCollection<Document> collection = database.getCollection(accountFiles);
 
@@ -66,4 +66,52 @@ public class CloudController {
         }
     }
 
+    public static String findAccountById(String id) {
+    // Conexión a MongoDB
+    ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+    
+    try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+        MongoDatabase database = mongoClient.getDatabase("oop");
+        
+        // Verifica las colecciones disponibles
+        for (String collectionName : database.listCollectionNames()) {
+            System.out.println("Searching in collection: " + collectionName); // Mensaje de depuración
+            
+            MongoCollection<Document> collection = database.getCollection(collectionName);
+
+            // Ajusta la consulta para buscar un ID de tipo String
+            Document query = new Document("id", id); 
+            Document foundDocument = collection.find(query).first();
+
+            if (foundDocument != null) {
+                System.out.println("Document found: " + foundDocument.toJson()); // Mensaje de depuración
+                return foundDocument.toJson();
+            }
+        }
+        System.out.println("No document found."); // Mensaje de depuración
+        return null;
+    } catch (Exception e) {
+        e.printStackTrace(); // Imprime la excepción para depuración
+        return null;
+    }
+}
+
+
+        public static boolean updateCommensalBalance(String id, double newBalance) {
+        String connectionString = "mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/";
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoCollection<Document> collection = database.getCollection("commensals");
+
+            Document query = new Document("id", id);
+            Document update = new Document("$set", new Document("balance", newBalance));
+
+            Document result = collection.findOneAndUpdate(query, update);
+
+            return result != null;
+        } catch (Exception e) {
+            e.printStackTrace();  // Añade esta línea para depuración
+            return false;
+        }
+    }
 }

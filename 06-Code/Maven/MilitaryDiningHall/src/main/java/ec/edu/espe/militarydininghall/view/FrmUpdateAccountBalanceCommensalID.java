@@ -4,12 +4,33 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.controller.CloudController;
+import ec.edu.espe.militarydininghall.model.Commensal;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
  */
 public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
 
+    private Commensal commensal;
+
+public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
+    this.commensal = commensal;
+    initComponents();
+
+    // Inicializa los campos del formulario con los datos del commensal
+    if (commensal != null) {
+        jLabel2.setText("Updating the account balance of " + commensal.getName() + " with ID: " + commensal.getId());
+        jLabel3.setText(commensal.getName() + " has: $" + commensal.getBalance());
+    } else {
+        jLabel2.setText("Updating the account balance");
+        jLabel3.setText("Account details not available");
+    }
+}
+
+    
     /**
      * Creates new form FrmUpdateAccountBalanceForACommensalWithTheIDSearched
      */
@@ -69,6 +90,12 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
         jLabel3.setText("[Name of the person] have: [amount of money]");
 
         jLabel4.setText("How much money [name of the person] wants to enter?:");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("$");
 
@@ -156,8 +183,37 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        //research the ID in the databese:
+ try {
+        // Intenta obtener el nuevo balance desde el campo de texto
+        double newBalance = Double.parseDouble(jTextField1.getText());
+        
+        // Verifica que commensal no sea null
+        if (commensal == null || commensal.getId() == null || commensal.getId().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Commensal object is not initialized properly.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Llama al método updateCommensalBalance con el ID y nuevo balance
+        boolean success = CloudController.updateCommensalBalance(commensal.getId(), newBalance);
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Balance updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            new FrmAdminMenu().setVisible(true);
+            this.dispose();  // Cierra el formulario actual
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to update balance.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (NumberFormatException e) {
+        // Maneja el caso en que el texto no se puede convertir a un número
+        JOptionPane.showMessageDialog(this, "Please enter a valid amount.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        // Maneja cualquier otro error
+        JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btmSearchActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

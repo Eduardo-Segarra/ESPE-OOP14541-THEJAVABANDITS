@@ -4,6 +4,11 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import com.google.gson.Gson;
+import ec.edu.espe.militarydininghall.controller.CloudController;
+import ec.edu.espe.militarydininghall.model.Commensal;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
@@ -161,7 +166,23 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        //research the ID in the databese:
+        try {
+        String id = jTextField1.getText();
+        String accountJson = CloudController.findAccountById(id);
+        
+        if (accountJson != null) {
+            Gson gson = new Gson();
+            Commensal commensal = gson.fromJson(accountJson, Commensal.class);
+            
+            FrmUpdateAccountBalanceCommensalID frmUpdateAccountBalanceCommensalID = new FrmUpdateAccountBalanceCommensalID(commensal);
+            this.setVisible(false);
+            frmUpdateAccountBalanceCommensalID.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Account not found", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btmSearchActionPerformed
 
     /**
