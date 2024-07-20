@@ -232,10 +232,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
             CloudController.create(commensal);
             break;
         }
- 
- 
- 
- 
+
     }//GEN-LAST:event_btmCreateAccountActionPerformed
 
     /**

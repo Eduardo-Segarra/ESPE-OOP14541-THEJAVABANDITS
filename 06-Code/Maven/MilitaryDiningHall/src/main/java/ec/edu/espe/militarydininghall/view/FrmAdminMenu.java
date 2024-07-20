@@ -31,6 +31,18 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
+        jLabel1 = new javax.swing.JLabel();
+        lblNameOfAccount = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblAccountBalance = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblBreakfast = new javax.swing.JLabel();
+        lblLunch = new javax.swing.JLabel();
+        lblDinner = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuMilitaryDiningHall = new javax.swing.JMenu();
         itmLogout = new javax.swing.JMenuItem();
@@ -51,6 +63,31 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         jMenu5.setText("jMenu5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Welcome! ");
+
+        lblNameOfAccount.setText("jLabel2");
+
+        jLabel4.setText("Your account balance is:");
+
+        lblAccountBalance.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAccountBalance.setText("jLabel5");
+
+        jLabel2.setText("$");
+
+        jLabel3.setText("This month the dishes are:");
+
+        jLabel5.setText("Breakfast:");
+
+        jLabel6.setText("Lunch: ");
+
+        jLabel7.setText("Dinner:");
+
+        lblBreakfast.setText("jLabel8");
+
+        lblLunch.setText("jLabel8");
+
+        lblDinner.setText("jLabel8");
 
         mnuMilitaryDiningHall.setText("Military Dining Hall");
 
@@ -129,11 +166,64 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 619, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNameOfAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAccountBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addGap(62, 62, 62))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDinner, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblLunch, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblNameOfAccount)
+                    .addComponent(jLabel4)
+                    .addComponent(lblAccountBalance)
+                    .addComponent(jLabel2))
+                .addGap(31, 31, 31)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblBreakfast))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblLunch))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblDinner))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,7 +250,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmLogoutActionPerformed
 
     private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_itmExitActionPerformed
 
     private void itmEditRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEditRegisterActionPerformed
@@ -259,10 +349,22 @@ public class FrmAdminMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmLogout;
     private javax.swing.JMenuItem itmSeeReservation;
     private javax.swing.JMenuItem itmUpdateTheAccountBalanceForACommensal;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JLabel lblAccountBalance;
+    private javax.swing.JLabel lblBreakfast;
+    private javax.swing.JLabel lblDinner;
+    private javax.swing.JLabel lblLunch;
+    private javax.swing.JLabel lblNameOfAccount;
     private javax.swing.JMenu mnuAdministrationOfTheUsers;
     private javax.swing.JMenu mnuDayManagment;
     private javax.swing.JMenu mnuHelp;
