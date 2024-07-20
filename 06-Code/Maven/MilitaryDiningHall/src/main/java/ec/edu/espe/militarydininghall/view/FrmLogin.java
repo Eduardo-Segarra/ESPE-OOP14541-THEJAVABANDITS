@@ -8,6 +8,9 @@ import ec.edu.espe.militarydininghall.model.Admin;
 import ec.edu.espe.militarydininghall.model.Chef;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.GeneralAdmin;
+import ec.edu.espe.militarydininghall.controller.CloudController;
+import javax.swing.JOptionPane;
+import utils.Validation;
 
 /**
  *
@@ -35,11 +38,11 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        pwdEmail = new javax.swing.JTextField();
+        txfEmail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btmCreateNewAccount = new javax.swing.JButton();
-        pwdPassword = new javax.swing.JPasswordField();
+        pwfPassword = new javax.swing.JPasswordField();
         btmLogin = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
@@ -53,23 +56,23 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(102, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(85, 85, 85))
+                .addGap(89, 89, 89))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         jLabel1.setText("Email:");
 
-        pwdEmail.addActionListener(new java.awt.event.ActionListener() {
+        txfEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pwdEmailActionPerformed(evt);
+                txfEmailActionPerformed(evt);
             }
         });
 
@@ -96,23 +99,24 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btmCreateNewAccount)
-                    .addComponent(jLabel3)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pwdEmail)
-                            .addComponent(pwdPassword))))
-                .addContainerGap(131, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btmLogin)
-                .addGap(159, 159, 159))
+                            .addComponent(btmCreateNewAccount)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                                    .addComponent(pwfPassword)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(btmLogin)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,11 +124,11 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(pwdEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(pwdPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btmLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
@@ -166,9 +170,9 @@ public class FrmLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pwdEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdEmailActionPerformed
+    private void txfEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEmailActionPerformed
 
-    }//GEN-LAST:event_pwdEmailActionPerformed
+    }//GEN-LAST:event_txfEmailActionPerformed
 
     private void btmCreateNewAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCreateNewAccountActionPerformed
         FrmCreateANewAccount frmCratrANewAccount = new FrmCreateANewAccount();
@@ -177,30 +181,48 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btmCreateNewAccountActionPerformed
 
     private void btmLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmLoginActionPerformed
-        //read user for the data base
-        String typeOfAccount = "";
-        
-        switch (typeOfAccount){
-            case "commensals":
-                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
-                Commensal commensal = new Commensal(typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, TOP_ALIGNMENT);
-                this.setVisible(false);
-                frmCommensalMenu.setVisible(true);
-            case "administrators":
-                FrmAdminMenu frmAdminMenu = new FrmAdminMenu();
-                Admin admin = new Admin(typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, TOP_ALIGNMENT);
-                this.setVisible(false);
-                frmAdminMenu.setVisible(true);
-            case "militaryChef":
-                FrmChefMenu frmChefMenu = new FrmChefMenu();
-                Chef chef = new Chef(typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, TOP_ALIGNMENT);
-                this.setVisible(false);
-                frmChefMenu.setVisible(true);
-            case "generalAdministrator":
-                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin();
-                GeneralAdmin generalAdmin = new GeneralAdmin(typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, typeOfAccount, TOP_ALIGNMENT);
-                this.setVisible(false);
-                frmGeneralAdmin.setVisible(true);
+        String loginIsCorrect = CloudController.login(txfEmail.getText(), pwfPassword.getText());
+
+        while (true) {
+            if (loginIsCorrect == null) {
+                JOptionPane.showMessageDialog(this, "Invalid email or password");
+                break;
+            }
+
+            //String id = CloudController.obtainIdFromJSON(loginIsCorrect);
+            //String name = CloudController.obtainNameFromJSON(loginIsCorrect);
+            //String grade = CloudController.obtainGradeFromJSON(loginIsCorrect);
+            String type = CloudController.obtainTypeFromJSON(loginIsCorrect);
+            //float balance = CloudController.obtainBalanceFromJSON(type);
+
+            switch (type) {
+                case "commensal":
+                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
+                    //Commensal commensal = new Commensal(id, name, email, password, grade, type, balance);
+                    this.setVisible(false);
+                    frmCommensalMenu.setVisible(true);
+                    break;
+                case "administrators":
+                    FrmAdminMenu frmAdminMenu = new FrmAdminMenu();
+                    //Admin admin = new Admin(id, name, email, password, grade, type, balance);
+                    this.setVisible(false);
+                    frmAdminMenu.setVisible(true);
+                    break;
+                case "militaryChef":
+                    FrmChefMenu frmChefMenu = new FrmChefMenu();
+                    //Chef chef = new Chef(id, name, email, password, grade, type, balance);
+                    this.setVisible(false);
+                    frmChefMenu.setVisible(true);
+                    break;
+                case "generalAdministrator":
+                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin();
+                    //GeneralAdmin generalAdmin = new GeneralAdmin(id, name, email, password, grade, type, balance);
+                    this.setVisible(false);
+                    frmGeneralAdmin.setVisible(true);
+                    break;
+            }
+
+            break;
         }
 
     }//GEN-LAST:event_btmLoginActionPerformed
@@ -265,7 +287,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField pwdEmail;
-    private javax.swing.JPasswordField pwdPassword;
+    private javax.swing.JPasswordField pwfPassword;
+    private javax.swing.JTextField txfEmail;
     // End of variables declaration//GEN-END:variables
 }
