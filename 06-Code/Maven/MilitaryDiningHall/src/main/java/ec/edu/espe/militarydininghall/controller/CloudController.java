@@ -13,13 +13,16 @@ import org.bson.Document;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mongodb.client.MongoClient;
-import com.mongodb.MongoClientURI;
 
 /**
  *
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
  */
 public class CloudController {
+
+    private static final String[] collections = {
+        "commensals", "militaryChefs", "administrators", "generalAdministrator"
+    };
 
     public static boolean create(Object object) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
@@ -40,56 +43,24 @@ public class CloudController {
         }
     }
 
-    public static String obtainIdFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("id").getAsString();
-    }
-
-    public static String obtainNameFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("name").getAsString();
-    }
-
-    public static String obtainEmailFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("email").getAsString();
-    }
-
-    public static String obtainPasswordFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("password").getAsString();
-    }
-
-    public static String obtainGradeFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("grade").getAsString();
-    }
-
-    public static String obtainTypeFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("type").getAsString();
-    }
-
-    public static Float obtainBalanceFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return Float.valueOf(jsonObject.get("balance").getAsString());
-    }
-
     public static String login(String email, String password) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
 
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
             MongoDatabase database = mongoClient.getDatabase("oop");
-            MongoCollection<Document> collection = database.getCollection("commensals");
+            
+            for (String accountFiles : collections) {
+                MongoCollection<Document> collection = database.getCollection(accountFiles);
 
-            Document query = new Document("email", email).append("password", password);
-            Document findedDocument = collection.find(query).first();
+                Document query = new Document("email", email).append("password", password);
+                Document findedDocument = collection.find(query).first();
 
-            if (findedDocument != null) {
-                return findedDocument.toJson();
-            } else {
-                return null;
+                if (findedDocument != null) {
+                    return findedDocument.toJson();
+                }
             }
+
+            return null;
         } catch (Exception e) {
             return null;
         }

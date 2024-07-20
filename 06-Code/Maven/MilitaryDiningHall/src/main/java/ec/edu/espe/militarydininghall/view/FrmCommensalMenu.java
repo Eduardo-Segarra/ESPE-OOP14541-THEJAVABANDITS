@@ -187,7 +187,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmLogoutActionPerformed
 
     private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_itmExitActionPerformed
 
     private void itmBookDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBookDayActionPerformed

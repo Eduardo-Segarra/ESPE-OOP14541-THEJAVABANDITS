@@ -10,7 +10,7 @@ import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.GeneralAdmin;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import javax.swing.JOptionPane;
-import utils.Validation;
+import utils.DataCollection;
 
 /**
  *
@@ -189,34 +189,34 @@ public class FrmLogin extends javax.swing.JFrame {
                 break;
             }
 
-            //String id = CloudController.obtainIdFromJSON(loginIsCorrect);
-            //String name = CloudController.obtainNameFromJSON(loginIsCorrect);
-            //String grade = CloudController.obtainGradeFromJSON(loginIsCorrect);
-            String type = CloudController.obtainTypeFromJSON(loginIsCorrect);
-            //float balance = CloudController.obtainBalanceFromJSON(type);
+            //String id = DataCollection.obtainIdFromJSON(loginIsCorrect);
+            //String name = DataCollection.obtainNameFromJSON(loginIsCorrect);
+            //String grade = DataCollection.obtainGradeFromJSON(loginIsCorrect);
+            String type = DataCollection.obtainTypeFromJSON(loginIsCorrect);
+            //float balance = DataCollection.obtainBalanceFromJSON(type);
 
             switch (type) {
                 case "commensal":
                     FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
-                    //Commensal commensal = new Commensal(id, name, email, password, grade, type, balance);
+                    //Commensal commensal = new Commensal(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmCommensalMenu.setVisible(true);
                     break;
                 case "administrators":
                     FrmAdminMenu frmAdminMenu = new FrmAdminMenu();
-                    //Admin admin = new Admin(id, name, email, password, grade, type, balance);
+                    //Admin admin = new Admin(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmAdminMenu.setVisible(true);
                     break;
                 case "militaryChef":
                     FrmChefMenu frmChefMenu = new FrmChefMenu();
-                    //Chef chef = new Chef(id, name, email, password, grade, type, balance);
+                    //Chef chef = new Chef(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmChefMenu.setVisible(true);
                     break;
                 case "generalAdministrator":
                     FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin();
-                    //GeneralAdmin generalAdmin = new GeneralAdmin(id, name, email, password, grade, type, balance);
+                    //GeneralAdmin generalAdmin = new GeneralAdmin(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmGeneralAdmin.setVisible(true);
                     break;
