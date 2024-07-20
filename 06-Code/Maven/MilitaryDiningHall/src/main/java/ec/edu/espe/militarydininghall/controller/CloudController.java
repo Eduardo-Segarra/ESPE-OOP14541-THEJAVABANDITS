@@ -67,51 +67,63 @@ public class CloudController {
     }
 
     public static String findAccountById(String id) {
-    // Conexión a MongoDB
+        
     ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
     
     try (MongoClient mongoClient = MongoClients.create(connectionString)) {
         MongoDatabase database = mongoClient.getDatabase("oop");
         
-        // Verifica las colecciones disponibles
         for (String collectionName : database.listCollectionNames()) {
-            System.out.println("Searching in collection: " + collectionName); // Mensaje de depuración
+            System.out.println("Searching in collection: " + collectionName); 
             
             MongoCollection<Document> collection = database.getCollection(collectionName);
 
-            // Ajusta la consulta para buscar un ID de tipo String
+            
             Document query = new Document("id", id); 
             Document foundDocument = collection.find(query).first();
 
             if (foundDocument != null) {
-                System.out.println("Document found: " + foundDocument.toJson()); // Mensaje de depuración
+                System.out.println("Document found: " + foundDocument.toJson()); 
                 return foundDocument.toJson();
             }
         }
-        System.out.println("No document found."); // Mensaje de depuración
+        System.out.println("No document found."); 
         return null;
     } catch (Exception e) {
-        e.printStackTrace(); // Imprime la excepción para depuración
+        e.printStackTrace(); 
         return null;
     }
 }
 
 
-        public static boolean updateCommensalBalance(String id, double newBalance) {
-        String connectionString = "mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/";
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
-            MongoCollection<Document> collection = database.getCollection("commensals");
+        public static boolean updateCommensalBalance(String id, double additionalBalance) {
+    ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+    try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+        MongoDatabase database = mongoClient.getDatabase("oop");
+
+        for (String collectionName : collections) {
+            MongoCollection<Document> collection = database.getCollection(collectionName);
 
             Document query = new Document("id", id);
-            Document update = new Document("$set", new Document("balance", newBalance));
+            Document foundDocument = collection.find(query).first();
 
-            Document result = collection.findOneAndUpdate(query, update);
+            if (foundDocument != null) {
+                
+                double currentBalance = foundDocument.getDouble("balance");
 
-            return result != null;
-        } catch (Exception e) {
-            e.printStackTrace();  // Añade esta línea para depuración
-            return false;
+                double newBalance = currentBalance + additionalBalance;
+
+                Document update = new Document("$set", new Document("balance", newBalance));
+                collection.updateOne(query, update);
+
+                return true; 
+            }
         }
+        return false; 
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
     }
+}
+
 }

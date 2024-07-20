@@ -184,16 +184,18 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
  try {
-        // Intenta obtener el nuevo balance desde el campo de texto
         double newBalance = Double.parseDouble(jTextField1.getText());
-        
-        // Verifica que commensal no sea null
+
+        if (newBalance < 0) {
+            JOptionPane.showMessageDialog(this, "Balance cannot be negative.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         if (commensal == null || commensal.getId() == null || commensal.getId().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Commensal object is not initialized properly.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        // Llama al método updateCommensalBalance con el ID y nuevo balance
         boolean success = CloudController.updateCommensalBalance(commensal.getId(), newBalance);
         if (success) {
             JOptionPane.showMessageDialog(this, "Balance updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -203,10 +205,8 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
             JOptionPane.showMessageDialog(this, "Failed to update balance.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     } catch (NumberFormatException e) {
-        // Maneja el caso en que el texto no se puede convertir a un número
         JOptionPane.showMessageDialog(this, "Please enter a valid amount.", "Error", JOptionPane.ERROR_MESSAGE);
     } catch (Exception e) {
-        // Maneja cualquier otro error
         JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btmSearchActionPerformed
