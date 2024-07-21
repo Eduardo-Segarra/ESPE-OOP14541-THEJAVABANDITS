@@ -17,6 +17,11 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         initComponents();
     }
 
+    public FrmAdminMenu(String adminName) {
+        initComponents();
+        lbldNameAdmin.setText("Welcome, " + adminName + "!");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,8 +36,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
-        jLabel1 = new javax.swing.JLabel();
-        lblNameOfAccount = new javax.swing.JLabel();
+        lbldNameAdmin = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblAccountBalance = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -64,9 +68,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Welcome! ");
-
-        lblNameOfAccount.setText("jLabel2");
+        lbldNameAdmin.setText("Welcome! ");
 
         jLabel4.setText("Your account balance is:");
 
@@ -170,20 +172,6 @@ public class FrmAdminMenu extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNameOfAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAccountBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(62, 62, 62))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
@@ -197,15 +185,25 @@ public class FrmAdminMenu extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lbldNameAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAccountBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addGap(62, 62, 62))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblNameOfAccount)
+                    .addComponent(lbldNameAdmin)
                     .addComponent(jLabel4)
                     .addComponent(lblAccountBalance)
                     .addComponent(jLabel2))
@@ -246,7 +244,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         FrmLogin frmLogin = new FrmLogin();
         this.setVisible(false);
         frmLogin.setVisible(true);
-        
+
     }//GEN-LAST:event_itmLogoutActionPerformed
 
     private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
@@ -349,7 +347,6 @@ public class FrmAdminMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmLogout;
     private javax.swing.JMenuItem itmSeeReservation;
     private javax.swing.JMenuItem itmUpdateTheAccountBalanceForACommensal;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -364,7 +361,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblBreakfast;
     private javax.swing.JLabel lblDinner;
     private javax.swing.JLabel lblLunch;
-    private javax.swing.JLabel lblNameOfAccount;
+    private javax.swing.JLabel lbldNameAdmin;
     private javax.swing.JMenu mnuAdministrationOfTheUsers;
     private javax.swing.JMenu mnuDayManagment;
     private javax.swing.JMenu mnuHelp;

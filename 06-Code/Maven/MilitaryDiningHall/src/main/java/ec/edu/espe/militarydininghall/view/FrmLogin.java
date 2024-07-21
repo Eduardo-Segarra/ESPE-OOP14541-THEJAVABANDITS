@@ -190,32 +190,32 @@ public class FrmLogin extends javax.swing.JFrame {
             }
 
             //String id = DataCollection.obtainIdFromJSON(loginIsCorrect);
-            //String name = DataCollection.obtainNameFromJSON(loginIsCorrect);
+            String name = DataCollection.obtainNameFromJSON(loginIsCorrect);
             //String grade = DataCollection.obtainGradeFromJSON(loginIsCorrect);
             String type = DataCollection.obtainTypeFromJSON(loginIsCorrect);
             //float balance = DataCollection.obtainBalanceFromJSON(type);
 
             switch (type) {
                 case "commensal":
-                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
+                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name);
                     //Commensal commensal = new Commensal(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmCommensalMenu.setVisible(true);
                     break;
                 case "administrators":
-                    FrmAdminMenu frmAdminMenu = new FrmAdminMenu();
+                    FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name);
                     //Admin admin = new Admin(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmAdminMenu.setVisible(true);
                     break;
                 case "militaryChef":
-                    FrmChefMenu frmChefMenu = new FrmChefMenu();
+                    FrmChefMenu frmChefMenu = new FrmChefMenu(name);
                     //Chef chef = new Chef(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmChefMenu.setVisible(true);
                     break;
                 case "generalAdministrator":
-                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin();
+                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name);
                     //GeneralAdmin generalAdmin = new GeneralAdmin(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmGeneralAdmin.setVisible(true);

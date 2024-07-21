@@ -17,6 +17,10 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         initComponents();
     }
 
+    public FrmCommensalMenu(String name) {
+        initComponents();
+        lbldNameCommensal.setText("Welcome! " + name);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,7 +31,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbldNameCommensal = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -46,7 +50,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Welcome! \"name Commensal\"");
+        lbldNameCommensal.setText("Welcome! \"name Commensal\"");
 
         jLabel2.setText("This month the dishes are:");
 
@@ -71,13 +75,13 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
                             .addComponent(jLabel5)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)))
+                        .addComponent(lbldNameCommensal)))
                 .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addComponent(lbldNameCommensal)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -203,9 +207,13 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmSeeReservationsActionPerformed
 
     private void itmSeeAccountBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeAccountBalanceActionPerformed
-        FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment();
-        this.setVisible(false);
-        frmSeeAppointment.setVisible(true);
+        double currentBalance = 100.00; // Este valor debería ser obtenido desde la lógica de negocio o base de datos
+    double lastDeposit = 50.00;     // Este valor debería ser obtenido desde la lógica de negocio o base de datos
+    double latestWithdrawals = 25.00; // Este valor debería ser obtenido desde la lógica de negocio o base de datos
+
+    FrmSeeAccountBalance frmSeeAccountBalance = new FrmSeeAccountBalance();
+    frmSeeAccountBalance.setAccountDetails(currentBalance, lastDeposit, latestWithdrawals);
+    frmSeeAccountBalance.setVisible(true);
     }//GEN-LAST:event_itmSeeAccountBalanceActionPerformed
 
     /**
@@ -254,7 +262,6 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmLogout;
     private javax.swing.JMenuItem itmSeeAccountBalance;
     private javax.swing.JMenuItem itmSeeReservations;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -264,5 +271,6 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbldNameCommensal;
     // End of variables declaration//GEN-END:variables
 }
