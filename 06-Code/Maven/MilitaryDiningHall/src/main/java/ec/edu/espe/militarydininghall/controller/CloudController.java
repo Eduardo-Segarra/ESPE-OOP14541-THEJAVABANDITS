@@ -94,35 +94,47 @@ public class CloudController {
         }
     }
 
-    public static boolean updateCommensalBalance(String id, double additionalBalance) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+public static boolean updateCommensalBalance(String id, double additionalBalance) {
+    ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+    try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+        MongoDatabase database = mongoClient.getDatabase("oop");
 
-            for (String collectionName : collections) {
-                MongoCollection<Document> collection = database.getCollection(collectionName);
+        for (String collectionName : collections) {
+            MongoCollection<Document> collection = database.getCollection(collectionName);
 
-                Document query = new Document("id", id);
-                Document foundDocument = collection.find(query).first();
+            Document query = new Document("id", id);
+            Document foundDocument = collection.find(query).first();
 
-                if (foundDocument != null) {
+            if (foundDocument != null) {
+                Object balanceObj = foundDocument.get("balance");
+                double currentBalance = 0;
 
-                    double currentBalance = foundDocument.getDouble("balance");
-
-                    double newBalance = currentBalance + additionalBalance;
-
-                    Document update = new Document("$set", new Document("balance", newBalance));
-                    collection.updateOne(query, update);
-
-                    return true;
+                // Verifica el tipo del valor y conviértelo a double
+                if (balanceObj instanceof Double) {
+                    currentBalance = (Double) balanceObj;
+                } else if (balanceObj instanceof Integer) {
+                    currentBalance = ((Integer) balanceObj).doubleValue();
+                } else {
+                    // Maneja el caso en que el balance no es ni Double ni Integer
+                    System.err.println("Unexpected type for balance: " + balanceObj.getClass().getName());
+                    return false;
                 }
+
+                double newBalance = currentBalance + additionalBalance;
+
+                Document update = new Document("$set", new Document("balance", newBalance));
+                collection.updateOne(query, update);
+
+                return true;
             }
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
+        return false;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
     }
+}
+
 
     public static AccountDetails getAccountDetails(String id) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");

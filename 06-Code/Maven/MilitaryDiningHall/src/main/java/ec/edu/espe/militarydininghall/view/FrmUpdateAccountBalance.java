@@ -191,7 +191,9 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
     }//GEN-LAST:event_btmSearchActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-
+        FrmAdminMenu frmAdmin = new FrmAdminMenu();
+        this.setVisible(false);
+        frmAdmin.setVisible(true);                                   
     }//GEN-LAST:event_btmCancelActionPerformed
 
     /**
