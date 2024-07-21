@@ -4,6 +4,8 @@
  */
 package ec.edu.espe.militarydininghall.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
@@ -13,6 +15,18 @@ import org.bson.Document;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.model.Filters;
+import static com.mongodb.client.model.Filters.eq;
+import ec.edu.espe.militarydininghall.model.DateBook;
+import ec.edu.espe.militarydininghall.model.Dish;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -67,63 +81,115 @@ public class CloudController {
     }
 
     public static String findAccountById(String id) {
-        
-    ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-    
-    try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-        MongoDatabase database = mongoClient.getDatabase("oop");
-        
-        for (String collectionName : database.listCollectionNames()) {
-            System.out.println("Searching in collection: " + collectionName); 
-            
-            MongoCollection<Document> collection = database.getCollection(collectionName);
 
-            
-            Document query = new Document("id", id); 
-            Document foundDocument = collection.find(query).first();
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
 
-            if (foundDocument != null) {
-                System.out.println("Document found: " + foundDocument.toJson()); 
-                return foundDocument.toJson();
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
+
+            for (String collectionName : database.listCollectionNames()) {
+                System.out.println("Searching in collection: " + collectionName);
+
+                MongoCollection<Document> collection = database.getCollection(collectionName);
+
+                Document query = new Document("id", id);
+                Document foundDocument = collection.find(query).first();
+
+                if (foundDocument != null) {
+                    System.out.println("Document found: " + foundDocument.toJson());
+                    return foundDocument.toJson();
+                }
             }
+            System.out.println("No document found.");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        System.out.println("No document found."); 
-        return null;
-    } catch (Exception e) {
-        e.printStackTrace(); 
-        return null;
     }
-}
 
+    public static boolean updateCommensalBalance(String id, double additionalBalance) {
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
 
-        public static boolean updateCommensalBalance(String id, double additionalBalance) {
-    ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-    try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-        MongoDatabase database = mongoClient.getDatabase("oop");
+            for (String collectionName : collections) {
+                MongoCollection<Document> collection = database.getCollection(collectionName);
 
-        for (String collectionName : collections) {
-            MongoCollection<Document> collection = database.getCollection(collectionName);
+                Document query = new Document("id", id);
+                Document foundDocument = collection.find(query).first();
+
+                if (foundDocument != null) {
+
+                    double currentBalance = foundDocument.getDouble("balance");
+
+                    double newBalance = currentBalance + additionalBalance;
+
+                    Document update = new Document("$set", new Document("balance", newBalance));
+                    collection.updateOne(query, update);
+
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static DateBook getDateBook(long id) {
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoCollection<Document> collection = database.getCollection("datebook");
 
             Document query = new Document("id", id);
-            Document foundDocument = collection.find(query).first();
+            Document result = collection.find(query).first();
 
-            if (foundDocument != null) {
-                
-                double currentBalance = foundDocument.getDouble("balance");
+            if (result != null) {
+                long retrievedId = result.getLong("id");
+                Map<String, Boolean> reservedDays = (Map<String, Boolean>) result.get("reservedDays");
 
-                double newBalance = currentBalance + additionalBalance;
+                DateBook dateBook = new DateBook();
+                dateBook.setId(retrievedId);
+                dateBook.setReservedDays(reservedDays);
 
-                Document update = new Document("$set", new Document("balance", newBalance));
-                collection.updateOne(query, update);
-
-                return true; 
+                return dateBook;
+            } else {
+                Map<String, Boolean> emptyDays = new HashMap<>();
+                DateBook datebook = new DateBook(id, emptyDays);
+                CloudController.saveDateBook(datebook);
+                return datebook;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return false; 
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false;
+        return null;
     }
-}
+
+    public static void saveDateBook(DateBook dateBook) {
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoCollection<Document> collection = database.getCollection("datebook");
+
+            Document datebookDoc = new Document("id", dateBook.getId()).append("reservedDays", dateBook.getReservedDays());
+
+            Document existingDoc = collection.find(new Document("id", dateBook.getId())).first();
+
+            if (existingDoc != null) {
+
+                collection.replaceOne(new Document("id", dateBook.getId()), datebookDoc);
+            } else {
+
+                collection.insertOne(datebookDoc);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -188,8 +188,8 @@ public class FrmLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Invalid email or password");
                 break;
             }
-
-            //String id = DataCollection.obtainIdFromJSON(loginIsCorrect);
+            
+            String id = DataCollection.obtainIdFromJSON(loginIsCorrect);
             String name = DataCollection.obtainNameFromJSON(loginIsCorrect);
             //String grade = DataCollection.obtainGradeFromJSON(loginIsCorrect);
             String type = DataCollection.obtainTypeFromJSON(loginIsCorrect);
@@ -198,9 +198,11 @@ public class FrmLogin extends javax.swing.JFrame {
             switch (type) {
                 case "commensal":
                     FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name);
+                    FrmBookDay.id = Long.parseLong(id);
                     //Commensal commensal = new Commensal(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
-                    frmCommensalMenu.setVisible(true);
+                    frmCommensalMenu.setVisible(true); 
+                    
                     break;
                 case "administrators":
                     FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name);

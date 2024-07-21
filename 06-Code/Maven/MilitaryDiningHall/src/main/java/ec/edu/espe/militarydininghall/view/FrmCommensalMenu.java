@@ -4,6 +4,9 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.controller.CloudController;
+import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
+
 /**
  *
  * @author David Rodriguez,THEJAVABANDITS DCCO-ESPE
@@ -180,7 +183,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
     private void itmCancelDayBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCancelDayBookingActionPerformed
         FrmCancelAppointment frmCancelAppointment = new FrmCancelAppointment();
-        this.setAlwaysOnTop(false);
+        this.setVisible(false);
         frmCancelAppointment.setVisible(true);
     }//GEN-LAST:event_itmCancelDayBookingActionPerformed
 
@@ -204,6 +207,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment();
         this.setVisible(false);
         frmSeeAppointment.setVisible(true);
+        frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(id));
     }//GEN-LAST:event_itmSeeReservationsActionPerformed
 
     private void itmSeeAccountBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeAccountBalanceActionPerformed
