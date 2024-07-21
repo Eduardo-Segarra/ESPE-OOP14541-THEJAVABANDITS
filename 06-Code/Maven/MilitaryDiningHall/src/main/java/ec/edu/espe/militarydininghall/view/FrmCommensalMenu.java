@@ -7,7 +7,6 @@ package ec.edu.espe.militarydininghall.view;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
 
-
 /**
  *
  * @author David Rodriguez,THEJAVABANDITS DCCO-ESPE
@@ -20,13 +19,14 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     public FrmCommensalMenu() {
         initComponents();
     }
- private String commensalId;
- 
-    public FrmCommensalMenu(String name,String id) {
+    private String commensalId;
+
+    public FrmCommensalMenu(String name, String id) {
         initComponents();
         lbldNameCommensal.setText("Welcome! " + name);
         this.commensalId = id;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -215,15 +215,15 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
     private void itmSeeAccountBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeAccountBalanceActionPerformed
         // Obtener los detalles de la cuenta desde el controlador
-    CloudController.AccountDetails accountDetails = CloudController.getAccountDetails(commensalId);
-
-    if (accountDetails != null) {
-        FrmSeeAccountBalance frmSeeAccountBalance = new FrmSeeAccountBalance();
-        frmSeeAccountBalance.setAccountDetails(accountDetails.currentBalance, accountDetails.lastDeposit, accountDetails.latestWithdrawals);
-        frmSeeAccountBalance.setVisible(true);
-    } else {
-        // Manejar el caso en que no se pudieron obtener los detalles de la cuenta
-    }
+        CloudController.AccountDetails accountDetails = CloudController.getAccountDetails(commensalId);
+        this.setVisible(false);
+        if (accountDetails != null) {
+            FrmSeeAccountBalance frmSeeAccountBalance = new FrmSeeAccountBalance();
+            frmSeeAccountBalance.setAccountDetails(accountDetails.currentBalance, accountDetails.lastDeposit, accountDetails.latestWithdrawals);
+            frmSeeAccountBalance.setVisible(true);
+        } else {
+            // Manejar el caso en que no se pudieron obtener los detalles de la cuenta
+        }
     }//GEN-LAST:event_itmSeeAccountBalanceActionPerformed
 
     /**
