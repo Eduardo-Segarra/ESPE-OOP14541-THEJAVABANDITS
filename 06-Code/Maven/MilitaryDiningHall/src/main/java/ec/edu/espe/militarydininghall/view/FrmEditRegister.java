@@ -33,7 +33,7 @@ public class FrmEditRegister extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btmSearch = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btmCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,7 +97,12 @@ public class FrmEditRegister extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Cancel");
+        btmCancel.setText("Cancel");
+        btmCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -107,7 +112,7 @@ public class FrmEditRegister extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(btmSearch)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btmCancel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -116,7 +121,7 @@ public class FrmEditRegister extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btmSearch)
-                    .addComponent(jButton1))
+                    .addComponent(btmCancel))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -151,6 +156,12 @@ public class FrmEditRegister extends javax.swing.JFrame {
         this.setVisible(false);
         frmEdit.setVisible(true);
     }//GEN-LAST:event_btmSearchActionPerformed
+
+    private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
+        FrmAdminMenu frmAdmin = new FrmAdminMenu();
+        this.setVisible(false);
+        frmAdmin.setVisible(true);
+    }//GEN-LAST:event_btmCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,8 +202,8 @@ public class FrmEditRegister extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btmCancel;
     private javax.swing.JButton btmSearch;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

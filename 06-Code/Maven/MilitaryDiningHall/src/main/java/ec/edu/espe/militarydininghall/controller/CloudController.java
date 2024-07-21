@@ -192,4 +192,43 @@ public class CloudController {
         }
     }
 
+    public static AccountDetails getAccountDetails(String id) {
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
+
+            for (String collectionName : collections) {
+                MongoCollection<Document> collection = database.getCollection(collectionName);
+
+                Document query = new Document("id", id);
+                Document foundDocument = collection.find(query).first();
+
+                if (foundDocument != null) {
+                    double currentBalance = foundDocument.getDouble("balance") != null ? foundDocument.getDouble("balance") : 0.0;
+                    double lastDeposit = foundDocument.getDouble("lastDeposit") != null ? foundDocument.getDouble("lastDeposit") : 0.0;
+                    double latestWithdrawals = foundDocument.getDouble("latestWithdrawals") != null ? foundDocument.getDouble("latestWithdrawals") : 0.0;
+
+                    return new AccountDetails(currentBalance, lastDeposit, latestWithdrawals);
+                }
+            }
+
+            return null; // Si no se encuentra el documento.
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static class AccountDetails {
+
+        public double currentBalance;
+        public double lastDeposit;
+        public double latestWithdrawals;
+
+        public AccountDetails(double currentBalance, double lastDeposit, double latestWithdrawals) {
+            this.currentBalance = currentBalance;
+            this.lastDeposit = lastDeposit;
+            this.latestWithdrawals = latestWithdrawals;
+        }
+    }
 }

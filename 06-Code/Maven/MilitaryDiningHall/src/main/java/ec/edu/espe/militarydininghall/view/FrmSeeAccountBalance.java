@@ -16,10 +16,10 @@ public class FrmSeeAccountBalance extends javax.swing.JFrame {
     public FrmSeeAccountBalance() {
         initComponents();
     }
-public void setAccountDetails(double currentBalance, double lastDeposit, double latestWithdrawals) {
-        lbldCurretBalance.setText("Current account balance: $" + currentBalance);
-        lbldLastDeposit.setText("Balance of the last deposit deposited: $" + lastDeposit);
-        lbldLatestAccountWithdrawals.setText("Latest account withdrawals: $" + latestWithdrawals);
+  public void setAccountDetails(double currentBalance, double lastDeposit, double latestWithdrawals) {
+        lbldCurretBalance.setText("Current account balance: $" + String.format("%.2f", currentBalance));
+        lbldLastDeposit.setText("Balance of the last deposit: $" + String.format("%.2f", lastDeposit));
+        lbldLatestAccountWithdrawals.setText("Latest account withdrawals: $" + String.format("%.2f", latestWithdrawals));
     }
     /**
      * This method is called from within the constructor to initialize the form.
