@@ -57,7 +57,7 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
         jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btmSearch = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btmCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,7 +138,12 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
             }
         });
 
-        jButton1.setText("Cancel");
+        btmCancel.setText("Cancel");
+        btmCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -148,7 +153,7 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
                 .addGap(46, 46, 46)
                 .addComponent(btmSearch)
                 .addGap(32, 32, 32)
-                .addComponent(jButton1)
+                .addComponent(btmCancel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -157,7 +162,7 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btmSearch)
-                    .addComponent(jButton1))
+                    .addComponent(btmCancel))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -215,6 +220,12 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
+        FrmAdminMenu frmAdmin = new FrmAdminMenu();
+        this.setVisible(false);
+        frmAdmin.setVisible(true);       
+    }//GEN-LAST:event_btmCancelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -258,8 +269,8 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btmCancel;
     private javax.swing.JButton btmSearch;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
