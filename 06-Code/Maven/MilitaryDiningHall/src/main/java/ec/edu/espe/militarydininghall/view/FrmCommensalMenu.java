@@ -4,6 +4,8 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.controller.CloudController;
+
 /**
  *
  * @author David Rodriguez,THEJAVABANDITS DCCO-ESPE
@@ -16,10 +18,12 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     public FrmCommensalMenu() {
         initComponents();
     }
-
-    public FrmCommensalMenu(String name) {
+ private String commensalId;
+ 
+    public FrmCommensalMenu(String name,String id) {
         initComponents();
         lbldNameCommensal.setText("Welcome! " + name);
+        this.commensalId = id;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -207,13 +211,16 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmSeeReservationsActionPerformed
 
     private void itmSeeAccountBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeAccountBalanceActionPerformed
-        double currentBalance = 100.00; // Este valor debería ser obtenido desde la lógica de negocio o base de datos
-    double lastDeposit = 50.00;     // Este valor debería ser obtenido desde la lógica de negocio o base de datos
-    double latestWithdrawals = 25.00; // Este valor debería ser obtenido desde la lógica de negocio o base de datos
+        // Obtener los detalles de la cuenta desde el controlador
+    CloudController.AccountDetails accountDetails = CloudController.getAccountDetails(commensalId);
 
-    FrmSeeAccountBalance frmSeeAccountBalance = new FrmSeeAccountBalance();
-    frmSeeAccountBalance.setAccountDetails(currentBalance, lastDeposit, latestWithdrawals);
-    frmSeeAccountBalance.setVisible(true);
+    if (accountDetails != null) {
+        FrmSeeAccountBalance frmSeeAccountBalance = new FrmSeeAccountBalance();
+        frmSeeAccountBalance.setAccountDetails(accountDetails.currentBalance, accountDetails.lastDeposit, accountDetails.latestWithdrawals);
+        frmSeeAccountBalance.setVisible(true);
+    } else {
+        // Manejar el caso en que no se pudieron obtener los detalles de la cuenta
+    }
     }//GEN-LAST:event_itmSeeAccountBalanceActionPerformed
 
     /**

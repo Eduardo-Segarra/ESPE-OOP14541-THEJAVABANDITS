@@ -9,6 +9,7 @@ import ec.edu.espe.militarydininghall.model.Chef;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.GeneralAdmin;
 import ec.edu.espe.militarydininghall.controller.CloudController;
+import static ec.edu.espe.militarydininghall.controller.CloudController.getAccountDetails;
 import javax.swing.JOptionPane;
 import utils.DataCollection;
 
@@ -189,15 +190,17 @@ public class FrmLogin extends javax.swing.JFrame {
                 break;
             }
 
-            //String id = DataCollection.obtainIdFromJSON(loginIsCorrect);
+            String id = DataCollection.obtainIdFromJSON(loginIsCorrect);
             String name = DataCollection.obtainNameFromJSON(loginIsCorrect);
             //String grade = DataCollection.obtainGradeFromJSON(loginIsCorrect);
             String type = DataCollection.obtainTypeFromJSON(loginIsCorrect);
             //float balance = DataCollection.obtainBalanceFromJSON(type);
+            CloudController.AccountDetails accountDetails = getAccountDetails(id);
 
             switch (type) {
                 case "commensal":
-                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name);
+                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id);
+
                     //Commensal commensal = new Commensal(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmCommensalMenu.setVisible(true);
@@ -215,7 +218,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     frmChefMenu.setVisible(true);
                     break;
                 case "generalAdministrator":
-                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name);
+                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id);
                     //GeneralAdmin generalAdmin = new GeneralAdmin(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmGeneralAdmin.setVisible(true);
