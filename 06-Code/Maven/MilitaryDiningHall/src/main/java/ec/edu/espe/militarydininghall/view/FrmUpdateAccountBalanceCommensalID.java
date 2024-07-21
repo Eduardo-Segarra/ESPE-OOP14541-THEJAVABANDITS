@@ -7,7 +7,7 @@ package ec.edu.espe.militarydininghall.view;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
-
+import utils.Validation;
 /**
  *
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
@@ -191,12 +191,12 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
  try {
         double newBalance = Double.parseDouble(jTextField1.getText());
 
-        if (newBalance < 0) {
+        if (!Validation.ValidBalance(newBalance)) {
             JOptionPane.showMessageDialog(this, "Balance cannot be negative.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (commensal == null || commensal.getId() == null || commensal.getId().isEmpty()) {
+        if (!Validation.ValidCommensal(commensal)) {
             JOptionPane.showMessageDialog(this, "Commensal object is not initialized properly.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }

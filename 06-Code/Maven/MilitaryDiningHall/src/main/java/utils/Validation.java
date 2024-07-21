@@ -1,5 +1,6 @@
 package utils;
 
+import ec.edu.espe.militarydininghall.model.Commensal;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.InputMismatchException;
@@ -13,6 +14,12 @@ import java.util.regex.Pattern;
  */
 public class Validation {
     
+    public static boolean ValidCommensal(Commensal commensal) {
+    return commensal != null && commensal.getId() != null && !commensal.getId().isEmpty();
+}
+    public static boolean ValidBalance(double balance) {
+    return balance >= 0;
+}
     public static boolean validateId(String idInput) {
         long id = 0;
         if (idInput.length() == 10) {
