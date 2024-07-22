@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import org.bson.conversions.Bson;
 
 /**
@@ -56,7 +57,44 @@ public class CloudController {
             return false;
         }
     }
+    
+    public static boolean createANewAdministrator(Object object) {
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
 
+            MongoCollection<Document> collection = database.getCollection("administrators");
+
+            Gson gson = new Gson();
+            String json = gson.toJson(object);
+            Document studentDocument = Document.parse(json);
+
+            collection.insertOne(studentDocument);
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static void delete(Object object) {
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
+
+            MongoCollection<Document> collection = database.getCollection("commensals");
+
+            Gson gson = new Gson();
+            String json = gson.toJson(object);
+            Document studentDocument = Document.parse(json);
+
+            collection.deleteOne(studentDocument);
+
+        } catch (Exception e) {
+            JOptionPane.showInputDialog("An error has occurred in the data load.");
+        }
+    }
+    
     public static String login(String email, String password) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
 

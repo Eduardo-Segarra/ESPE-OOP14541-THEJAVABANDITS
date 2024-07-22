@@ -1,5 +1,8 @@
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.controller.CloudController;
+import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
+
 /**
  *
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
@@ -261,10 +264,11 @@ public class FrmAdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmUpdateTheAccountBalanceForACommensalActionPerformed
 
     private void itmSeeReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeReservationActionPerformed
-        // TODO add your handling code here:
-        FrmSeeAppointment frmSeeAppointmet = new FrmSeeAppointment();
+
+        FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment();
         this.setVisible(false);
-        frmSeeAppointmet.setVisible(true);
+        frmSeeAppointment.setVisible(true);
+        frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(id));
     }//GEN-LAST:event_itmSeeReservationActionPerformed
 
     /**

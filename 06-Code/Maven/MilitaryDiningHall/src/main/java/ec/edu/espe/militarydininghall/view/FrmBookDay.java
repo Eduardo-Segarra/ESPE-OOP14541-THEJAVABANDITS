@@ -23,6 +23,7 @@ public class FrmBookDay extends javax.swing.JFrame {
     }
 
     public static long id;
+    public static String userId, userName;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -179,6 +180,9 @@ public class FrmBookDay extends javax.swing.JFrame {
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
 
         int year = 2024;
+        
+        FrmCommensalMenu.commensalId = FrmBookDay.userId;
+        FrmCommensalMenu.nameCommensal = FrmBookDay.userName;
 
         String date = cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() + "/" + year;
 

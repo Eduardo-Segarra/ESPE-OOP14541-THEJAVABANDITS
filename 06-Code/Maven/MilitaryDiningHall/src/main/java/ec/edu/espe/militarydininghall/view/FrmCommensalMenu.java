@@ -19,12 +19,12 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     public FrmCommensalMenu() {
         initComponents();
     }
-    private String commensalId;
+    
+    public static String commensalId, nameCommensal;
 
     public FrmCommensalMenu(String name, String id) {
         initComponents();
         lbldNameCommensal.setText("Welcome! " + name);
-        this.commensalId = id;
     }
 
     /**

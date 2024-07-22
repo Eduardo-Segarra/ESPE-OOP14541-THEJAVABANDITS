@@ -5,6 +5,7 @@
 package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.controller.CloudController;
+import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,9 +53,11 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        itmSeeAccountBalance = new javax.swing.JMenuItem();
+        mnAdminAdministration = new javax.swing.JMenu();
+        itmNextMonthAdmin = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,7 +98,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,15 +144,12 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("Cancel a day's booking");
-        jMenu2.add(jMenuItem3);
-
-        jMenuItem4.setText("See Account Balance");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(jMenuItem3);
 
         jMenuItem5.setText("See reservations");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -161,8 +161,29 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Set Next Month's Admin");
-        jMenuBar1.add(jMenu3);
+        jMenu4.setText("Account");
+
+        itmSeeAccountBalance.setText("See account balance");
+        itmSeeAccountBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmSeeAccountBalanceActionPerformed(evt);
+            }
+        });
+        jMenu4.add(itmSeeAccountBalance);
+
+        jMenuBar1.add(jMenu4);
+
+        mnAdminAdministration.setText("Admin administration");
+
+        itmNextMonthAdmin.setText("Set Next Month's Admin");
+        itmNextMonthAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmNextMonthAdminActionPerformed(evt);
+            }
+        });
+        mnAdminAdministration.add(itmNextMonthAdmin);
+
+        jMenuBar1.add(mnAdminAdministration);
 
         setJMenuBar(jMenuBar1);
 
@@ -189,6 +210,9 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
+        FrmBookDay frmBookDay = new FrmBookDay();
+        this.setVisible(false);
+        frmBookDay.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void itmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmLogoutActionPerformed
@@ -197,27 +221,42 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         frmLogin.setVisible(true);
     }//GEN-LAST:event_itmLogoutActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        CloudController.AccountDetails accountDetails = CloudController.getAccountDetails(generalAdminminId);
-
-    if (accountDetails != null) {
-        // Crear y mostrar la ventana de saldo de cuenta
-        FrmSeeAccountBalance frmSeeAccountBalance = new FrmSeeAccountBalance();
-        frmSeeAccountBalance.setAccountDetails(accountDetails.currentBalance, accountDetails.lastDeposit, accountDetails.latestWithdrawals);
-        frmSeeAccountBalance.setVisible(true);
-    } else {
-        // Manejar el caso en que no se pudieron obtener los detalles de la cuenta
-        JOptionPane.showMessageDialog(this, "Could not get account details.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-
+        FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment();
+        this.setVisible(false);
+        frmSeeAppointment.setVisible(true);
+        frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(id));
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void itmSeeAccountBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeAccountBalanceActionPerformed
+        // Obtener los detalles de la cuenta desde el controlador
+        CloudController.AccountDetails accountDetails = CloudController.getAccountDetails(generalAdminminId);
+        this.setVisible(false);
+        if (accountDetails != null) {
+            FrmSeeAccountBalance frmSeeAccountBalance = new FrmSeeAccountBalance();
+            frmSeeAccountBalance.setAccountDetails(accountDetails.currentBalance, accountDetails.lastDeposit, accountDetails.latestWithdrawals);
+            frmSeeAccountBalance.setVisible(true);
+        } else {
+            // Manejar el caso en que no se pudieron obtener los detalles de la cuenta
+        }
+    }//GEN-LAST:event_itmSeeAccountBalanceActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        FrmCancelAppointment frmCancelAppointment = new FrmCancelAppointment();
+        this.setVisible(false);
+        frmCancelAppointment.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void itmNextMonthAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmNextMonthAdminActionPerformed
+        FrmEstablishAdministrator frmEstablishAdministrator = new FrmEstablishAdministrator();
+        this.setVisible(false);
+        frmEstablishAdministrator.setVisible(true);
+    }//GEN-LAST:event_itmNextMonthAdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,6 +298,8 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itmLogout;
+    private javax.swing.JMenuItem itmNextMonthAdmin;
+    private javax.swing.JMenuItem itmSeeAccountBalance;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -266,14 +307,14 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenu mnAdminAdministration;
     // End of variables declaration//GEN-END:variables
 }

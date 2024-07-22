@@ -15,6 +15,7 @@ public class FrmSeeAccountBalance extends javax.swing.JFrame {
      */
     public FrmSeeAccountBalance() {
         initComponents();
+        
     }
   public void setAccountDetails(double currentBalance, double lastDeposit, double latestWithdrawals) {
         lbldCurretBalance.setText("Current account balance: $" + String.format("%.2f", currentBalance));

@@ -191,41 +191,34 @@ public class FrmLogin extends javax.swing.JFrame {
             }
             String id = DataCollection.obtainIdFromJSON(loginIsCorrect);
             String name = DataCollection.obtainNameFromJSON(loginIsCorrect);
-            //String grade = DataCollection.obtainGradeFromJSON(loginIsCorrect);
             String type = DataCollection.obtainTypeFromJSON(loginIsCorrect);
-            //float balance = DataCollection.obtainBalanceFromJSON(type);
             CloudController.AccountDetails accountDetails = getAccountDetails(id);
 
             switch (type) {
-                case "commensal":
-                    
+                case "commensal" -> {
                     FrmBookDay.id = Long.parseLong(id);
-
                     FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id);
-
-                    //Commensal commensal = new Commensal(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmCommensalMenu.setVisible(true);
-
-                    break;
-                case "administrators":
+                }
+                case "administrators" -> {
+                    FrmBookDay.id = Long.parseLong(id);
                     FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name);
-                    //Admin admin = new Admin(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmAdminMenu.setVisible(true);
-                    break;
-                case "militaryChef":
+                }
+                case "militaryChef" -> {
+                    FrmBookDay.id = Long.parseLong(id);
                     FrmChefMenu frmChefMenu = new FrmChefMenu(name);
-                    //Chef chef = new Chef(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmChefMenu.setVisible(true);
-                    break;
-                case "generalAdministrator":
+                }
+                case "generalAdministrator" -> {
+                    FrmBookDay.id = Long.parseLong(id);
                     FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id);
-                    //GeneralAdmin generalAdmin = new GeneralAdmin(id, name, txfEmail.getText(), pwfPassword.getText(), grade, type, balance);
                     this.setVisible(false);
                     frmGeneralAdmin.setVisible(true);
-                    break;
+                }
             }
 
             break;
