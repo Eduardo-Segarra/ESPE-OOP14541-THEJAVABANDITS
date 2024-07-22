@@ -10,7 +10,90 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ValidationTest {
     
     public ValidationTest() {    }
-
+    
+     /**
+     * Test of ValidCommensal method, of class commen.
+     */
+    @Test
+    public void testValidCommensalValid() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = new Commensal( "1752874568", "Carlos", "carlospe@gmail.com", "12345", "Colonel", "publicservan", 0);
+        boolean expResult = true;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testValidCommensalnull() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = null;
+        boolean expResult = false;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testValidCommensalnullId() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = new Commensal( null, "Carlos", "carlospe@homail.com","12346","Colonel","publicservant", 0);
+        boolean expResult = false;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testValidCommensalnullName() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = new Commensal("1752874568", null, "carlospe@homail.com","12346","Colonel","publicservant", 0);
+        boolean expResult = false;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testValidCommensalnullEmail() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = new Commensal( "1752874568", "Carlos", null ,"12346","Colonel","publicservant", 0);
+        boolean expResult = false;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testValidCommensalnullPassword() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = new Commensal( "1752874568", "Carlos", "carlospe@homail.com",null,"Colonel","publicservant", 0);
+        boolean expResult = false;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testValidCommensalnullgrade() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = new Commensal("1752874568", "Carlos", "carlospe@homail.com","12346",null,"publicservant", 0);
+        boolean expResult = false;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testValidCommensalnulltype() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = new Commensal( "1752874568", "Carlos", "carlospe@homail.com","12346","Colonel",null, 0);
+        boolean expResult = false;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testValidCommensalAlternatignnull() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = new Commensal( null, "Carlos", null ,"12346",null,"publicservant", 0);
+        boolean expResult = false;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }    
+    @Test
+    public void testValidCommensalAllnull() {
+        System.out.println("ValidCommensal");
+        Commensal commensal = new Commensal( null, null, null ,null,null,null, 0.0f);
+        boolean expResult = false;
+        boolean result = Validation.ValidCommensal(commensal);
+        assertEquals(expResult, result);
+    }
     /**
      * Test of ValidBalance method, of class Validation.
      */

@@ -5,7 +5,7 @@ import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author TheJavaBandits, DCCO-ESPE
  */
 public class FrmAdminMenu extends javax.swing.JFrame {
 

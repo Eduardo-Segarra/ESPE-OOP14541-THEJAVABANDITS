@@ -5,7 +5,7 @@ import com.google.gson.JsonParser;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author  TheJavaBandits, DCCO-ESPE
  */
 public class DataCollection {
         public static String obtainIdFromJSON(String json) {
