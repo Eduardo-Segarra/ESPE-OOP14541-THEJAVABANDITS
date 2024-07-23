@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utils;
 
 import com.google.gson.JsonObject;
@@ -9,7 +5,7 @@ import com.google.gson.JsonParser;
 
 /**
  *
- * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
+ * @author  TheJavaBandits, DCCO-ESPE
  */
 public class DataCollection {
         public static String obtainIdFromJSON(String json) {
