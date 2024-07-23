@@ -21,7 +21,7 @@ public class FrmChefMenu extends javax.swing.JFrame {
     public FrmChefMenu(String name) {
         initComponents();
         this.chefName = name;
-        lblNameOfTheChef.setText("Welcome, " + chefName + "!");
+        lblNameOfTheChef.setText("Bienvenido, " + chefName + "!");
     }
 
     /**

@@ -9,6 +9,9 @@ import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
  */
 public class FrmAdminMenu extends javax.swing.JFrame {
 
+    private String adminName;
+    private double adminBalance;
+    
     /**
      * Creates new form FmMilitaryDinindHallSystem
      */
@@ -16,9 +19,12 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         initComponents();
     }
 
-    public FrmAdminMenu(String adminName) {
+    public FrmAdminMenu(String name, double balance) {
         initComponents();
-        lbldNameAdmin.setText("Welcome, " + adminName + "!");
+        this.adminName = name;
+        this.adminBalance = balance;
+        lbldNameAdmin.setText("Bienvenido, " + adminName + "!");
+        lblAccountBalance.setText(String.valueOf(adminBalance));
     }
 
     /**
@@ -69,7 +75,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         lbldNameAdmin.setText("Welcome! ");
 
-        jLabel4.setText("Your account balance is:");
+        jLabel4.setText("Tu saldo de cuenta es:");
 
         lblAccountBalance.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAccountBalance.setText("jLabel5");
@@ -90,9 +96,9 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         lblDinner.setText("jLabel8");
 
-        mnuMilitaryDiningHall.setText("Military Dining Hall");
+        mnuMilitaryDiningHall.setText("Comedor Militar");
 
-        itmLogout.setText("Logout");
+        itmLogout.setText("Cerrar sesion");
         itmLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmLogoutActionPerformed(evt);
@@ -100,7 +106,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         });
         mnuMilitaryDiningHall.add(itmLogout);
 
-        itmExit.setText("Exit");
+        itmExit.setText("Salir");
         itmExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmExitActionPerformed(evt);
@@ -110,9 +116,9 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuMilitaryDiningHall);
 
-        mnuAdministrationOfTheUsers.setText("Administration of the users");
+        mnuAdministrationOfTheUsers.setText("Administracion de los usuarios");
 
-        itmEditRegister.setText("Edit Register");
+        itmEditRegister.setText("Editar registro");
         itmEditRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmEditRegisterActionPerformed(evt);
@@ -120,7 +126,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         });
         mnuAdministrationOfTheUsers.add(itmEditRegister);
 
-        itmUpdateTheAccountBalanceForACommensal.setText("Upadate the account balance for a commensal");
+        itmUpdateTheAccountBalanceForACommensal.setText("Actualizar el balance de cuenta de un consumidor");
         itmUpdateTheAccountBalanceForACommensal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmUpdateTheAccountBalanceForACommensalActionPerformed(evt);
@@ -130,9 +136,9 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuAdministrationOfTheUsers);
 
-        mnuDayManagment.setText("Day Management");
+        mnuDayManagment.setText("Manejo de los dias");
 
-        itmBookADay.setText("Book a Day");
+        itmBookADay.setText("Reservar un dia");
         itmBookADay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmBookADayActionPerformed(evt);
@@ -140,7 +146,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         });
         mnuDayManagment.add(itmBookADay);
 
-        itmCancelADayBooking.setText("Cancel a Day Booking");
+        itmCancelADayBooking.setText("Cancelar la reservar de un dia");
         itmCancelADayBooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmCancelADayBookingActionPerformed(evt);
@@ -148,7 +154,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         });
         mnuDayManagment.add(itmCancelADayBooking);
 
-        itmSeeReservation.setText("See reservation");
+        itmSeeReservation.setText("Ver reservaciones");
         itmSeeReservation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmSeeReservationActionPerformed(evt);
@@ -158,7 +164,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuDayManagment);
 
-        mnuHelp.setText("Help");
+        mnuHelp.setText("Ayuda");
         jMenuBar1.add(mnuHelp);
 
         setJMenuBar(jMenuBar1);
@@ -189,7 +195,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lbldNameAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAccountBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,13 +258,13 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
     private void itmEditRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEditRegisterActionPerformed
         // TODO add your handling code here:
-        FrmEditRegister frmEditRegister = new FrmEditRegister();
+        FrmEditRegister frmEditRegister = new FrmEditRegister(adminName, adminBalance);
         this.setVisible(false);
         frmEditRegister.setVisible(true);
     }//GEN-LAST:event_itmEditRegisterActionPerformed
 
     private void itmUpdateTheAccountBalanceForACommensalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmUpdateTheAccountBalanceForACommensalActionPerformed
-        FrmUpdateAccountBalance frmUpdate = new FrmUpdateAccountBalance();
+        FrmUpdateAccountBalance frmUpdate = new FrmUpdateAccountBalance(adminName, adminBalance);
         this.setVisible(false);
         frmUpdate.setVisible(true);
     }//GEN-LAST:event_itmUpdateTheAccountBalanceForACommensalActionPerformed

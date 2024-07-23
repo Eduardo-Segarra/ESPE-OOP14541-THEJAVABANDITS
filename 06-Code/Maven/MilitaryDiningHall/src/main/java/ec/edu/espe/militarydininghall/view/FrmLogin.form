@@ -47,7 +47,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -145,12 +145,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Don&apos;t have an account yet? Create one now!"/>
+            <Property name="text" type="java.lang.String" value="No tienes una cuenta todavia? crea una entonces!"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btmCreateNewAccount">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Create a new account"/>
+            <Property name="text" type="java.lang.String" value="Crear una cuenta nueva"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btmCreateNewAccountActionPerformed"/>

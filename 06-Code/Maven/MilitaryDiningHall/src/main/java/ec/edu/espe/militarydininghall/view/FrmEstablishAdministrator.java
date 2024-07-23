@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class FrmEstablishAdministrator extends javax.swing.JFrame {
 
     private String generalAdminminId, generalAdminName;
+    private double generalAdminminbalance;
     
     /**
      * Creates new form FrmEstablishAdministrator
@@ -24,10 +25,11 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
         initComponents();
     }
     
-    public FrmEstablishAdministrator(String id, String name) {
+    public FrmEstablishAdministrator(String id, String name, double balance) {
         initComponents();
         this.generalAdminminId = id;
         this.generalAdminName = name;
+        this.generalAdminminbalance = balance;
     }
 
     /**
@@ -114,7 +116,7 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La cedula ingresada no existe");
         } else {
             Commensal commensal = gson.fromJson(accounData, Commensal.class);
-            FrmEstablishAdministratorSearch frmEstablishAdministratorSearch = new FrmEstablishAdministratorSearch(commensal, generalAdminminId, generalAdminName);
+            FrmEstablishAdministratorSearch frmEstablishAdministratorSearch = new FrmEstablishAdministratorSearch(commensal, generalAdminminId, generalAdminName, generalAdminminbalance);
             FrmEstablishAdministratorSearch.commensal = commensal;
             this.setVisible(false);
             frmEstablishAdministratorSearch.setVisible(true);
@@ -122,7 +124,7 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
     }//GEN-LAST:event_btmApplyActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(generalAdminName, generalAdminminId);
+        FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(generalAdminName, generalAdminminId, generalAdminminbalance);
         this.setVisible(false);
         frmGeneralAdmin.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed

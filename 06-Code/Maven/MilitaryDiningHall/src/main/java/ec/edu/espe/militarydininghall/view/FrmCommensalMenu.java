@@ -13,18 +13,23 @@ import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
  */
 public class FrmCommensalMenu extends javax.swing.JFrame {
 
+    public static String commensalId, nameCommensal;
+    private double adminBalance;
+    
     /**
      * Creates new form CommensalMenu
      */
     public FrmCommensalMenu() {
         initComponents();
     }
-    
-    public static String commensalId, nameCommensal;
 
-    public FrmCommensalMenu(String name, String id) {
+    public FrmCommensalMenu(String name, String id, double balance) {
         initComponents();
-        lbldNameCommensal.setText("Welcome! " + name);
+        this.commensalId = id;
+        this.nameCommensal = name;
+        this.adminBalance = balance;
+        lbldNameCommensal.setText("Bienvenido " + nameCommensal + "!");
+        lblAccountBalance.setText(String.valueOf(adminBalance));
     }
 
     /**
@@ -42,6 +47,9 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        lblAccountBalance = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         itmLogout = new javax.swing.JMenuItem();
@@ -50,8 +58,6 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         itmBookDay = new javax.swing.JMenuItem();
         itmCancelDayBooking = new javax.swing.JMenuItem();
         itmSeeReservations = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        itmSeeAccountBalance = new javax.swing.JMenuItem();
         itmHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,28 +72,45 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
         jLabel5.setText("Dinner: Waffles");
 
+        lblAccountBalance.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAccountBalance.setText("jLabel5");
+
+        jLabel6.setText("Tu saldo de cuenta es:");
+
+        jLabel7.setText("$");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbldNameCommensal)))
-                .addContainerGap(198, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
+                .addContainerGap(230, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbldNameCommensal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblAccountBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addGap(17, 17, 17))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lbldNameCommensal)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbldNameCommensal)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(lblAccountBalance)
+                        .addComponent(jLabel7)))
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -99,9 +122,9 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
                 .addContainerGap(113, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("MilitaryDinningHall");
+        jMenu1.setText("Comedor Militar");
 
-        itmLogout.setText("Logout");
+        itmLogout.setText("Cerrar sesion");
         itmLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmLogoutActionPerformed(evt);
@@ -109,7 +132,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         });
         jMenu1.add(itmLogout);
 
-        itmExit.setText("Exit");
+        itmExit.setText("Salir");
         itmExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmExitActionPerformed(evt);
@@ -119,9 +142,9 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Day managment");
+        jMenu2.setText("Manejo de los dias");
 
-        itmBookDay.setText("Book a Day");
+        itmBookDay.setText("Reservar un dia");
         itmBookDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmBookDayActionPerformed(evt);
@@ -129,7 +152,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         });
         jMenu2.add(itmBookDay);
 
-        itmCancelDayBooking.setText("Cancel a day's booking");
+        itmCancelDayBooking.setText("Cancelar la reserva de un dia");
         itmCancelDayBooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmCancelDayBookingActionPerformed(evt);
@@ -137,7 +160,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         });
         jMenu2.add(itmCancelDayBooking);
 
-        itmSeeReservations.setText("See reservations");
+        itmSeeReservations.setText("Ver las reservaciones");
         itmSeeReservations.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmSeeReservationsActionPerformed(evt);
@@ -147,19 +170,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Account");
-
-        itmSeeAccountBalance.setText("See account balance");
-        itmSeeAccountBalance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itmSeeAccountBalanceActionPerformed(evt);
-            }
-        });
-        jMenu3.add(itmSeeAccountBalance);
-
-        jMenuBar1.add(jMenu3);
-
-        itmHelp.setText("Help");
+        itmHelp.setText("Ayuda");
         jMenuBar1.add(itmHelp);
 
         setJMenuBar(jMenuBar1);
@@ -213,19 +224,6 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(id));
     }//GEN-LAST:event_itmSeeReservationsActionPerformed
 
-    private void itmSeeAccountBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeAccountBalanceActionPerformed
-        // Obtener los detalles de la cuenta desde el controlador
-        CloudController.AccountDetails accountDetails = CloudController.getAccountDetails(commensalId);
-        this.setVisible(false);
-        if (accountDetails != null) {
-            FrmSeeAccountBalance frmSeeAccountBalance = new FrmSeeAccountBalance();
-            frmSeeAccountBalance.setAccountDetails(accountDetails.currentBalance, accountDetails.lastDeposit, accountDetails.latestWithdrawals);
-            frmSeeAccountBalance.setVisible(true);
-        } else {
-            // Manejar el caso en que no se pudieron obtener los detalles de la cuenta
-        }
-    }//GEN-LAST:event_itmSeeAccountBalanceActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -270,17 +268,18 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmExit;
     private javax.swing.JMenu itmHelp;
     private javax.swing.JMenuItem itmLogout;
-    private javax.swing.JMenuItem itmSeeAccountBalance;
     private javax.swing.JMenuItem itmSeeReservations;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblAccountBalance;
     private javax.swing.JLabel lbldNameCommensal;
     // End of variables declaration//GEN-END:variables
 }

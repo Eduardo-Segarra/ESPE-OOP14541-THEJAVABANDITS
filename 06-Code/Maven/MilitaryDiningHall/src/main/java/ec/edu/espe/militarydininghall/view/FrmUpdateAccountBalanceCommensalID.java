@@ -8,6 +8,7 @@ import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
 import utils.Validation;
+
 /**
  *
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
@@ -15,22 +16,24 @@ import utils.Validation;
 public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
 
     private Commensal commensal;
+    private String adminName;
+    private double adminBalance;
 
-public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
-    this.commensal = commensal;
-    initComponents();
+    public FrmUpdateAccountBalanceCommensalID(Commensal commensal, String name, double balance) {
+        this.commensal = commensal;
+        this.adminName = name;
+        this.adminBalance = balance;
+        initComponents();
 
-    // Inicializa los campos del formulario con los datos del commensal
-    if (commensal != null) {
-        jLabel2.setText("Updating the account balance of " + commensal.getName() + " with ID: " + commensal.getId());
-        jLabel3.setText(commensal.getName() + " has: $" + commensal.getBalance());
-    } else {
-        jLabel2.setText("Updating the account balance");
-        jLabel3.setText("Account details not available");
+        if (commensal != null) {
+            jLabel2.setText("Updating the account balance of " + commensal.getName() + " with ID: " + commensal.getId());
+            jLabel3.setText(commensal.getName() + " has: $" + commensal.getBalance());
+        } else {
+            jLabel2.setText("Updating the account balance");
+            jLabel3.setText("Account details not available");
+        }
     }
-}
 
-    
     /**
      * Creates new form FrmUpdateAccountBalanceForACommensalWithTheIDSearched
      */
@@ -188,32 +191,32 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
- try {
-        double newBalance = Double.parseDouble(jTextField1.getText());
+        try {
+            double newBalance = Double.parseDouble(jTextField1.getText());
 
-        if (!Validation.ValidBalance(newBalance)) {
-            JOptionPane.showMessageDialog(this, "Balance cannot be negative.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+            if (!Validation.ValidBalance(newBalance)) {
+                JOptionPane.showMessageDialog(this, "Balance cannot be negative.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        if (!Validation.ValidCommensal(commensal)) {
-            JOptionPane.showMessageDialog(this, "Commensal object is not initialized properly.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            if (!Validation.ValidCommensal(commensal)) {
+                JOptionPane.showMessageDialog(this, "Commensal object is not initialized properly.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            boolean success = CloudController.updateCommensalBalance(commensal.getId(), newBalance);
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Balance updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                new FrmAdminMenu(adminName, adminBalance).setVisible(true);
+                this.dispose();  // Cierra el formulario actual
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to update balance.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid amount.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        boolean success = CloudController.updateCommensalBalance(commensal.getId(), newBalance);
-        if (success) {
-            JOptionPane.showMessageDialog(this, "Balance updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            new FrmAdminMenu().setVisible(true);
-            this.dispose();  // Cierra el formulario actual
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to update balance.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Please enter a valid amount.", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_btmSearchActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -221,9 +224,9 @@ public FrmUpdateAccountBalanceCommensalID(Commensal commensal) {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmAdminMenu frmAdmin = new FrmAdminMenu();
+        FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance);
         this.setVisible(false);
-        frmAdmin.setVisible(true);       
+        frmAdmin.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed
 
     /**

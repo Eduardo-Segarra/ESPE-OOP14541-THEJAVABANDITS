@@ -69,7 +69,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Military Dining Hall"/>
+            <Property name="text" type="java.lang.String" value="Comedor Militar"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -114,7 +114,7 @@
                           <Component id="btmCreateAccount" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="76" max="32767" attributes="0"/>
+                  <EmptySpace pref="43" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -155,7 +155,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Enter your name:"/>
+            <Property name="text" type="java.lang.String" value="Ingresa tu nombre:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfEmail">
@@ -165,17 +165,17 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Enter your military grade (if you are a public servant type publicServant):"/>
+            <Property name="text" type="java.lang.String" value="Ingresa tu rango de militar (si eres un servidor publico escoja servidor publico)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Enter your email:"/>
+            <Property name="text" type="java.lang.String" value="Ingresa tu correo electronico:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btmCreateAccount">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Create a new account"/>
+            <Property name="text" type="java.lang.String" value="Crear la cuenta"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btmCreateAccountActionPerformed"/>
@@ -183,7 +183,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Enter your password:"/>
+            <Property name="text" type="java.lang.String" value="Ingresa tu contra&#xf1;a:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="pwfPassword">
@@ -192,24 +192,24 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="18">
-                <StringItem index="0" value="Army General"/>
-                <StringItem index="1" value="Major General"/>
-                <StringItem index="2" value="Brigadier General"/>
-                <StringItem index="3" value="Colonel"/>
-                <StringItem index="4" value="Lieutenat Colonel"/>
-                <StringItem index="5" value="Major"/>
-                <StringItem index="6" value="Captian"/>
-                <StringItem index="7" value="Lieutenant"/>
-                <StringItem index="8" value="Seconde lieutenant"/>
-                <StringItem index="9" value="Cadet"/>
-                <StringItem index="10" value="Senior sub officer"/>
-                <StringItem index="11" value="1st Sub officer"/>
-                <StringItem index="12" value="2nd Sergeant"/>
-                <StringItem index="13" value="1st Corporal"/>
-                <StringItem index="14" value="2nd Corporal"/>
-                <StringItem index="15" value="Soldier"/>
-                <StringItem index="16" value="Conscript"/>
-                <StringItem index="17" value="publicServant"/>
+                <StringItem index="0" value="General"/>
+                <StringItem index="1" value="General mayor"/>
+                <StringItem index="2" value="General de brigada"/>
+                <StringItem index="3" value="Coronel"/>
+                <StringItem index="4" value="Teniente coronel"/>
+                <StringItem index="5" value="Mayor"/>
+                <StringItem index="6" value="Capitan"/>
+                <StringItem index="7" value="Teniente"/>
+                <StringItem index="8" value="Teniente segundo"/>
+                <StringItem index="9" value="Cadete"/>
+                <StringItem index="10" value="Suboficial mayor"/>
+                <StringItem index="11" value="Suboficial 1er"/>
+                <StringItem index="12" value="Suboficial 2do"/>
+                <StringItem index="13" value="Cabo 1er"/>
+                <StringItem index="14" value="Cabo 2do"/>
+                <StringItem index="15" value="Soldado"/>
+                <StringItem index="16" value="Conscripto"/>
+                <StringItem index="17" value="Servidor publico"/>
               </StringArray>
             </Property>
           </Properties>
@@ -227,7 +227,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Enter your ID:"/>
+            <Property name="text" type="java.lang.String" value="Ingresa tu cedula:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfId">

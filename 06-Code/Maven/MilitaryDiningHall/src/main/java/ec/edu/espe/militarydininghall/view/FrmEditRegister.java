@@ -4,17 +4,29 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.controller.CloudController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
  */
 public class FrmEditRegister extends javax.swing.JFrame {
 
+    private String adminName;
+    private double adminBalance;
+
     /**
      * Creates new form FrmEditRegister
      */
     public FrmEditRegister() {
         initComponents();
+    }
+
+    public FrmEditRegister(String name, double balance) {
+        initComponents();
+        this.adminName = name;
+        this.adminBalance = balance;
     }
 
     /**
@@ -30,7 +42,7 @@ public class FrmEditRegister extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txfId = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btmSearch = new javax.swing.JButton();
         btmCancel = new javax.swing.JButton();
@@ -38,7 +50,7 @@ public class FrmEditRegister extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("EDIT REGISTER");
+        jLabel1.setText("Editar asistencia");
         jLabel1.setAlignmentX(0.5F);
         jLabel1.setIconTextGap(8);
         jLabel1.setName(""); // NOI18N
@@ -50,22 +62,22 @@ public class FrmEditRegister extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(207, 207, 207))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(202, 202, 202))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(24, 24, 24))
         );
 
-        jLabel2.setText("Enter the ID of the person you want to edit their record:");
+        jLabel2.setText("Ingresa la cedula de la persona que quieres editar su asistencia:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txfId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txfIdActionPerformed(evt);
             }
         });
 
@@ -75,10 +87,10 @@ public class FrmEditRegister extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txfId, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,7 +98,7 @@ public class FrmEditRegister extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -146,19 +158,23 @@ public class FrmEditRegister extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txfIdActionPerformed
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        //research the ID in the databese:
-        FrmEditRegisterWithTheIDSearched frmEdit = new FrmEditRegisterWithTheIDSearched();
-        this.setVisible(false);
-        frmEdit.setVisible(true);
+        String accounData = CloudController.findAccountById(txfId.getText());
+        if (accounData == null) {
+            JOptionPane.showMessageDialog(this, "La cedula ingresada no existe");
+        } else {
+            FrmEditRegisterWithTheIDSearched frmEdit = new FrmEditRegisterWithTheIDSearched(adminName, adminBalance);
+            this.setVisible(false);
+            frmEdit.setVisible(true);
+        }
     }//GEN-LAST:event_btmSearchActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmAdminMenu frmAdmin = new FrmAdminMenu();
+        FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance);
         this.setVisible(false);
         frmAdmin.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed
@@ -209,6 +225,6 @@ public class FrmEditRegister extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txfId;
     // End of variables declaration//GEN-END:variables
 }

@@ -57,7 +57,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addGap(133, 133, 133)
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -79,9 +79,9 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jLabel2.setText("Contraseña:");
 
-        jLabel3.setText("Don't have an account yet? Create one now!");
+        jLabel3.setText("No tienes una cuenta todavia? crea una entonces!");
 
-        btmCreateNewAccount.setText("Create a new account");
+        btmCreateNewAccount.setText("Crear una cuenta nueva");
         btmCreateNewAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmCreateNewAccountActionPerformed(evt);
@@ -186,20 +186,22 @@ public class FrmLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Invalid email or password");
                 break;
             }
+            
             String id = DataCollection.obtainIdFromJSON(loginIsCorrect);
             String name = DataCollection.obtainNameFromJSON(loginIsCorrect);
             String type = DataCollection.obtainTypeFromJSON(loginIsCorrect);
+            double accountBalance = DataCollection.obtainBalanceFromJSON(loginIsCorrect);
 
             switch (type) {
                 case "commensal" -> {
                     FrmBookDay.id = Long.parseLong(id);
-                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id);
+                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id, accountBalance);
                     this.setVisible(false);
                     frmCommensalMenu.setVisible(true);
                 }
                 case "administrators" -> {
                     FrmBookDay.id = Long.parseLong(id);
-                    FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name);
+                    FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name, accountBalance);
                     this.setVisible(false);
                     frmAdminMenu.setVisible(true);
                 }
@@ -211,7 +213,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 }
                 case "generalAdministrator" -> {
                     FrmBookDay.id = Long.parseLong(id);
-                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id);
+                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id, accountBalance);
                     this.setVisible(false);
                     frmGeneralAdmin.setVisible(true);
                 }

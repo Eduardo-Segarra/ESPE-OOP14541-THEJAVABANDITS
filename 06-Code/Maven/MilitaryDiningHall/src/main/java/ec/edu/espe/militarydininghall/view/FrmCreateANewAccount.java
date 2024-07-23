@@ -51,7 +51,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Military Dining Hall");
+        jLabel4.setText("Comedor Militar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -70,7 +70,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("Enter your name:");
+        jLabel1.setText("Ingresa tu nombre:");
 
         txfEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,20 +78,20 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Enter your military grade (if you are a public servant type publicServant):");
+        jLabel2.setText("Ingresa tu rango de militar (si eres un servidor publico escoja servidor publico)");
 
-        jLabel3.setText("Enter your email:");
+        jLabel3.setText("Ingresa tu correo electronico:");
 
-        btmCreateAccount.setText("Create a new account");
+        btmCreateAccount.setText("Crear la cuenta");
         btmCreateAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmCreateAccountActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Enter your password:");
+        jLabel5.setText("Ingresa tu contraña:");
 
-        cmbGrade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Army General", "Major General", "Brigadier General", "Colonel", "Lieutenat Colonel", "Major", "Captian", "Lieutenant", "Seconde lieutenant", "Cadet", "Senior sub officer", "1st Sub officer", "2nd Sergeant", "1st Corporal", "2nd Corporal", "Soldier", "Conscript", "publicServant" }));
+        cmbGrade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "General", "General mayor", "General de brigada", "Coronel", "Teniente coronel", "Mayor", "Capitan", "Teniente", "Teniente segundo", "Cadete", "Suboficial mayor", "Suboficial 1er", "Suboficial 2do", "Cabo 1er", "Cabo 2do", "Soldado", "Conscripto", "Servidor publico" }));
         cmbGrade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGradeActionPerformed(evt);
@@ -104,7 +104,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Enter your ID:");
+        jLabel6.setText("Ingresa tu cedula:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -136,7 +136,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(btmCreateAccount)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +214,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
         String emai = txfEmail.getText();
         String id = txfId.getText();
         while (true) {
-            
+
             if (!Validation.isValidEmailFormat(emai)) {
                 JOptionPane.showMessageDialog(this, "Invalid Email");
                 break;
@@ -223,13 +223,14 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Invalid ID");
                 break;
             }
-            
-            FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
-            this.setVisible(false);
-            frmCommensalMenu.setVisible(true);
-            
+
             Commensal commensal = new Commensal(txfId.getText(), txfName.getText(), txfEmail.getText(), pwfPassword.getText(), cmbGrade.getSelectedItem().toString(), "commensal", 0.0F);
             CloudController.create(commensal);
+
+            FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(commensal.getName(), commensal.getId(), commensal.getBalance());
+            this.setVisible(false);
+            frmCommensalMenu.setVisible(true);
+
             break;
         }
 

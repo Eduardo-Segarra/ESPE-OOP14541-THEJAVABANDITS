@@ -10,11 +10,20 @@ package ec.edu.espe.militarydininghall.view;
  */
 public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
 
+    private String adminName;
+    private double adminBalance;
+    
     /**
      * Creates new form FrmEditRegisterWithTheIDSearch
      */
     public FrmEditRegisterWithTheIDSearched() {
         initComponents();
+    }
+    
+    public FrmEditRegisterWithTheIDSearched(String name, double balance) {
+        initComponents();
+        this.adminName = name;
+        this.adminBalance = balance;
     }
 
     /**
@@ -141,13 +150,13 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
         //research the ID in the databese:
-        FrmAdminMenu frmMilitaryDinindHallSystemAdminMenu = new FrmAdminMenu();
+        FrmAdminMenu frmMilitaryDinindHallSystemAdminMenu = new FrmAdminMenu(adminName, adminBalance);
         this.setVisible(false);
         frmMilitaryDinindHallSystemAdminMenu.setVisible(true);
     }//GEN-LAST:event_btmSearchActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmAdminMenu frmAdmin = new FrmAdminMenu();
+        FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance);
         this.setVisible(false);
         frmAdmin.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed

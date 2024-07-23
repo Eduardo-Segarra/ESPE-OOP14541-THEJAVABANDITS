@@ -49,12 +49,12 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mnuMilitaryDiningHall">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Military Dining Hall"/>
+            <Property name="text" type="java.lang.String" value="Comedor Militar"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itmLogout">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Logout"/>
+                <Property name="text" type="java.lang.String" value="Cerrar sesion"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmLogoutActionPerformed"/>
@@ -62,7 +62,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmExit">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Exit"/>
+                <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmExitActionPerformed"/>
@@ -72,12 +72,12 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuAdministrationOfTheUsers">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Administration of the users"/>
+            <Property name="text" type="java.lang.String" value="Administracion de los usuarios"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itmEditRegister">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Edit Register"/>
+                <Property name="text" type="java.lang.String" value="Editar registro"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmEditRegisterActionPerformed"/>
@@ -85,7 +85,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmUpdateTheAccountBalanceForACommensal">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Upadate the account balance for a commensal"/>
+                <Property name="text" type="java.lang.String" value="Actualizar el balance de cuenta de un consumidor"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmUpdateTheAccountBalanceForACommensalActionPerformed"/>
@@ -95,12 +95,12 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuDayManagment">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Day Management"/>
+            <Property name="text" type="java.lang.String" value="Manejo de los dias"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itmBookADay">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Book a Day"/>
+                <Property name="text" type="java.lang.String" value="Reservar un dia"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmBookADayActionPerformed"/>
@@ -108,7 +108,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmCancelADayBooking">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cancel a Day Booking"/>
+                <Property name="text" type="java.lang.String" value="Cancelar la reservar de un dia"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmCancelADayBookingActionPerformed"/>
@@ -116,7 +116,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmSeeReservation">
               <Properties>
-                <Property name="text" type="java.lang.String" value="See reservation"/>
+                <Property name="text" type="java.lang.String" value="Ver reservaciones"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmSeeReservationActionPerformed"/>
@@ -126,7 +126,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuHelp">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Help"/>
+            <Property name="text" type="java.lang.String" value="Ayuda"/>
           </Properties>
         </Menu>
       </SubComponents>
@@ -183,7 +183,7 @@
                           <Component id="lbldNameAdmin" max="32767" attributes="0"/>
                           <Component id="jLabel3" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="177" max="32767" attributes="0"/>
+                      <EmptySpace pref="187" max="32767" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblAccountBalance" min="-2" pref="65" max="-2" attributes="0"/>
@@ -235,7 +235,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Your account balance is:"/>
+        <Property name="text" type="java.lang.String" value="Tu saldo de cuenta es:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAccountBalance">

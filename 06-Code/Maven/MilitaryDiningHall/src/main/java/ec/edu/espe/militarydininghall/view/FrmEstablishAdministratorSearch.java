@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
 
     private String generalAdminminId, generalAdminName;
+    private double generalAdminminBalance;
     
     public FrmEstablishAdministratorSearch() {
         initComponents();
@@ -23,10 +24,11 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
     
     public static Commensal commensal;
 
-    public FrmEstablishAdministratorSearch(Commensal commensal, String id, String name) {
+    public FrmEstablishAdministratorSearch(Commensal commensal, String id, String name, double balance) {
         initComponents();
         this.generalAdminName = name;
         this.generalAdminminId = id;
+        this.generalAdminminBalance = balance;
         lblIdSearched.setText(commensal.getId());
         lblEmailSearched.setText(commensal.getEmail());
         lblNameSearched.setText(commensal.getName());
@@ -221,7 +223,7 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
     }//GEN-LAST:event_btmYesActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmEstablishAdministrator frmEstablishAdministrator = new FrmEstablishAdministrator(generalAdminminId, generalAdminName);
+        FrmEstablishAdministrator frmEstablishAdministrator = new FrmEstablishAdministrator(generalAdminminId, generalAdminName, generalAdminminBalance);
         this.setVisible(false);
         frmEstablishAdministrator.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed
