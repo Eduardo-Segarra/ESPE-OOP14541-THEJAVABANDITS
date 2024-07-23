@@ -1,39 +1,50 @@
 package ec.edu.espe.militarydininghall.model;
 
+import java.util.Date;
+
 /**
  *
  * @author TheJavaBandits, DCCO-ESPE
  */
 public class Dish {
 
-    private int month;
-    private String breakfast;
-    private String lunch;
-    private String dinner;
+    protected String date;
+    protected String breakfast;
+    protected String lunch;
+    protected String dinner;
 
     public Dish() {
         // keep empty for it to work
     }
 
-    public Dish(int month, String breakfast, String lunch, String dinner) {
-        this.month = month;
+    public Dish(String date, String breakfast, String lunch, String dinner) {
+        this.date = date;
         this.breakfast = breakfast;
         this.lunch = lunch;
         this.dinner = dinner;
     }
+    
+    @Override
+    public String toString() {
+        return "Dishes{" + "Date=" + getDate() + ", breakfast=" + getBreakfast() + ", lunch=" + getLunch() + ", dinner=" + getDinner() + '}';
+    }
 
-    /**
-     * @return the month
-     */
-    public int getMonth() {
-        return month;
+    public String notification() {
+        return "This month the dishes are:\nBreakfast: " + getBreakfast() + " / Lunch: " + getLunch() + " / Dinner: " + getDinner();
     }
 
     /**
-     * @param month the month to set
+     * @return the date
      */
-    public void setMonth(int month) {
-        this.month = month;
+    public String getDate() {
+        return date;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(String date) {
+        this.date = date;
     }
 
     /**
@@ -76,15 +87,6 @@ public class Dish {
      */
     public void setDinner(String dinner) {
         this.dinner = dinner;
-    }
-
-    @Override
-    public String toString() {
-        return "Dishes{" + "month=" + month + ", breakfast=" + breakfast + ", lunch=" + lunch + ", dinner=" + dinner + '}';
-    }
-
-    public String notification() {
-        return "This month the dishes are:\nBreakfast: " + breakfast + " / Lunch: " + lunch + " / Dinner: " + dinner;
     }
 
 }

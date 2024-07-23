@@ -36,8 +36,7 @@ import org.bson.conversions.Bson;
 public class CloudController {
 
     private static final String[] collections = {
-        "commensals", "militaryChefs", "administrators", "generalAdministrator"
-    };
+        "commensals", "militaryChefs", "administrators", "generalAdministrator",};
 
     public static boolean create(Object object) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
@@ -57,7 +56,7 @@ public class CloudController {
             return false;
         }
     }
-    
+
     public static boolean createANewAdministrator(Object object) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
@@ -94,7 +93,7 @@ public class CloudController {
             JOptionPane.showInputDialog("An error has occurred in the data load.");
         }
     }
-    
+
     public static String login(String email, String password) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
 
@@ -254,6 +253,24 @@ public class CloudController {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static void saveMenu(Object object) {
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
+
+            MongoCollection<Document> collection = database.getCollection("menu");
+
+            Gson gson = new Gson();
+            String json = gson.toJson(object);
+            Document studentDocument = Document.parse(json);
+
+            collection.insertOne(studentDocument);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -171,7 +171,7 @@ public class FrmChefMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmExitActionPerformed
 
     private void itmRegistMenuForADayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRegistMenuForADayActionPerformed
-        FrmChooseMontyMenu frmChooseMontyMenu = new FrmChooseMontyMenu();
+        FrmChooseMontyMenu frmChooseMontyMenu = new FrmChooseMontyMenu(chefName);
         this.setVisible(false);
         frmChooseMontyMenu.setVisible(true);
     }//GEN-LAST:event_itmRegistMenuForADayActionPerformed
