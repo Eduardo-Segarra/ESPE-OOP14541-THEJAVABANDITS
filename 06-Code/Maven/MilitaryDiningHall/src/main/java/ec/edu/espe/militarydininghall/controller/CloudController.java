@@ -242,9 +242,9 @@ public class CloudController {
                 Document foundDocument = collection.find(query).first();
 
                 if (foundDocument != null) {
-                    double currentBalance = foundDocument.getDouble("balance") != null ? foundDocument.getDouble("balance") : 0.0;
-                    double lastDeposit = foundDocument.getDouble("lastDeposit") != null ? foundDocument.getDouble("lastDeposit") : 0.0;
-                    double latestWithdrawals = foundDocument.getDouble("latestWithdrawals") != null ? foundDocument.getDouble("latestWithdrawals") : 0.0;
+                    double currentBalance = foundDocument.getDouble("balance");
+                    double lastDeposit = foundDocument.getDouble("lastDeposit");
+                    double latestWithdrawals = foundDocument.getDouble("latestWithdrawals");
 
                     return new AccountDetails(currentBalance, lastDeposit, latestWithdrawals);
                 }

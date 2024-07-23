@@ -37,8 +37,9 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
             String[] parts = date.split("/");
             String day = parts[0];
             String month = parts[1];
+            String year = parts[2];
 
-            model.addRow(new Object[]{month, day, reserved});
+            model.addRow(new Object[]{year, month, day, reserved});
         }
     }
 
@@ -78,6 +79,7 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("SEE RESERVATION");
 
         btmBack.setText("Back");
@@ -89,20 +91,20 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
 
         tblTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null,  new Boolean(false)},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null,  new Boolean(false)},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Month", "Day", "State"
+                "Year", "Month", "Day", "State"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -122,14 +124,15 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(141, 141, 141)
-                            .addComponent(jLabel1))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(260, 260, 260)
-                            .addComponent(btmBack))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(260, 260, 260)
+                        .addComponent(btmBack)
+                        .addGap(3, 3, 3)))
                 .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(89, 89, 89))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +143,7 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btmBack)
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

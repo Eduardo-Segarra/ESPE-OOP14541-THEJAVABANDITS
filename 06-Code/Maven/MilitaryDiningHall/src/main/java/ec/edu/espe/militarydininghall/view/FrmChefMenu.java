@@ -10,6 +10,7 @@ package ec.edu.espe.militarydininghall.view;
  */
 public class FrmChefMenu extends javax.swing.JFrame {
 
+    private String chefName;
     /**
      * Creates new form ChefMenu
      */
@@ -17,9 +18,10 @@ public class FrmChefMenu extends javax.swing.JFrame {
         initComponents();
     }
 
-    public FrmChefMenu(String chefName) {
+    public FrmChefMenu(String name) {
         initComponents();
-        jLabel1.setText("Welcome, " + chefName + "!");
+        this.chefName = name;
+        lblNameOfTheChef.setText("Welcome, " + chefName + "!");
     }
 
     /**
@@ -32,7 +34,7 @@ public class FrmChefMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblNameOfTheChef = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -42,26 +44,28 @@ public class FrmChefMenu extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         itmLogout = new javax.swing.JMenuItem();
         itmExit = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        itmRegistMenuForADay = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Welcome \"name military chef\"");
+        lblNameOfTheChef.setText("Welcome \"name military chef\"");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(lblNameOfTheChef, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblNameOfTheChef, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel2.setText("This month the dishes are:");
@@ -98,9 +102,9 @@ public class FrmChefMenu extends javax.swing.JFrame {
                 .addGap(0, 146, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("MilitaryDinningHall");
+        jMenu1.setText("Comedor Militar");
 
-        itmLogout.setText("Log out");
+        itmLogout.setText("Cerrar sesion");
         itmLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmLogoutActionPerformed(evt);
@@ -108,7 +112,7 @@ public class FrmChefMenu extends javax.swing.JFrame {
         });
         jMenu1.add(itmLogout);
 
-        itmExit.setText("Exit");
+        itmExit.setText("Salir");
         itmExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmExitActionPerformed(evt);
@@ -118,8 +122,20 @@ public class FrmChefMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Choose the menu for the month");
-        jMenuBar1.add(jMenu2);
+        jMenu3.setText("Gestión del menú");
+
+        itmRegistMenuForADay.setText("Registrar el menu para un día");
+        itmRegistMenuForADay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmRegistMenuForADayActionPerformed(evt);
+            }
+        });
+        jMenu3.add(itmRegistMenuForADay);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Ayuda");
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -153,6 +169,12 @@ public class FrmChefMenu extends javax.swing.JFrame {
     private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_itmExitActionPerformed
+
+    private void itmRegistMenuForADayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRegistMenuForADayActionPerformed
+        FrmChooseMontyMenu frmChooseMontyMenu = new FrmChooseMontyMenu();
+        this.setVisible(false);
+        frmChooseMontyMenu.setVisible(true);
+    }//GEN-LAST:event_itmRegistMenuForADayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,15 +215,17 @@ public class FrmChefMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itmExit;
     private javax.swing.JMenuItem itmLogout;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem itmRegistMenuForADay;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblNameOfTheChef;
     // End of variables declaration//GEN-END:variables
 }

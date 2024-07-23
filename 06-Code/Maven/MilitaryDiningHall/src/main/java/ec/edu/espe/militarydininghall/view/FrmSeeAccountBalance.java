@@ -15,13 +15,16 @@ public class FrmSeeAccountBalance extends javax.swing.JFrame {
      */
     public FrmSeeAccountBalance() {
         initComponents();
-        
+
     }
-  public void setAccountDetails(double currentBalance, double lastDeposit, double latestWithdrawals) {
+
+    public void setAccountDetails(double currentBalance, double lastDeposit, double latestWithdrawals) {
+        initComponents();
         lbldCurretBalance.setText("Current account balance: $" + String.format("%.2f", currentBalance));
         lbldLastDeposit.setText("Balance of the last deposit: $" + String.format("%.2f", lastDeposit));
         lbldLatestAccountWithdrawals.setText("Latest account withdrawals: $" + String.format("%.2f", latestWithdrawals));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +43,7 @@ public class FrmSeeAccountBalance extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("SEE ACCOUNT BALANCE");
 
         lbldCurretBalance.setText("Current account balance:");
@@ -73,13 +77,14 @@ public class FrmSeeAccountBalance extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(121, 121, 121))))
+                        .addGap(59, 59, 59))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(lbldCurretBalance)
                 .addGap(36, 36, 36)
                 .addComponent(lbldLastDeposit)
@@ -87,7 +92,7 @@ public class FrmSeeAccountBalance extends javax.swing.JFrame {
                 .addComponent(lbldLatestAccountWithdrawals)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btmComensalMenu)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -111,9 +116,9 @@ public class FrmSeeAccountBalance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmComensalMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmComensalMenuActionPerformed
-     FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
-     this.setVisible(false);
-     frmCommensalMenu.setVisible(true);
+        FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
+        this.setVisible(false);
+        frmCommensalMenu.setVisible(true);
     }//GEN-LAST:event_btmComensalMenuActionPerformed
 
     /**

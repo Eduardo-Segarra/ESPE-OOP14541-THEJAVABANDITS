@@ -7,6 +7,7 @@ package ec.edu.espe.militarydininghall.view;
 import com.google.gson.Gson;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,11 +15,19 @@ import ec.edu.espe.militarydininghall.model.Commensal;
  */
 public class FrmEstablishAdministrator extends javax.swing.JFrame {
 
+    private String generalAdminminId, generalAdminName;
+    
     /**
      * Creates new form FrmEstablishAdministrator
      */
     public FrmEstablishAdministrator() {
         initComponents();
+    }
+    
+    public FrmEstablishAdministrator(String id, String name) {
+        initComponents();
+        this.generalAdminminId = id;
+        this.generalAdminName = name;
     }
 
     /**
@@ -67,15 +76,15 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btmCancel)
-                        .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btmApply)
-                        .addGap(43, 43, 43))
+                        .addGap(40, 40, 40)
+                        .addComponent(btmCancel)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txfId, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(74, 74, 74))))
         );
@@ -99,17 +108,21 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmApplyActionPerformed
-        FrmEstablishAdministratorSearch frmEstablishAdministratorSearch = new FrmEstablishAdministratorSearch();
         Gson gson = new Gson();
         String accounData = CloudController.findAccountById(txfId.getText());
-        Commensal commensal = gson.fromJson(accounData, Commensal.class);
-        FrmEstablishAdministratorSearch.commensal = commensal;
-        this.setVisible(false);
-        frmEstablishAdministratorSearch.setVisible(true);
+        if (accounData == null) {
+            JOptionPane.showMessageDialog(this, "La cedula ingresada no existe");
+        } else {
+            Commensal commensal = gson.fromJson(accounData, Commensal.class);
+            FrmEstablishAdministratorSearch frmEstablishAdministratorSearch = new FrmEstablishAdministratorSearch(commensal, generalAdminminId, generalAdminName);
+            FrmEstablishAdministratorSearch.commensal = commensal;
+            this.setVisible(false);
+            frmEstablishAdministratorSearch.setVisible(true);
+        }
     }//GEN-LAST:event_btmApplyActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin();
+        FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(generalAdminName, generalAdminminId);
         this.setVisible(false);
         frmGeneralAdmin.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed
