@@ -44,13 +44,13 @@ public class FrmSeeAccountBalance extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("SEE ACCOUNT BALANCE");
+        jLabel1.setText("Ver saldo de cuenta");
 
-        lbldCurretBalance.setText("Current account balance:");
+        lbldCurretBalance.setText("Saldo de la cuenta corriente:");
 
-        lbldLastDeposit.setText("Balance of the last deposit deposited: ");
+        lbldLastDeposit.setText("Saldo del último depósito depositado:");
 
-        lbldLatestAccountWithdrawals.setText("latest account withdrawals:");
+        lbldLatestAccountWithdrawals.setText("últimos retiros de cuenta:");
 
         btmComensalMenu.setText("Menu");
         btmComensalMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -68,16 +68,15 @@ public class FrmSeeAccountBalance extends javax.swing.JFrame {
                     .addComponent(lbldCurretBalance)
                     .addComponent(lbldLastDeposit)
                     .addComponent(lbldLatestAccountWithdrawals))
-                .addGap(0, 189, Short.MAX_VALUE))
+                .addGap(0, 187, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btmComensalMenu)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(59, 59, 59))))
+                .addContainerGap(314, Short.MAX_VALUE)
+                .addComponent(btmComensalMenu)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

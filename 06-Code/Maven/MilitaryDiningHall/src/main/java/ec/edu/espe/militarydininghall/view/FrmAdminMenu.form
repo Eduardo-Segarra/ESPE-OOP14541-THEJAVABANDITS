@@ -183,7 +183,7 @@
                           <Component id="lbldNameAdmin" max="32767" attributes="0"/>
                           <Component id="jLabel3" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="187" max="32767" attributes="0"/>
+                      <EmptySpace pref="202" max="32767" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblAccountBalance" min="-2" pref="65" max="-2" attributes="0"/>
@@ -230,7 +230,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lbldNameAdmin">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Welcome! "/>
+        <Property name="text" type="java.lang.String" value="Bienvenido! "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -251,22 +251,22 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="This month the dishes are:"/>
+        <Property name="text" type="java.lang.String" value="Este mes los platos son"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Breakfast:"/>
+        <Property name="text" type="java.lang.String" value="Desayuno:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lunch: "/>
+        <Property name="text" type="java.lang.String" value="Almuerzo: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Dinner:"/>
+        <Property name="text" type="java.lang.String" value="Merienda:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblBreakfast">

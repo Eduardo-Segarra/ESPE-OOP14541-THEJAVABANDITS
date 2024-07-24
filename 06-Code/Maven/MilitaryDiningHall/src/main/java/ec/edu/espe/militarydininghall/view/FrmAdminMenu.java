@@ -73,7 +73,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lbldNameAdmin.setText("Welcome! ");
+        lbldNameAdmin.setText("Bienvenido! ");
 
         jLabel4.setText("Tu saldo de cuenta es:");
 
@@ -82,13 +82,13 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         jLabel2.setText("$");
 
-        jLabel3.setText("This month the dishes are:");
+        jLabel3.setText("Este mes los platos son");
 
-        jLabel5.setText("Breakfast:");
+        jLabel5.setText("Desayuno:");
 
-        jLabel6.setText("Lunch: ");
+        jLabel6.setText("Almuerzo: ");
 
-        jLabel7.setText("Dinner:");
+        jLabel7.setText("Merienda:");
 
         lblBreakfast.setText("jLabel8");
 
@@ -195,7 +195,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lbldNameAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAccountBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)

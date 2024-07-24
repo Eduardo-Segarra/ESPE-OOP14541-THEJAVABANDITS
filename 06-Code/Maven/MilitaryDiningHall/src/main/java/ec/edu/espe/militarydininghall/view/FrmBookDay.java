@@ -191,7 +191,7 @@ public class FrmBookDay extends javax.swing.JFrame {
         dateBook.addDay(date);
         CloudController.saveDateBook(dateBook);
         
-        JOptionPane.showMessageDialog(this, "Saved correctly on the day of the appointment");
+        JOptionPane.showMessageDialog(this, "Guardado correctamente el día de la cita.");
         FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
         this.setVisible(false);
         frmCommensalMenu.setVisible(true);

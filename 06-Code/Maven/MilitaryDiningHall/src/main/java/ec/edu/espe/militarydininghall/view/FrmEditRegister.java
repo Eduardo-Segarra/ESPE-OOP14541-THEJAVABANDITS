@@ -102,14 +102,14 @@ public class FrmEditRegister extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        btmSearch.setText("Search");
+        btmSearch.setText("Buscar");
         btmSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmSearchActionPerformed(evt);
             }
         });
 
-        btmCancel.setText("Cancel");
+        btmCancel.setText("Cancelar");
         btmCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmCancelActionPerformed(evt);

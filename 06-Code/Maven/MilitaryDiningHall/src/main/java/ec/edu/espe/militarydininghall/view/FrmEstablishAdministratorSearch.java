@@ -64,13 +64,13 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Establish the administrator");
+        jLabel1.setText("Establecer administrador");
 
-        lblEmail.setText("Email:");
+        lblEmail.setText("Correo");
 
-        lblName.setText("Name:");
+        lblName.setText("Nombre:");
 
-        lblGrade.setText("Grade:");
+        lblGrade.setText("Grado");
 
         jLabel2.setText("ID:");
 
@@ -129,16 +129,16 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
                 .addGap(59, 59, 59))
         );
 
-        jLabel3.setText("You want to set this person as an administrator?");
+        jLabel3.setText("¿Establecer a esta persona como administrador?");
 
-        btmYes.setText("Yes");
+        btmYes.setText("Si");
         btmYes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmYesActionPerformed(evt);
             }
         });
 
-        btmCancel.setText("Cancel");
+        btmCancel.setText("Cancelar");
         btmCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmCancelActionPerformed(evt);
@@ -180,7 +180,7 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jLabel1)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

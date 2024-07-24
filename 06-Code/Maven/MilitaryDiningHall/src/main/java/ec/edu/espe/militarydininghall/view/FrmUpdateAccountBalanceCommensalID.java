@@ -26,11 +26,11 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
         initComponents();
 
         if (commensal != null) {
-            jLabel2.setText("Updating the account balance of " + commensal.getName() + " with ID: " + commensal.getId());
-            jLabel3.setText(commensal.getName() + " has: $" + commensal.getBalance());
+            jLabel2.setText("Actualizacion del saldo de cuenta de " + commensal.getName() + " con cedula: " + commensal.getId());
+            jLabel3.setText(commensal.getName() + " tiene: $" + commensal.getBalance());
         } else {
-            jLabel2.setText("Updating the account balance");
-            jLabel3.setText("Account details not available");
+            jLabel2.setText("Actualización del saldo de la cuenta");
+            jLabel3.setText("Detalles de la cuenta no disponibles");
         }
     }
 
@@ -65,7 +65,7 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("UPDATE THE ACCOUNT BALANCE FOR A COMMENSAL");
+        jLabel1.setText("Actualizar el saldo de cuenta de un comensal");
         jLabel1.setAlignmentX(0.5F);
         jLabel1.setIconTextGap(8);
         jLabel1.setName(""); // NOI18N
@@ -88,11 +88,11 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jLabel2.setText("Updating the account balance of [Name of the person] with ID: [ID of the person]");
+        jLabel2.setText("Actualización del saldo de la cuenta de [Nombre de la persona] con ID: [ID de la persona]");
 
-        jLabel3.setText("[Name of the person] have: [amount of money]");
+        jLabel3.setText("[Nombre de la persona] tiene: [cantidad de dinero]");
 
-        jLabel4.setText("How much money [name of the person] wants to enter?:");
+        jLabel4.setText("¿Cuánto dinero [nombre de la persona] quiere ingresar?:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,7 +117,7 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)))
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,14 +134,14 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        btmSearch.setText("Save");
+        btmSearch.setText("Guardar");
         btmSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmSearchActionPerformed(evt);
             }
         });
 
-        btmCancel.setText("Cancel");
+        btmCancel.setText("Cancelar");
         btmCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmCancelActionPerformed(evt);
@@ -195,27 +195,27 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
             double newBalance = Double.parseDouble(jTextField1.getText());
 
             if (!Validation.ValidBalance(newBalance)) {
-                JOptionPane.showMessageDialog(this, "Balance cannot be negative.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El saldo no puede ser negativo.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (!Validation.ValidCommensal(commensal)) {
-                JOptionPane.showMessageDialog(this, "Commensal object is not initialized properly.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El objeto comensal no se inicializa correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             boolean success = CloudController.updateCommensalBalance(commensal.getId(), newBalance);
             if (success) {
-                JOptionPane.showMessageDialog(this, "Balance updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Saldo de cuenta actualizado exitosamente!", "Exito", JOptionPane.INFORMATION_MESSAGE);
                 new FrmAdminMenu(adminName, adminBalance).setVisible(true);
                 this.dispose();  // Cierra el formulario actual
             } else {
-                JOptionPane.showMessageDialog(this, "Failed to update balance.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar el saldo", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid amount.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor ingrese una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ocurrio un error " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btmSearchActionPerformed
 

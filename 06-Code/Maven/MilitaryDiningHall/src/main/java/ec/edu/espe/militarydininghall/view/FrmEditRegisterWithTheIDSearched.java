@@ -46,7 +46,7 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("EDIT REGISTER");
+        jLabel1.setText("Editar registro");
         jLabel1.setAlignmentX(0.5F);
         jLabel1.setIconTextGap(8);
         jLabel1.setName(""); // NOI18N
@@ -88,14 +88,14 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
                 .addContainerGap(199, Short.MAX_VALUE))
         );
 
-        btmSearch.setText("Save");
+        btmSearch.setText("Guardar");
         btmSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmSearchActionPerformed(evt);
             }
         });
 
-        btmCancel.setText("Cancel");
+        btmCancel.setText("Cancelar");
         btmCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmCancelActionPerformed(evt);

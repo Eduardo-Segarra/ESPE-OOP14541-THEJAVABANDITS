@@ -67,7 +67,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("UPDATE THE ACCOUNT BALANCE FOR A COMMENSAL");
+        jLabel2.setText("Actualizar el saldo de cuenta de un comensal");
         jLabel2.setAlignmentX(0.5F);
         jLabel2.setIconTextGap(8);
         jLabel2.setName(""); // NOI18N
@@ -90,7 +90,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        jLabel3.setText("Enter the ID of the person you want to update their account balance:");
+        jLabel3.setText("Ingrese el ID de la persona que desea actualizar su saldo de cuenta:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +107,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,14 +119,14 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        btmSearch.setText("Search");
+        btmSearch.setText("Buscar");
         btmSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmSearchActionPerformed(evt);
             }
         });
 
-        btmCancel.setText("Cancel");
+        btmCancel.setText("Cancelar");
         btmCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmCancelActionPerformed(evt);
