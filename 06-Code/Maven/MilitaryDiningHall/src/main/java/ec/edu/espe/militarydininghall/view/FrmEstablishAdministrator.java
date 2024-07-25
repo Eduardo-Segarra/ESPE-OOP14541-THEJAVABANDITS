@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmEstablishAdministrator extends javax.swing.JFrame {
 
-    private String generalAdminminId, generalAdminName;
+    private String generalAdminminId, generalAdminName, generalAdminType;
     private double generalAdminminbalance;
     
     /**
@@ -25,11 +25,12 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
         initComponents();
     }
     
-    public FrmEstablishAdministrator(String id, String name, double balance) {
+    public FrmEstablishAdministrator(String id, String name, double balance, String type) {
         initComponents();
         this.generalAdminminId = id;
         this.generalAdminName = name;
         this.generalAdminminbalance = balance;
+        this.generalAdminType = type;
     }
 
     /**
@@ -116,7 +117,7 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La cedula ingresada no existe");
         } else {
             Commensal commensal = gson.fromJson(accounData, Commensal.class);
-            FrmEstablishAdministratorSearch frmEstablishAdministratorSearch = new FrmEstablishAdministratorSearch(commensal, generalAdminminId, generalAdminName, generalAdminminbalance);
+            FrmEstablishAdministratorSearch frmEstablishAdministratorSearch = new FrmEstablishAdministratorSearch(commensal, generalAdminminId, generalAdminName, generalAdminminbalance, generalAdminType);
             FrmEstablishAdministratorSearch.commensal = commensal;
             this.setVisible(false);
             frmEstablishAdministratorSearch.setVisible(true);
@@ -124,7 +125,7 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
     }//GEN-LAST:event_btmApplyActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(generalAdminName, generalAdminminId, generalAdminminbalance);
+        FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(generalAdminName, generalAdminminId, generalAdminminbalance, generalAdminType);
         this.setVisible(false);
         frmGeneralAdmin.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed

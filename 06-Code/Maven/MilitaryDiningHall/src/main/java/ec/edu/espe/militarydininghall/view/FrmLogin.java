@@ -195,13 +195,13 @@ public class FrmLogin extends javax.swing.JFrame {
             switch (type) {
                 case "commensal" -> {
                     FrmBookDay.id = Long.parseLong(id);
-                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id, accountBalance);
+                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id, accountBalance, type);
                     this.setVisible(false);
                     frmCommensalMenu.setVisible(true);
                 }
                 case "administrators" -> {
                     FrmBookDay.id = Long.parseLong(id);
-                    FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name, accountBalance);
+                    FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name, accountBalance, type, id);
                     this.setVisible(false);
                     frmAdminMenu.setVisible(true);
                 }
@@ -213,7 +213,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 }
                 case "generalAdministrator" -> {
                     FrmBookDay.id = Long.parseLong(id);
-                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id, accountBalance);
+                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id, accountBalance, type);
                     this.setVisible(false);
                     frmGeneralAdmin.setVisible(true);
                 }

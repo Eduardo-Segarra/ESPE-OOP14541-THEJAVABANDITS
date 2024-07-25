@@ -227,7 +227,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
             Commensal commensal = new Commensal(txfId.getText(), txfName.getText(), txfEmail.getText(), pwfPassword.getText(), cmbGrade.getSelectedItem().toString(), "commensal", 0.0F);
             CloudController.create(commensal);
 
-            FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(commensal.getName(), commensal.getId(), commensal.getBalance());
+            FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(commensal.getName(), commensal.getId(), commensal.getBalance(), commensal.getType());
             this.setVisible(false);
             frmCommensalMenu.setVisible(true);
 

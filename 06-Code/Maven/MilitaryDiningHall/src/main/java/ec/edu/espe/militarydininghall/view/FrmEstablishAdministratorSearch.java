@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
 
-    private String generalAdminminId, generalAdminName;
+        private String generalAdminminId, generalAdminName, generalAdminType;
     private double generalAdminminBalance;
     
     public FrmEstablishAdministratorSearch() {
@@ -24,11 +24,12 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
     
     public static Commensal commensal;
 
-    public FrmEstablishAdministratorSearch(Commensal commensal, String id, String name, double balance) {
+    public FrmEstablishAdministratorSearch(Commensal commensal, String id, String name, double balance, String type) {
         initComponents();
         this.generalAdminName = name;
         this.generalAdminminId = id;
         this.generalAdminminBalance = balance;
+        this.generalAdminType = type;
         lblIdSearched.setText(commensal.getId());
         lblEmailSearched.setText(commensal.getEmail());
         lblNameSearched.setText(commensal.getName());
@@ -216,14 +217,14 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
         commensal.setType("administrators");
         succes = CloudController.createANewAdministrator(commensal);
         if (succes) {
-            FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin();
+            FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(generalAdminName, generalAdminminId, generalAdminminBalance, generalAdminType);
             this.setVisible(false);
             frmGeneralAdmin.setVisible(true);
         }
     }//GEN-LAST:event_btmYesActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmEstablishAdministrator frmEstablishAdministrator = new FrmEstablishAdministrator(generalAdminminId, generalAdminName, generalAdminminBalance);
+        FrmEstablishAdministrator frmEstablishAdministrator = new FrmEstablishAdministrator(generalAdminminId, generalAdminName, generalAdminminBalance, generalAdminType);
         this.setVisible(false);
         frmEstablishAdministrator.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed

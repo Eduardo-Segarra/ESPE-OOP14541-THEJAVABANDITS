@@ -13,8 +13,8 @@ import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
  */
 public class FrmCommensalMenu extends javax.swing.JFrame {
 
-    public static String commensalId, nameCommensal;
-    private double adminBalance;
+    public static String commensalId, nameCommensal, commensalType;
+    private double commensalBalance;
     
     /**
      * Creates new form CommensalMenu
@@ -23,13 +23,14 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         initComponents();
     }
 
-    public FrmCommensalMenu(String name, String id, double balance) {
+    public FrmCommensalMenu(String name, String id, double balance, String type) {
         initComponents();
-        this.commensalId = id;
-        this.nameCommensal = name;
-        this.adminBalance = balance;
+        FrmCommensalMenu.commensalId = id;
+        FrmCommensalMenu.nameCommensal = name;
+        FrmCommensalMenu.commensalType = type;
+        this.commensalBalance = balance;
         lbldNameCommensal.setText("Bienvenido " + nameCommensal + "!");
-        lblAccountBalance.setText(String.valueOf(adminBalance));
+        lblAccountBalance.setText(String.valueOf(commensalBalance));
     }
 
     /**
@@ -61,7 +62,6 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         itmBookDay = new javax.swing.JMenuItem();
         itmCancelDayBooking = new javax.swing.JMenuItem();
         itmSeeReservations = new javax.swing.JMenuItem();
-        itmHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,28 +92,31 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(333, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbldNameCommensal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lbldNameCommensal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAccountBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -194,9 +197,6 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        itmHelp.setText("Ayuda");
-        jMenuBar1.add(itmHelp);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -220,7 +220,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itmCancelDayBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCancelDayBookingActionPerformed
-        FrmCancelAppointment frmCancelAppointment = new FrmCancelAppointment();
+        FrmCancelAppointment frmCancelAppointment = new FrmCancelAppointment(commensalId, nameCommensal, commensalType, commensalBalance);
         this.setVisible(false);
         frmCancelAppointment.setVisible(true);
     }//GEN-LAST:event_itmCancelDayBookingActionPerformed
@@ -236,13 +236,13 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmExitActionPerformed
 
     private void itmBookDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBookDayActionPerformed
-        FrmBookDay frmBookDay = new FrmBookDay();
+        FrmBookDay frmBookDay = new FrmBookDay(commensalId, nameCommensal, commensalType, commensalBalance);
         this.setVisible(false);
         frmBookDay.setVisible(true);
     }//GEN-LAST:event_itmBookDayActionPerformed
 
     private void itmSeeReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeReservationsActionPerformed
-        FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment();
+        FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment(commensalId, nameCommensal, commensalType, commensalBalance);
         this.setVisible(false);
         frmSeeAppointment.setVisible(true);
         frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(id));
@@ -290,7 +290,6 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmBookDay;
     private javax.swing.JMenuItem itmCancelDayBooking;
     private javax.swing.JMenuItem itmExit;
-    private javax.swing.JMenu itmHelp;
     private javax.swing.JMenuItem itmLogout;
     private javax.swing.JMenuItem itmSeeReservations;
     private javax.swing.JLabel jLabel1;

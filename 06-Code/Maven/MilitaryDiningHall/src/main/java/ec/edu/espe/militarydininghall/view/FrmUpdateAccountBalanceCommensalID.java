@@ -16,18 +16,21 @@ import utils.Validation;
 public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
 
     private Commensal commensal;
-    private String adminName;
+    private String adminName, adminType, adminId;
     private double adminBalance;
 
-    public FrmUpdateAccountBalanceCommensalID(Commensal commensal, String name, double balance) {
+    public FrmUpdateAccountBalanceCommensalID(Commensal commensal, String name, double balance, String type, String id) {
         this.commensal = commensal;
         this.adminName = name;
         this.adminBalance = balance;
+        this.adminType = type;
+        this.adminId = id;
         initComponents();
 
         if (commensal != null) {
             jLabel2.setText("Actualizacion del saldo de cuenta de " + commensal.getName() + " con cedula: " + commensal.getId());
             jLabel3.setText(commensal.getName() + " tiene: $" + commensal.getBalance());
+            jLabel4.setText("¿Cuánto dinero" + commensal.getName() + "quiere ingresar?:");
         } else {
             jLabel2.setText("Actualización del saldo de la cuenta");
             jLabel3.setText("Detalles de la cuenta no disponibles");
@@ -207,7 +210,7 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
             boolean success = CloudController.updateCommensalBalance(commensal.getId(), newBalance);
             if (success) {
                 JOptionPane.showMessageDialog(this, "Saldo de cuenta actualizado exitosamente!", "Exito", JOptionPane.INFORMATION_MESSAGE);
-                new FrmAdminMenu(adminName, adminBalance).setVisible(true);
+                new FrmAdminMenu(adminName, adminBalance, adminType, adminId).setVisible(true);
                 this.dispose();  // Cierra el formulario actual
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar el saldo", "Error", JOptionPane.ERROR_MESSAGE);
@@ -224,7 +227,7 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance);
+        FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance, adminType, adminId);
         this.setVisible(false);
         frmAdmin.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed

@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmEditRegister extends javax.swing.JFrame {
 
-    private String adminName;
+    private String adminName, adminType, adminId;
     private double adminBalance;
 
     /**
@@ -23,10 +23,12 @@ public class FrmEditRegister extends javax.swing.JFrame {
         initComponents();
     }
 
-    public FrmEditRegister(String name, double balance) {
+    public FrmEditRegister(String name, double balance, String type, String id) {
         initComponents();
         this.adminName = name;
         this.adminBalance = balance;
+        this.adminType = type;
+        this.adminId = id;
     }
 
     /**
@@ -167,14 +169,14 @@ public class FrmEditRegister extends javax.swing.JFrame {
         if (accounData == null) {
             JOptionPane.showMessageDialog(this, "La cedula ingresada no existe");
         } else {
-            FrmEditRegisterWithTheIDSearched frmEdit = new FrmEditRegisterWithTheIDSearched(adminName, adminBalance);
+            FrmEditRegisterWithTheIDSearched frmEdit = new FrmEditRegisterWithTheIDSearched(adminName, adminBalance, adminType, adminId);
             this.setVisible(false);
             frmEdit.setVisible(true);
         }
     }//GEN-LAST:event_btmSearchActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance);
+        FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance, adminType, adminId);
         this.setVisible(false);
         frmAdmin.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed

@@ -4,7 +4,6 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
-
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.DateBook;
 
@@ -46,8 +45,20 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
     /**
      * Creates new form FrmSeeAppointment
      */
+    private double userBalance;
+    public static long id;
+    public static String userId, userName, userType;
+
     public FrmSeeAppointment() {
         initComponents();
+    }
+
+    public FrmSeeAppointment(String id, String name, String type, double balance) {
+        initComponents();
+        FrmSeeAppointment.userId = id;
+        FrmSeeAppointment.userName = name;
+        FrmSeeAppointment.userType = type;
+        this.userBalance = balance;
     }
 
     /**
@@ -168,10 +179,23 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
-
-        FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu();
-        this.setVisible(false);
-        frmCommensalMenu.setVisible(true);
+        switch (userType) {
+            case "commensal" -> {
+                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
+                this.setVisible(false);
+                frmCommensalMenu.setVisible(true);
+            }
+            case "administrators" -> {
+                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
+                this.setVisible(false);
+                frmAdminMenu.setVisible(true);
+            }
+            case "generalAdministrator" -> {
+                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
+                this.setVisible(false);
+                frmGeneralAdmin.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_btmBackActionPerformed
 
     /**

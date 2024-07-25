@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmUpdateAccountBalance extends javax.swing.JFrame {
 
-    private String adminName;
+    private String adminName, adminType, adminId;
     private double adminBalance;
     
     /**
@@ -25,10 +25,12 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
         initComponents();
     }
     
-    public FrmUpdateAccountBalance(String name, double balance) {
+    public FrmUpdateAccountBalance(String name, double balance, String type, String id) {
         initComponents();
         this.adminName = name;
         this.adminBalance = balance;
+        this.adminType = type;
+        this.adminId = id;
     }
 
     /**
@@ -188,7 +190,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
             Gson gson = new Gson();
             Commensal commensal = gson.fromJson(accountJson, Commensal.class);
             
-            FrmUpdateAccountBalanceCommensalID frmUpdateAccountBalanceCommensalID = new FrmUpdateAccountBalanceCommensalID(commensal, adminName, adminBalance);
+            FrmUpdateAccountBalanceCommensalID frmUpdateAccountBalanceCommensalID = new FrmUpdateAccountBalanceCommensalID(commensal, adminName, adminBalance, adminType, adminId);
             this.setVisible(false);
             frmUpdateAccountBalanceCommensalID.setVisible(true);
         } else {
@@ -200,7 +202,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
     }//GEN-LAST:event_btmSearchActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance);
+        FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance, adminType, adminId);
         this.setVisible(false);
         frmAdmin.setVisible(true);                                   
     }//GEN-LAST:event_btmCancelActionPerformed

@@ -40,7 +40,7 @@ public class FrmMilitaryDiningHallSplash extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setForeground(java.awt.Color.WHITE);
-        jLabel1.setFont(new java.awt.Font("Arial",java.awt.Font.BOLD, 24));
+        jLabel1.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 24));
         jLabel1.setText("Comedor Militar");
 
         jLabel2.setForeground(java.awt.Color.WHITE);

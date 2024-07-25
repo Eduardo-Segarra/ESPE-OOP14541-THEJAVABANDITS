@@ -14,6 +14,7 @@ import com.mongodb.ConnectionString;
 import org.bson.Document;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
@@ -272,6 +273,23 @@ public class CloudController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<Document> getMenuInformation() {
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+        List<Document> documents = new ArrayList<>();
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            MongoDatabase database = mongoClient.getDatabase("oop");
+
+            MongoCollection<Document> collection = database.getCollection("menu");
+
+            FindIterable<Document> iterable = collection.find();
+            for (Document doc : iterable) {
+                documents.add(doc);
+            }
+
+        }
+        return documents;
     }
 
     public static class AccountDetails {

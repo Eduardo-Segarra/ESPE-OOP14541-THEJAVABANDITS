@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmGeneralAdmin extends javax.swing.JFrame {
 
-    private String generalAdminminId, generalAdminName;
+    private String generalAdminminId, generalAdminName, generalAdminType;
     private double generalAdminBalance;
 
     /**
@@ -24,11 +24,12 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         
     }
     
-    public FrmGeneralAdmin(String name, String id, double balance) {
+    public FrmGeneralAdmin(String name, String id, double balance, String type) {
         initComponents();
         this.generalAdminminId = id;
         this.generalAdminName = name;
         this.generalAdminBalance = balance;
+        this.generalAdminType = type;
         jLabel1.setText("Bienvenido, " + generalAdminName + "!");  
         lblAccountBalance.setText(String.valueOf(generalAdminBalance));
     }
@@ -65,7 +66,6 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         itmSeeReservations = new javax.swing.JMenuItem();
         mnAdminAdministration = new javax.swing.JMenu();
         itmNextMonthAdmin = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,14 +84,14 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAccountBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,12 +133,11 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(292, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,9 +218,6 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
 
         jMenuBar1.add(mnAdminAdministration);
 
-        jMenu3.setText("Ayuda");
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,7 +241,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
 
     private void itmBookDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBookDayActionPerformed
         // TODO add your handling code here:
-        FrmBookDay frmBookDay = new FrmBookDay();
+        FrmBookDay frmBookDay = new FrmBookDay(generalAdminminId, generalAdminName, generalAdminType, generalAdminBalance);
         this.setVisible(false);
         frmBookDay.setVisible(true);
     }//GEN-LAST:event_itmBookDayActionPerformed
@@ -257,7 +253,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_itmLogoutActionPerformed
 
     private void itmSeeReservationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeReservationsActionPerformed
-        FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment();
+        FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment(generalAdminminId, generalAdminName, generalAdminType, generalAdminBalance);
         this.setVisible(false);
         frmSeeAppointment.setVisible(true);
         frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(id));
@@ -269,13 +265,13 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
 
     private void itmCancelDayBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCancelDayBookingActionPerformed
         // TODO add your handling code here:
-        FrmCancelAppointment frmCancelAppointment = new FrmCancelAppointment();
+        FrmCancelAppointment frmCancelAppointment = new FrmCancelAppointment(generalAdminminId, generalAdminName, generalAdminType, generalAdminBalance);
         this.setVisible(false);
         frmCancelAppointment.setVisible(true);
     }//GEN-LAST:event_itmCancelDayBookingActionPerformed
 
     private void itmNextMonthAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmNextMonthAdminActionPerformed
-        FrmEstablishAdministrator frmEstablishAdministrator = new FrmEstablishAdministrator(generalAdminminId, generalAdminName, generalAdminBalance);
+        FrmEstablishAdministrator frmEstablishAdministrator = new FrmEstablishAdministrator(generalAdminminId, generalAdminName, generalAdminBalance, generalAdminType);
         this.setVisible(false);
         frmEstablishAdministrator.setVisible(true);
     }//GEN-LAST:event_itmNextMonthAdminActionPerformed
@@ -337,7 +333,6 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

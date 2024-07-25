@@ -40,16 +40,16 @@ public class FrmChefMenu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblBreakfast = new javax.swing.JLabel();
+        lblLunch = new javax.swing.JLabel();
+        lblDinner = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         itmLogout = new javax.swing.JMenuItem();
         itmExit = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         itmRegistMenuForADay = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        itmSeeTheRegisterOfTheMenus = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,7 +61,7 @@ public class FrmChefMenu extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(lblNameOfTheChef, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblNameOfTheChef, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -79,11 +79,11 @@ public class FrmChefMenu extends javax.swing.JFrame {
 
         jLabel5.setText("Merienda:");
 
-        jLabel1.setText("jLabel1");
+        lblBreakfast.setText("jLabel1");
 
-        jLabel6.setText("jLabel6");
+        lblLunch.setText("jLabel6");
 
-        jLabel7.setText("jLabel7");
+        lblDinner.setText("jLabel7");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -91,38 +91,40 @@ public class FrmChefMenu extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(250, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblLunch, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblDinner, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(32, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel1))
+                    .addComponent(lblBreakfast))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel6))
+                    .addComponent(lblLunch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel7))
+                    .addComponent(lblDinner))
                 .addGap(0, 146, Short.MAX_VALUE))
         );
 
@@ -156,10 +158,15 @@ public class FrmChefMenu extends javax.swing.JFrame {
         });
         jMenu3.add(itmRegistMenuForADay);
 
-        jMenuBar1.add(jMenu3);
+        itmSeeTheRegisterOfTheMenus.setText("Ver los registros");
+        itmSeeTheRegisterOfTheMenus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmSeeTheRegisterOfTheMenusActionPerformed(evt);
+            }
+        });
+        jMenu3.add(itmSeeTheRegisterOfTheMenus);
 
-        jMenu4.setText("Ayuda");
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -199,6 +206,13 @@ public class FrmChefMenu extends javax.swing.JFrame {
         this.setVisible(false);
         frmChooseMontyMenu.setVisible(true);
     }//GEN-LAST:event_itmRegistMenuForADayActionPerformed
+
+    private void itmSeeTheRegisterOfTheMenusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeTheRegisterOfTheMenusActionPerformed
+        FrmSeeTheRegisterOfTheMenus frmSeeTheRegisterOfTheMenus = new FrmSeeTheRegisterOfTheMenus(chefName);
+        this.setVisible(false);
+        frmSeeTheRegisterOfTheMenus.setVisible(true);
+        frmSeeTheRegisterOfTheMenus.updateTableOfMenus();
+    }//GEN-LAST:event_itmSeeTheRegisterOfTheMenusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,19 +254,19 @@ public class FrmChefMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmExit;
     private javax.swing.JMenuItem itmLogout;
     private javax.swing.JMenuItem itmRegistMenuForADay;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem itmSeeTheRegisterOfTheMenus;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblBreakfast;
+    private javax.swing.JLabel lblDinner;
+    private javax.swing.JLabel lblLunch;
     private javax.swing.JLabel lblNameOfTheChef;
     // End of variables declaration//GEN-END:variables
 }
