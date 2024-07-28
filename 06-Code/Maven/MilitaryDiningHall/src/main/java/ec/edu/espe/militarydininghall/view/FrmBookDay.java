@@ -234,7 +234,7 @@ public class FrmBookDay extends javax.swing.JFrame {
         String date = cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() + "/" + year;
 
         DateBook dateBook = CloudController.getDateBook(id);
-        dateBook.addDay(date);
+        dateBook.addDay(date, false);
         CloudController.saveDateBook(dateBook);
 
         JOptionPane.showMessageDialog(this, "Guardado correctamente el día de la cita.");

@@ -72,13 +72,16 @@ public class DateBook {
         }
     }
 
-    public void addDay(String date) {
-        reservedDays.put(date, false);
-        System.out.println("Date added");
+    public void addDay(String date, boolean assistance) {
+        reservedDays.put(date, assistance);
     }
 
     public void removeDay(String date) {
         reservedDays.remove(date);
-        System.out.println("Date removed");
+    }
+    
+    public void changeAssistance(String date, boolean assistance){
+        removeDay(date);
+        addDay(date, assistance);
     }
 }

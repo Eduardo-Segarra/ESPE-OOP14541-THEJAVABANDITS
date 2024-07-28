@@ -4,6 +4,11 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.controller.CloudController;
+import java.time.LocalDate;
+import java.util.List;
+import org.bson.Document;
+
 /**
  *
  * @author The Javabandits, DCCO-ESPE
@@ -20,8 +25,56 @@ public class FrmChefMenu extends javax.swing.JFrame {
 
     public FrmChefMenu(String name) {
         initComponents();
+        LocalDate today = LocalDate.now();
         this.chefName = name;
         lblNameOfTheChef.setText("Bienvenido, " + chefName + "!");
+        List<Document> documents = CloudController.getMenuInformation();
+        summaryOfTheMenu(documents, today);
+    }
+
+    private void summaryOfTheMenu(List<Document> documents, LocalDate today) {
+        if (documents == null) {
+            lblAvailablePlates.setText("Parece que todavia no se ha registrado algun menu.");
+            lblAvailableBreakfast.setVisible(false);
+            lblAvailableBreakfast.setVisible(false);
+            lblAvailableLunch.setVisible(false);
+            lblAvailableLunch.setVisible(false);
+            lblAvailableSnack.setVisible(false);
+            lblAvailableSnack.setVisible(false);
+        } else {
+            loopForShowingTheMenu(documents, today);
+        }
+    }
+
+    private void loopForShowingTheMenu(List<Document> documents, LocalDate today) {
+
+        for (Document doc : documents) {
+            String date = doc.getString("date");
+            String[] parts = date.split("/");
+            String day = parts[0];
+            String month = parts[1];
+            String year = parts[2];
+            String dateToCompare = day + "/" + month + "/" + year;
+            LocalDate dateSearch = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+            String breakfast = doc.getString("breakfast");
+            String lunch = doc.getString("lunch");
+            String dinner = doc.getString("dinner");
+
+            if (today.isBefore(dateSearch) || today.isEqual(dateSearch)) {
+                lblAvailablePlates.setText("Los platillos para el dia " + dateToCompare + " son los siguientes:");
+                lblBreakfast.setVisible(true);
+                lblAvailableBreakfast.setVisible(true);
+                lblLunch.setVisible(true);
+                lblAvailableLunch.setVisible(true);
+                lblSnack.setVisible(true);
+                lblAvailableSnack.setVisible(true);
+                lblAvailableBreakfast.setText(breakfast);
+                lblAvailableLunch.setText(lunch);
+                lblAvailableSnack.setText(dinner);
+                break;
+            }
+
+        }
     }
 
     /**
@@ -34,15 +87,16 @@ public class FrmChefMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        lblBreakfast = new javax.swing.JLabel();
-        lblLunch = new javax.swing.JLabel();
-        lblDinner = new javax.swing.JLabel();
         lblNameOfTheChef = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        lblAvailablePlates1 = new javax.swing.JLabel();
+        lblAvailablePlates = new javax.swing.JLabel();
+        lblBreakfast = new javax.swing.JLabel();
+        lblLunch = new javax.swing.JLabel();
+        lblSnack = new javax.swing.JLabel();
+        lblAvailableSnack = new javax.swing.JLabel();
+        lblAvailableLunch = new javax.swing.JLabel();
+        lblAvailableBreakfast = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         itmLogout = new javax.swing.JMenuItem();
@@ -54,34 +108,6 @@ public class FrmChefMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(50, 91, 14));
-
-        jLabel2.setFont(new java.awt.Font("Artifakt Element Medium", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Este mes los platos son:");
-
-        jLabel3.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Desayuno:");
-
-        jLabel4.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Almuerzo:");
-
-        jLabel5.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Merienda:");
-
-        lblBreakfast.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        lblBreakfast.setForeground(new java.awt.Color(255, 255, 255));
-        lblBreakfast.setText("jLabel1");
-
-        lblLunch.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        lblLunch.setForeground(new java.awt.Color(255, 255, 255));
-        lblLunch.setText("jLabel6");
-
-        lblDinner.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        lblDinner.setForeground(new java.awt.Color(255, 255, 255));
-        lblDinner.setText("jLabel7");
 
         lblNameOfTheChef.setFont(new java.awt.Font("Artifakt Element Black", 0, 20)); // NOI18N
         lblNameOfTheChef.setForeground(new java.awt.Color(255, 255, 255));
@@ -100,55 +126,96 @@ public class FrmChefMenu extends javax.swing.JFrame {
             .addGap(0, 18, Short.MAX_VALUE)
         );
 
+        lblAvailablePlates1.setFont(new java.awt.Font("Artifakt Element Medium", 0, 14)); // NOI18N
+        lblAvailablePlates1.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvailablePlates1.setText("Proximas reservaciones:");
+
+        lblAvailablePlates.setFont(new java.awt.Font("Artifakt Element Medium", 0, 14)); // NOI18N
+        lblAvailablePlates.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvailablePlates.setText("Este mes los platos son:");
+
+        lblBreakfast.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblBreakfast.setForeground(new java.awt.Color(255, 255, 255));
+        lblBreakfast.setText("Desayuno:");
+
+        lblLunch.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblLunch.setForeground(new java.awt.Color(255, 255, 255));
+        lblLunch.setText("Almuerzo:");
+
+        lblSnack.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblSnack.setForeground(new java.awt.Color(255, 255, 255));
+        lblSnack.setText("Merienda:");
+
+        lblAvailableSnack.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblAvailableSnack.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvailableSnack.setText("jLabel7");
+
+        lblAvailableLunch.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblAvailableLunch.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvailableLunch.setText("jLabel6");
+
+        lblAvailableBreakfast.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblAvailableBreakfast.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvailableBreakfast.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(97, 97, 97)
-                            .addComponent(lblBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(288, 288, 288)))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(290, 290, 290))
-                        .addComponent(jLabel2)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(28, 28, 28)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblLunch, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblDinner, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(lblNameOfTheChef))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(lblNameOfTheChef)
+                .addContainerGap(74, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAvailablePlates1)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(97, 97, 97)
+                                    .addComponent(lblAvailableBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lblBreakfast)
+                                    .addGap(288, 288, 288)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lblLunch)
+                                    .addGap(290, 290, 290))
+                                .addComponent(lblAvailablePlates)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lblSnack)
+                                    .addGap(28, 28, 28)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblAvailableLunch, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblAvailableSnack, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(lblNameOfTheChef, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel2)
                 .addGap(18, 18, 18)
+                .addComponent(lblAvailablePlates1)
+                .addGap(18, 18, 18)
+                .addComponent(lblAvailablePlates)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblBreakfast))
+                    .addComponent(lblBreakfast)
+                    .addComponent(lblAvailableBreakfast))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(lblLunch))
+                    .addComponent(lblLunch)
+                    .addComponent(lblAvailableLunch))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblDinner))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                    .addComponent(lblSnack)
+                    .addComponent(lblAvailableSnack))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -263,18 +330,19 @@ public class FrmChefMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmLogout;
     private javax.swing.JMenuItem itmRegistMenuForADay;
     private javax.swing.JMenuItem itmSeeTheRegisterOfTheMenus;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblAvailableBreakfast;
+    private javax.swing.JLabel lblAvailableLunch;
+    private javax.swing.JLabel lblAvailablePlates;
+    private javax.swing.JLabel lblAvailablePlates1;
+    private javax.swing.JLabel lblAvailableSnack;
     private javax.swing.JLabel lblBreakfast;
-    private javax.swing.JLabel lblDinner;
     private javax.swing.JLabel lblLunch;
     private javax.swing.JLabel lblNameOfTheChef;
+    private javax.swing.JLabel lblSnack;
     // End of variables declaration//GEN-END:variables
 }

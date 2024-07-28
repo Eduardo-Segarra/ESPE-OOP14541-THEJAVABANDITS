@@ -4,7 +4,9 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import com.google.gson.Gson;
 import ec.edu.espe.militarydininghall.controller.CloudController;
+import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
 
 /**
@@ -198,11 +200,13 @@ public class FrmEditRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_btmCancelActionPerformed
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
+        Gson gson = new Gson();
         String accounData = CloudController.findAccountById(txfId.getText());
         if (accounData == null) {
             JOptionPane.showMessageDialog(this, "La cedula ingresada no existe");
         } else {
-            FrmEditRegisterWithTheIDSearched frmEdit = new FrmEditRegisterWithTheIDSearched(adminName, adminBalance, adminType, adminId);
+            Commensal commensal = gson.fromJson(accounData, Commensal.class);
+            FrmEditRegisterWithTheIDSearched frmEdit = new FrmEditRegisterWithTheIDSearched(adminName, adminBalance, adminType, adminId, commensal);
             this.setVisible(false);
             frmEdit.setVisible(true);
         }

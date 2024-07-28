@@ -5,7 +5,12 @@
 package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.controller.CloudController;
+import ec.edu.espe.militarydininghall.model.DateBook;
 import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import org.bson.Document;
 
 /**
  *
@@ -25,12 +30,77 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
     public FrmCommensalMenu(String name, String id, double balance, String type) {
         initComponents();
+        LocalDate today = LocalDate.now();
         FrmCommensalMenu.commensalId = id;
         FrmCommensalMenu.nameCommensal = name;
         FrmCommensalMenu.commensalType = type;
         this.commensalBalance = balance;
         lbldNameCommensal.setText("Bienvenido " + nameCommensal + "!");
         lblAccountBalance.setText(String.valueOf(commensalBalance));
+        summaryOfTheMenu(CloudController.getDateBook(Long.parseLong(commensalId)), today);
+    }
+    
+    
+    private void summaryOfTheMenu(DateBook datebook, LocalDate today) {
+        if (datebook == null) {
+            lblAvailablePlates.setText("Parece que todavia no has hecho una reservacion, haz una reservacion para poder ver el menu aqui!");
+            lblBreakfast.setVisible(false);
+            lblAvailableBreakfast.setVisible(false);
+            lblLunch.setVisible(false);
+            lblAvailableLunch.setVisible(false);
+            lblSnack.setVisible(false);
+            lblAvailableSnack.setVisible(false);
+        } else {
+            loopForShowingTheMenu(datebook, today);
+        }
+    }
+
+    private void loopForShowingTheMenu(DateBook datebook, LocalDate today) {
+        List<Document> documents = CloudController.getMenuInformation();
+        Map<String, Boolean> reservedDays = datebook.getReservedDays();
+
+        for (Document doc : documents) {
+            String date = doc.getString("date");
+            String breakfast = doc.getString("breakfast");
+            String lunch = doc.getString("lunch");
+            String dinner = doc.getString("dinner");
+
+            for (Map.Entry<String, Boolean> entry : reservedDays.entrySet()) {
+                String dateReserved = entry.getKey();
+
+                String[] parts = dateReserved.split("/");
+                String day = parts[0];
+                String month = parts[1];
+                String year = parts[2];
+                LocalDate dateSearch = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+                String dateToCompare = day + "/" + month + "/" + year;
+                if (today.isBefore(dateSearch) || today.isEqual(dateSearch)) {
+                    if (dateToCompare.contentEquals(date)) {
+                        lblAvailablePlates.setText("Los platillos para el dia " + dateToCompare + " son los siguientes:");
+                        lblBreakfast.setVisible(true);
+                        lblAvailableBreakfast.setVisible(true);
+                        lblLunch.setVisible(true);
+                        lblAvailableLunch.setVisible(true);
+                        lblSnack.setVisible(true);
+                        lblAvailableSnack.setVisible(true);
+                        lblAvailableBreakfast.setText(breakfast);
+                        lblAvailableLunch.setText(lunch);
+                        lblAvailableSnack.setText(dinner);
+                        break;
+                    } else if (!dateToCompare.contentEquals(date)) {
+                        lblAvailablePlates.setText("Parece que todavia no se han ingresado los platillos para el dia " + dateToCompare + ".");
+                        lblBreakfast.setVisible(false);
+                        lblAvailableBreakfast.setVisible(false);
+                        lblLunch.setVisible(false);
+                        lblAvailableLunch.setVisible(false);
+                        lblSnack.setVisible(false);
+                        lblAvailableSnack.setVisible(false);
+                        break;
+                    }
+                }
+
+            }
+        }
     }
 
     /**
@@ -45,17 +115,18 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lbldNameCommensal = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblBreakfast = new javax.swing.JLabel();
+        lblLunch = new javax.swing.JLabel();
+        lblSnack = new javax.swing.JLabel();
+        lblAvailableBreakfast = new javax.swing.JLabel();
+        lblAvailableLunch = new javax.swing.JLabel();
+        lblAvailableSnack = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         lblAccountBalance = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        lblAvailablePlates = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         itmLogout = new javax.swing.JMenuItem();
@@ -75,31 +146,31 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Artifakt Element Medium", 0, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Este mes los platos son:");
+        jLabel2.setText("Proximas reservaciones:");
 
-        jLabel3.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Desayuno:");
+        lblBreakfast.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblBreakfast.setForeground(new java.awt.Color(255, 255, 255));
+        lblBreakfast.setText("Desayuno:");
 
-        jLabel4.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Almuerzo:");
+        lblLunch.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblLunch.setForeground(new java.awt.Color(255, 255, 255));
+        lblLunch.setText("Almuerzo:");
 
-        jLabel5.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Merienda:");
+        lblSnack.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblSnack.setForeground(new java.awt.Color(255, 255, 255));
+        lblSnack.setText("Merienda:");
 
-        jLabel1.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("jLabel1");
+        lblAvailableBreakfast.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblAvailableBreakfast.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvailableBreakfast.setText("jLabel1");
 
-        jLabel8.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("jLabel8");
+        lblAvailableLunch.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblAvailableLunch.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvailableLunch.setText("jLabel8");
 
-        jLabel9.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("jLabel9");
+        lblAvailableSnack.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblAvailableSnack.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvailableSnack.setText("jLabel9");
 
         jPanel2.setBackground(new java.awt.Color(50, 54, 14));
 
@@ -153,6 +224,10 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
+        lblAvailablePlates.setFont(new java.awt.Font("Artifakt Element Medium", 0, 16)); // NOI18N
+        lblAvailablePlates.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvailablePlates.setText("Este mes los platos son:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,25 +237,29 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbldNameCommensal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAvailablePlates)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
+                                    .addComponent(lblSnack)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(lblAvailableSnack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
+                                    .addComponent(lblBreakfast)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel1))
+                                    .addComponent(lblAvailableBreakfast))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
+                                    .addComponent(lblLunch)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel2))
+                                    .addComponent(lblAvailableLunch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,21 +270,23 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(lbldNameCommensal)))
-                .addGap(44, 44, 44)
-                .addComponent(jLabel2)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(14, 14, 14)
+                .addComponent(lblAvailablePlates)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1))
+                    .addComponent(lblBreakfast)
+                    .addComponent(lblAvailableBreakfast))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel8))
+                    .addComponent(lblLunch)
+                    .addComponent(lblAvailableLunch))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                    .addComponent(lblSnack)
+                    .addComponent(lblAvailableSnack))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -338,15 +419,9 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmExit;
     private javax.swing.JMenuItem itmLogout;
     private javax.swing.JMenuItem itmSeeReservations;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -354,6 +429,13 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblAccountBalance;
+    private javax.swing.JLabel lblAvailableBreakfast;
+    private javax.swing.JLabel lblAvailableLunch;
+    private javax.swing.JLabel lblAvailablePlates;
+    private javax.swing.JLabel lblAvailableSnack;
+    private javax.swing.JLabel lblBreakfast;
+    private javax.swing.JLabel lblLunch;
+    private javax.swing.JLabel lblSnack;
     private javax.swing.JLabel lbldNameCommensal;
     // End of variables declaration//GEN-END:variables
 }

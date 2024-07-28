@@ -15,13 +15,13 @@ import javax.swing.JOptionPane;
  */
 public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
 
-        private String generalAdminminId, generalAdminName, generalAdminType;
+    private String generalAdminminId, generalAdminName, generalAdminType;
     private double generalAdminminBalance;
-    
+
     public FrmEstablishAdministratorSearch() {
         initComponents();
     }
-    
+
     public static Commensal commensal;
 
     public FrmEstablishAdministratorSearch(Commensal commensal, String id, String name, double balance, String type) {
@@ -35,7 +35,6 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
         lblNameSearched.setText(commensal.getName());
         lblGradeSearched.setText(commensal.getGrade());
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
