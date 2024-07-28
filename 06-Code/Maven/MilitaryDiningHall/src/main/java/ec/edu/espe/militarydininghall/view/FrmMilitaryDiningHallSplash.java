@@ -41,14 +41,21 @@ public class FrmMilitaryDiningHallSplash extends javax.swing.JFrame {
 
         jLabel1.setForeground(java.awt.Color.WHITE);
         jLabel1.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 24));
+        jLabel1.setFont(new java.awt.Font("Candara Light", 1, 28)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Comedor Militar");
 
         jLabel2.setForeground(java.awt.Color.WHITE);
+        jLabel2.setFont(new java.awt.Font("SimSun", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("V 1.0.0");
 
         jLabel3.setForeground(java.awt.Color.WHITE);
+        jLabel3.setFont(new java.awt.Font("SimSun", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("(c): 2024 TheJavaBandits");
 
+        btmStart.setBackground(new java.awt.Color(132, 82, 31));
         btmStart.setText("Ingresar");
         btmStart.setBorderPainted(false);
         btmStart.setBackground(new java.awt.Color(101, 67, 33)); // Cambia el color de fondo a marrón
@@ -66,32 +73,32 @@ public class FrmMilitaryDiningHallSplash extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(34, 34, 34))
+                .addGap(18, 18, 18))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
                         .addComponent(btmStart))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addGap(83, 83, 83)
+                        .addComponent(jLabel1)))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel2)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel3)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(38, 38, 38)
+                .addComponent(jLabel3)
+                .addGap(31, 31, 31)
                 .addComponent(btmStart)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
