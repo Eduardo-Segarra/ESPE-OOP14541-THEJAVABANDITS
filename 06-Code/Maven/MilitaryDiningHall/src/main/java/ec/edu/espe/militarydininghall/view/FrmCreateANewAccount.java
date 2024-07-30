@@ -23,6 +23,19 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
         initComponents();
     }
 
+    String modifyPassword(String password, int asqui) {
+        StringBuilder modifiedPassword = new StringBuilder();
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (Character.isLetter(c)) {
+                char base = Character.isLowerCase(c) ? 'a' : 'A';
+                c = (char) ((c - base + asqui) % 26 + base);
+            }
+            modifiedPassword.append(c);
+        }
+        return modifiedPassword.toString();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -247,11 +260,11 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
     }//GEN-LAST:event_txfNameActionPerformed
 
     private void btmCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCreateAccountActionPerformed
-        String emai = txfEmail.getText();
+        String email = txfEmail.getText();
         String id = txfId.getText();
-        while (true) {
 
-            if (!Validation.isValidEmailFormat(emai)) {
+        while (true) {
+            if (!Validation.isValidEmailFormat(email)) {
                 JOptionPane.showMessageDialog(this, "Invalid Email");
                 break;
             }
@@ -260,7 +273,11 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                 break;
             }
 
-            Commensal commensal = new Commensal(txfId.getText(), txfName.getText(), txfEmail.getText(), pwfPassword.getText(), cmbGrade.getSelectedItem().toString(), "commensal", 0.0F);
+            
+            String originalPassword = new String(pwfPassword.getPassword());
+            String modifiedPassword = modifyPassword(originalPassword, 1);
+
+            Commensal commensal = new Commensal(txfId.getText(), txfName.getText(), txfEmail.getText(), modifiedPassword, cmbGrade.getSelectedItem().toString(), "commensal", 0.0F);
             CloudController.create(commensal);
 
             FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(commensal.getName(), commensal.getId(), commensal.getBalance(), commensal.getType());
