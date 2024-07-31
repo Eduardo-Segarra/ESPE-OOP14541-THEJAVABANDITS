@@ -28,7 +28,7 @@ public class FrmBookDay extends javax.swing.JFrame {
     }
 
     private double userBalance;
-    public static long id;
+    private long id;
     public static String userId, userName, userType;
 
     public FrmBookDay(String id, String name, String type, double balance) {
@@ -37,6 +37,7 @@ public class FrmBookDay extends javax.swing.JFrame {
         FrmBookDay.userName = name;
         FrmBookDay.userType = type;
         this.userBalance = balance;
+        this.id = Long.parseLong(id);
         customizeComboBoxes();
     }
 
@@ -44,15 +45,13 @@ public class FrmBookDay extends javax.swing.JFrame {
         LocalDate today = LocalDate.now();
         int currentMonth = today.getMonthValue();
 
-        // Limpia el combobox y añade los meses desde el mes actual hasta diciembre
         DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cmbMonth.getModel();
         model.removeAllElements();
         for (int i = currentMonth; i <= 12; i++) {
-            model.addElement(String.valueOf(i)); // Agrega el número del mes
+            model.addElement(String.valueOf(i));
         }
         cmbMonth.addActionListener(new MonthComboBoxListener());
 
-        // Inicializar el combobox de los dias con los días del mes actual
         updateDaysComboBox(currentMonth);
     }
 
@@ -211,39 +210,34 @@ public class FrmBookDay extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
-
         int year = 2024;
+        boolean checker = false;
+        DateBook dateBook = CloudController.getDateBook(id);
+        Map<String, Boolean> dateEntries = dateBook.getReservedDays();
 
         FrmCommensalMenu.commensalId = FrmBookDay.userId;
         FrmCommensalMenu.nameCommensal = FrmBookDay.userName;
 
         String date = cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() + "/" + year;
 
-        DateBook dateBook = CloudController.getDateBook(id);
-        dateBook.addDay(date, false);
-        DateBook sortedDatebook = CloudController.orderingOfDays(dateBook);
-        CloudController.saveDateBook(sortedDatebook);
-        CloudController.updateCommensalBalance(userId, -7.5F);
-        userBalance -= 7.5F;
+        for (Map.Entry<String, Boolean> entry : dateEntries.entrySet()) {
+            if (entry.getKey().equals(date)) {
+                checker = true;
+            }
+        }
 
-        JOptionPane.showMessageDialog(this, "Guardado correctamente el día de la cita.");
-
-        switch (userType) {
-            case "commensal" -> {
-                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmCommensalMenu.setVisible(true);
-            }
-            case "administrators" -> {
-                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
-                this.setVisible(false);
-                frmAdminMenu.setVisible(true);
-            }
-            case "generalAdministrator" -> {
-                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmGeneralAdmin.setVisible(true);
-            }
+        if (userBalance < 7.5F) {
+            JOptionPane.showMessageDialog(null, "No tiene el dinero suficiente para hacer una reservacion.");
+            
+        } else if (checker) {
+            JOptionPane.showMessageDialog(null, "El dia ya esta registrado en sus reservaciones.");
+            
+        } else if (userBalance >= 7.5F) {
+            dateBook.addDay(date, false);
+            CloudController.saveDateBook(dateBook);
+            CloudController.updateCommensalBalance(userId, -7.5F);
+            userBalance -= 7.5F;
+            JOptionPane.showMessageDialog(this, "Guardada correctamente la reservacion.");
         }
 
     }//GEN-LAST:event_btmSaveActionPerformed

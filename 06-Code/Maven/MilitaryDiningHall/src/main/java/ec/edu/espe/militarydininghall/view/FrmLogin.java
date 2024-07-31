@@ -235,25 +235,21 @@ public class FrmLogin extends javax.swing.JFrame {
 
             switch (type) {
                 case "commensal" -> {
-                    FrmBookDay.id = Long.parseLong(id);
                     FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id, accountBalance, type);
                     this.setVisible(false);
                     frmCommensalMenu.setVisible(true);
                 }
                 case "administrators" -> {
-                    FrmBookDay.id = Long.parseLong(id);
                     FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name, accountBalance, type, id);
                     this.setVisible(false);
                     frmAdminMenu.setVisible(true);
                 }
                 case "militaryChef" -> {
-                    FrmBookDay.id = Long.parseLong(id);
                     FrmChefMenu frmChefMenu = new FrmChefMenu(name);
                     this.setVisible(false);
                     frmChefMenu.setVisible(true);
                 }
                 case "generalAdministrator" -> {
-                    FrmBookDay.id = Long.parseLong(id);
                     FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id, accountBalance, type);
                     this.setVisible(false);
                     frmGeneralAdmin.setVisible(true);

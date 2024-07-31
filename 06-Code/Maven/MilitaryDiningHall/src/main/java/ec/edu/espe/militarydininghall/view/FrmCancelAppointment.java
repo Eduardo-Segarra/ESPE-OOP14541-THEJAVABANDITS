@@ -6,7 +6,6 @@ package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.DateBook;
-import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
@@ -20,7 +19,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
      * Creates new form FrmCancelAppoiment
      */
     private double userBalance;
-    public static long id;
+    private long id;
     public static String userId, userName, userType;
 
     public FrmCancelAppointment() {
@@ -33,6 +32,8 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         FrmCancelAppointment.userName = name;
         FrmCancelAppointment.userType = type;
         this.userBalance = balance;
+        this.id = Long.parseLong(id);
+        
     }
 
     /**
@@ -87,7 +88,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         jLabel2.setText("Elija el mes");
 
         btmApply.setBackground(new java.awt.Color(132, 82, 31));
-        btmApply.setText("Confirmar");
+        btmApply.setText("Eliminar la reservacion");
         btmApply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmApplyActionPerformed(evt);
@@ -114,7 +115,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btmApply)
-                                .addGap(34, 34, 34)
+                                .addGap(18, 18, 18)
                                 .addComponent(btmBack)
                                 .addGap(6, 6, 6))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -194,41 +195,25 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbDayActionPerformed
 
     private void btmApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmApplyActionPerformed
-
         int year = 2024;
         LocalDate today = LocalDate.now();
+        DateBook dateBook = CloudController.getDateBook(id);
 
         String date = cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() + "/" + year;
         LocalDate dateSearch = LocalDate.of(year, Integer.parseInt(cmbMonth.getSelectedItem().toString()), Integer.parseInt(cmbDay.getSelectedItem().toString()));
 
         int confirmation = JOptionPane.showConfirmDialog(null, "La reservacion del dia " + date + " va a ser eliminada. Esta seguro de eliminar esta reservacion? ", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (confirmation == JOptionPane.YES_OPTION) {
+            DateBook updatedDatebook = CloudController.removeDay(dateBook, date);
+            
             if (today.isAfter(dateSearch)) {
                 JOptionPane.showMessageDialog(this, "No se puede cancelar reservacion antiguas..");
+            } else if (updatedDatebook == null) {
+                JOptionPane.showMessageDialog(null, "El día ingresado no existe en las reservaciones.");
             } else {
-                DateBook dateBook = CloudController.getDateBook(id);
-                dateBook.removeDay(date);
-                CloudController.saveDateBook(dateBook);
+                CloudController.saveDateBook(updatedDatebook);
                 CloudController.updateCommensalBalance(userId, 7.5F);
                 userBalance += 7.5F;
-            }
-
-            switch (userType) {
-                case "commensal" -> {
-                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
-                    this.setVisible(false);
-                    frmCommensalMenu.setVisible(true);
-                }
-                case "administrators" -> {
-                    FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
-                    this.setVisible(false);
-                    frmAdminMenu.setVisible(true);
-                }
-                case "generalAdministrator" -> {
-                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
-                    this.setVisible(false);
-                    frmGeneralAdmin.setVisible(true);
-                }
             }
         }
     }//GEN-LAST:event_btmApplyActionPerformed

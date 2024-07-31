@@ -6,7 +6,6 @@ package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.DateBook;
-import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -389,7 +388,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment(generalAdminminId, generalAdminName, generalAdminType, generalAdminBalance);
         this.setVisible(false);
         frmSeeAppointment.setVisible(true);
-        frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(id));
+        frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(Long.parseLong(generalAdminminId)));
     }//GEN-LAST:event_itmSeeReservationsActionPerformed
 
     private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed

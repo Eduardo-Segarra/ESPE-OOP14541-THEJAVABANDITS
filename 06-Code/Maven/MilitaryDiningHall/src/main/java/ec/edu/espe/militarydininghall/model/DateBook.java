@@ -7,11 +7,16 @@ package ec.edu.espe.militarydininghall.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ec.edu.espe.militarydininghall.controller.CloudController;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utils.Validation;
 
@@ -76,12 +81,7 @@ public class DateBook {
         reservedDays.put(date, assistance);
     }
 
-    public void removeDay(String date) {
-        this.reservedDays.remove(date);
-    }
-    
-    public void changeAssistance(String date, boolean assistance){
-        removeDay(date);
+    public void changeAssistance(String date, boolean assistance) {
         addDay(date, assistance);
     }
 }

@@ -297,18 +297,14 @@ public class CloudController {
         }
         return documents;
     }
-    
+
     public static DateBook orderingOfDays(DateBook dateBook) {
-        // Obtener el mapa de días reservados del objeto dateBook
         Map<String, Boolean> reservedDays = dateBook.getReservedDays();
 
-        // Lista para almacenar las fechas convertidas a LocalDate
         List<Map.Entry<LocalDate, Boolean>> dateEntries = new ArrayList<>();
 
-        // Formateador de fechas para aceptar días y meses con uno o dos dígitos
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-        // Convertir las claves (fechas en formato de cadena) a LocalDate y agregarlas a la lista
         for (Map.Entry<String, Boolean> entry : reservedDays.entrySet()) {
             try {
                 LocalDate date = LocalDate.parse(entry.getKey(), formatter);
@@ -317,20 +313,31 @@ public class CloudController {
             }
         }
 
-        // Ordenar la lista de entradas por la fecha
         dateEntries.sort(Map.Entry.comparingByKey());
 
-        // Crear un nuevo LinkedHashMap para almacenar las entradas ordenadas
         Map<String, Boolean> sortedReservedDays = new LinkedHashMap<>();
 
-        // Agregar las entradas ordenadas al nuevo mapa
         for (Map.Entry<LocalDate, Boolean> entry : dateEntries) {
-            String dateStr = entry.getKey().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String dateStr = entry.getKey().format(DateTimeFormatter.ofPattern("d/M/yyyy"));
             sortedReservedDays.put(dateStr, entry.getValue());
         }
 
-        // Crear y retornar un nuevo DateBook con el mapa ordenado
         return new DateBook(dateBook.getId(), sortedReservedDays);
+    }
+
+    public static DateBook removeDay(DateBook datebook, String searchedDate) {
+        Map<String, Boolean> dateEntries = datebook.getReservedDays();
+
+        System.out.println("Fechas reservadas: " + dateEntries);
+        System.out.println("Fecha a buscar: " + searchedDate);
+
+        boolean removed = dateEntries.remove(searchedDate) != null;
+
+        if (!removed) {
+            return null;
+        }
+
+        return new DateBook(datebook.getId(), dateEntries);
     }
 
     public static class AccountDetails {
