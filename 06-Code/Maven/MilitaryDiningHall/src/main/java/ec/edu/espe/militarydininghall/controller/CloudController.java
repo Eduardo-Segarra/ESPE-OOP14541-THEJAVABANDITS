@@ -23,8 +23,14 @@ import ec.edu.espe.militarydininghall.model.Dish;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -290,6 +296,41 @@ public class CloudController {
 
         }
         return documents;
+    }
+    
+    public static DateBook orderingOfDays(DateBook dateBook) {
+        // Obtener el mapa de días reservados del objeto dateBook
+        Map<String, Boolean> reservedDays = dateBook.getReservedDays();
+
+        // Lista para almacenar las fechas convertidas a LocalDate
+        List<Map.Entry<LocalDate, Boolean>> dateEntries = new ArrayList<>();
+
+        // Formateador de fechas para aceptar días y meses con uno o dos dígitos
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+
+        // Convertir las claves (fechas en formato de cadena) a LocalDate y agregarlas a la lista
+        for (Map.Entry<String, Boolean> entry : reservedDays.entrySet()) {
+            try {
+                LocalDate date = LocalDate.parse(entry.getKey(), formatter);
+                dateEntries.add(new AbstractMap.SimpleEntry<>(date, entry.getValue()));
+            } catch (DateTimeParseException e) {
+            }
+        }
+
+        // Ordenar la lista de entradas por la fecha
+        dateEntries.sort(Map.Entry.comparingByKey());
+
+        // Crear un nuevo LinkedHashMap para almacenar las entradas ordenadas
+        Map<String, Boolean> sortedReservedDays = new LinkedHashMap<>();
+
+        // Agregar las entradas ordenadas al nuevo mapa
+        for (Map.Entry<LocalDate, Boolean> entry : dateEntries) {
+            String dateStr = entry.getKey().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            sortedReservedDays.put(dateStr, entry.getValue());
+        }
+
+        // Crear y retornar un nuevo DateBook con el mapa ordenado
+        return new DateBook(dateBook.getId(), sortedReservedDays);
     }
 
     public static class AccountDetails {

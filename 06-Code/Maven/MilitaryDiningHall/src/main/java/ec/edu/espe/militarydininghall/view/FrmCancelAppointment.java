@@ -7,6 +7,7 @@ package ec.edu.espe.militarydininghall.view;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.DateBook;
 import static ec.edu.espe.militarydininghall.view.FrmBookDay.id;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /**
@@ -195,14 +196,22 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     private void btmApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmApplyActionPerformed
 
         int year = 2024;
+        LocalDate today = LocalDate.now();
 
         String date = cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() + "/" + year;
+        LocalDate dateSearch = LocalDate.of(year, Integer.parseInt(cmbMonth.getSelectedItem().toString()), Integer.parseInt(cmbDay.getSelectedItem().toString()));
 
-        int confirmation = JOptionPane.showConfirmDialog(null, "The date " + date + " will be deleted. Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        int confirmation = JOptionPane.showConfirmDialog(null, "La reservacion del dia " + date + " va a ser eliminada. Esta seguro de eliminar esta reservacion? ", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (confirmation == JOptionPane.YES_OPTION) {
-            DateBook dateBook = CloudController.getDateBook(id);
-            dateBook.removeDay(date);
-            CloudController.saveDateBook(dateBook);
+            if (today.isAfter(dateSearch)) {
+                JOptionPane.showMessageDialog(this, "No se puede cancelar reservacion antiguas..");
+            } else {
+                DateBook dateBook = CloudController.getDateBook(id);
+                dateBook.removeDay(date);
+                CloudController.saveDateBook(dateBook);
+                CloudController.updateCommensalBalance(userId, 7.5F);
+                userBalance += 7.5F;
+            }
 
             switch (userType) {
                 case "commensal" -> {

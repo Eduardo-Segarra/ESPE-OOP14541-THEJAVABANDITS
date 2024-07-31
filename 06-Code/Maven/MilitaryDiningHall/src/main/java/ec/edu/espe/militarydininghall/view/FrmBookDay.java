@@ -221,7 +221,10 @@ public class FrmBookDay extends javax.swing.JFrame {
 
         DateBook dateBook = CloudController.getDateBook(id);
         dateBook.addDay(date, false);
-        CloudController.saveDateBook(dateBook);
+        DateBook sortedDatebook = CloudController.orderingOfDays(dateBook);
+        CloudController.saveDateBook(sortedDatebook);
+        CloudController.updateCommensalBalance(userId, -7.5F);
+        userBalance -= 7.5F;
 
         JOptionPane.showMessageDialog(this, "Guardado correctamente el día de la cita.");
 

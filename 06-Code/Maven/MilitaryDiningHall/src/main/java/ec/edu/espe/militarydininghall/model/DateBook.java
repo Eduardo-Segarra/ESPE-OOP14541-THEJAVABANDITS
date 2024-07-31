@@ -77,7 +77,7 @@ public class DateBook {
     }
 
     public void removeDay(String date) {
-        reservedDays.remove(date);
+        this.reservedDays.remove(date);
     }
     
     public void changeAssistance(String date, boolean assistance){

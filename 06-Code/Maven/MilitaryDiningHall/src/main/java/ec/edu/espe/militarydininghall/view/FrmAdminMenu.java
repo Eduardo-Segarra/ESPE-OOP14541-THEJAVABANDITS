@@ -392,7 +392,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmCancelAppointment frmCancelAppoinment = new FrmCancelAppointment(adminId, adminName, adminType, adminBalance);
         this.setVisible(false);
-        frmCancelAppoinment.setVisible(false);
+        frmCancelAppoinment.setVisible(true);
     }//GEN-LAST:event_itmCancelADayBookingActionPerformed
 
     private void itmBookADayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBookADayActionPerformed
