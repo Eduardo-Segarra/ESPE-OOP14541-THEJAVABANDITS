@@ -32,21 +32,13 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         this.adminId = id;
         lbldNameAdmin.setText("Bienvenido, " + adminName + "!");
         lblAccountBalance.setText(String.valueOf(adminBalance));
-        summaryOfTheMenu(CloudController.getDateBook(Long.parseLong(adminId)), today);
-    }
-
-        private void summaryOfTheMenu(DateBook datebook, LocalDate today) {
-        if (datebook == null) {
-            lblAvailablePlates.setText("Parece que todavia no has hecho una reservacion, haz una reservacion para poder ver el menu aqui!");
-            lblBreakfast.setVisible(false);
-            lblAvailableBreakfast.setVisible(false);
-            lblLunch.setVisible(false);
-            lblAvailableLunch.setVisible(false);
-            lblSnack.setVisible(false);
-            lblAvailableSnack.setVisible(false);
-        } else {
-            loopForShowingTheMenu(datebook, today);
-        }
+        lblBreakfast.setVisible(false);
+        lblAvailableBreakfast.setVisible(false);
+        lblLunch.setVisible(false);
+        lblAvailableLunch.setVisible(false);
+        lblSnack.setVisible(false);
+        lblAvailableSnack.setVisible(false);
+        loopForShowingTheMenu(CloudController.getDateBook(Long.parseLong(adminId)), today);
     }
 
     private void loopForShowingTheMenu(DateBook datebook, LocalDate today) {
@@ -96,7 +88,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
             }
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,7 +147,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         lblAvailablePlates.setFont(new java.awt.Font("Artifakt Element Medium", 0, 16)); // NOI18N
         lblAvailablePlates.setForeground(new java.awt.Color(255, 255, 255));
-        lblAvailablePlates.setText("Este mes los platos son:");
+        lblAvailablePlates.setText("Parece que todavia no has hecho una reservacion, haz una reservacion para poder ver el menu aqui!");
 
         lblBreakfast.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
         lblBreakfast.setForeground(new java.awt.Color(255, 255, 255));
@@ -245,35 +237,31 @@ public class FrmAdminMenu extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lbldNameAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                        .addComponent(lbldNameAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(lblBreakfast)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblAvailableBreakfast))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(lblLunch)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblAvailableLunch))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(lblSnack)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblAvailableSnack)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblAvailablePlates))
-                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGap(6, 6, 6)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblBreakfast)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(3, 3, 3)
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(lblLunch)
+                                                    .addComponent(lblSnack))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(lblAvailableBreakfast, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(lblAvailableLunch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(lblAvailableSnack, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(lblAvailablePlates))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

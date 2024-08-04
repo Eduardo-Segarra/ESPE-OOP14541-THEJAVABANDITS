@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
+import utils.Validation;
 
 /**
  *
@@ -31,6 +32,19 @@ public class FrmEditRegister extends javax.swing.JFrame {
         this.adminBalance = balance;
         this.adminType = type;
         this.adminId = id;
+    }
+    
+    private String gettingTheAccountData(){
+        return CloudController.findAccountById(txfId.getText());
+    }
+
+    private boolean theEnteredIdExists(String accountData) {
+        return accountData != null;
+    }
+    
+    private Commensal sendingTheData(String accountData){
+        Gson gson = new Gson();
+       return gson.fromJson(accountData, Commensal.class);
     }
 
     /**
@@ -200,12 +214,11 @@ public class FrmEditRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_btmCancelActionPerformed
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        Gson gson = new Gson();
-        String accounData = CloudController.findAccountById(txfId.getText());
-        if (accounData == null) {
-            JOptionPane.showMessageDialog(this, "La cedula ingresada no existe");
+        String accountData = gettingTheAccountData();
+        if (!theEnteredIdExists(accountData)) {
+            Validation.showErrorMessage(this, "La cedula ingresada no existe");
         } else {
-            Commensal commensal = gson.fromJson(accounData, Commensal.class);
+            Commensal commensal = sendingTheData(accountData);
             FrmEditRegisterWithTheIDSearched frmEdit = new FrmEditRegisterWithTheIDSearched(adminName, adminBalance, adminType, adminId, commensal);
             this.setVisible(false);
             frmEdit.setVisible(true);

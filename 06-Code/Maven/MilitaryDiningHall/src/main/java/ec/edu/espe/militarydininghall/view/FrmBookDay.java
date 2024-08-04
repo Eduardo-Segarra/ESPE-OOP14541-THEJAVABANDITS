@@ -13,6 +13,8 @@ import java.time.YearMonth;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import utils.DataCollection;
+import utils.Validation;
 
 /**
  *
@@ -29,13 +31,15 @@ public class FrmBookDay extends javax.swing.JFrame {
 
     private double userBalance;
     private long id;
-    public static String userId, userName, userType;
+    private String userId, userName, userType;
+    private static final double reservationCost = 7.5F;
+    private static final int actualYear = LocalDate.now().getYear();
 
     public FrmBookDay(String id, String name, String type, double balance) {
         initComponents();
-        FrmBookDay.userId = id;
-        FrmBookDay.userName = name;
-        FrmBookDay.userType = type;
+        this.userId = id;
+        this.userName = name;
+        this.userType = type;
         this.userBalance = balance;
         this.id = Long.parseLong(id);
         customizeComboBoxes();
@@ -62,7 +66,7 @@ public class FrmBookDay extends javax.swing.JFrame {
         int daysInMonth = YearMonth.of(today.getYear(), selectedMonth).lengthOfMonth();
         for (int i = 1; i <= daysInMonth; i++) {
             if (selectedMonth == today.getMonthValue() && i < currentDay) {
-                continue; // No añadir los días que ya pasaron del mes actual
+                continue;
             }
             cmbDay.addItem(String.valueOf(i));
         }
@@ -75,6 +79,51 @@ public class FrmBookDay extends javax.swing.JFrame {
             if (selectedItem != null) {
                 int selectedMonth = Integer.parseInt(selectedItem);
                 updateDaysComboBox(selectedMonth);
+            }
+        }
+    }
+
+    private String getSelectedDate() {
+        String day = cmbDay.getSelectedItem().toString();
+        String month = cmbMonth.getSelectedItem().toString();
+        return day + "/" + month + "/" + actualYear;
+    }
+
+    private boolean hasSufficientBalance(double balance) {
+        return balance >= reservationCost;
+    }
+
+    private boolean isDateAlreadyReserved(DateBook dateBook, String date) {
+        return dateBook.getReservedDays().containsKey(date);
+    }
+
+    private void saveReservation(DateBook dateBook, String date) {
+        dateBook.addDay(date, false);
+        DateBook orderedDays = CloudController.orderingOfDays(dateBook);
+        CloudController.saveDateBook(orderedDays);
+    }
+
+    private void deductReservationCost() {
+        CloudController.updateCommensalBalance(userId, -reservationCost);
+        userBalance -= reservationCost;
+    }
+
+    private void navigateToUserMenu() {
+        switch (userType) {
+            case "commensal" -> {
+                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
+                this.setVisible(false);
+                frmCommensalMenu.setVisible(true);
+            }
+            case "administrators" -> {
+                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
+                this.setVisible(false);
+                frmAdminMenu.setVisible(true);
+            }
+            case "generalAdministrator" -> {
+                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
+                this.setVisible(false);
+                frmGeneralAdmin.setVisible(true);
             }
         }
     }
@@ -210,56 +259,26 @@ public class FrmBookDay extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
-        int year = 2024;
-        boolean checker = false;
+        String selectedDate = getSelectedDate();
         DateBook dateBook = CloudController.getDateBook(id);
-        Map<String, Boolean> dateEntries = dateBook.getReservedDays();
 
-        FrmCommensalMenu.commensalId = FrmBookDay.userId;
-        FrmCommensalMenu.nameCommensal = FrmBookDay.userName;
-
-        String date = cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() + "/" + year;
-
-        for (Map.Entry<String, Boolean> entry : dateEntries.entrySet()) {
-            if (entry.getKey().equals(date)) {
-                checker = true;
-            }
+        if (!hasSufficientBalance(userBalance)) {
+            Validation.showInfoMessage(this, "No tiene el dinero suficiente para hacer una reservacion.");
+            return;
         }
 
-        if (userBalance < 7.5F) {
-            JOptionPane.showMessageDialog(null, "No tiene el dinero suficiente para hacer una reservacion.");
-            
-        } else if (checker) {
-            JOptionPane.showMessageDialog(null, "El dia ya esta registrado en sus reservaciones.");
-            
-        } else if (userBalance >= 7.5F) {
-            dateBook.addDay(date, false);
-            CloudController.saveDateBook(dateBook);
-            CloudController.updateCommensalBalance(userId, -7.5F);
-            userBalance -= 7.5F;
-            JOptionPane.showMessageDialog(this, "Guardada correctamente la reservacion.");
+        if (isDateAlreadyReserved(dateBook, selectedDate)) {
+            Validation.showInfoMessage(this, "El dia ya esta registrado en sus reservaciones.");
+            return;
         }
 
+        saveReservation(dateBook, selectedDate);
+        deductReservationCost();
+        Validation.showInfoMessage(this, "Guardada correctamente la reservacion.");
     }//GEN-LAST:event_btmSaveActionPerformed
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
-        switch (userType) {
-            case "commensal" -> {
-                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmCommensalMenu.setVisible(true);
-            }
-            case "administrators" -> {
-                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
-                this.setVisible(false);
-                frmAdminMenu.setVisible(true);
-            }
-            case "generalAdministrator" -> {
-                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmGeneralAdmin.setVisible(true);
-            }
-        }
+        navigateToUserMenu();
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void cmbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMonthActionPerformed

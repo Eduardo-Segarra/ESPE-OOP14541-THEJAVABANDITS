@@ -4,11 +4,16 @@
  */
 package ec.edu.espe.militarydininghall.view;
 
+import ec.edu.espe.militarydininghall.controller.CloudController;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
 import java.util.Date;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import org.bson.Document;
+import utils.Validation;
 
 /**
  *
@@ -25,46 +30,70 @@ public class FrmChooseMontyMenu extends javax.swing.JFrame {
         initComponents();
         customizeComboBoxes();
     }
-    
+
     public FrmChooseMontyMenu(String name) {
         initComponents();
         this.chefName = name;
         customizeComboBoxes();
     }
+
     private void customizeComboBoxes() {
         LocalDate today = LocalDate.now();
         int currentMonth = today.getMonthValue();
-        
-        // Limpia el combobox y añade los meses desde el mes actual hasta diciembre
+
         DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jComboBox1.getModel();
         model.removeAllElements();
         for (int i = currentMonth; i <= 12; i++) {
-            model.addElement(Month.of(i).name());
+            model.addElement(String.valueOf(i));
         }
         jComboBox1.addActionListener(new MonthComboBoxListener());
 
-        // Inicializar el combobox de los dias con los días del mes actual
         updateDaysComboBox(currentMonth);
-    } 
-    private void updateDaysComboBox(int selectedMonth){
+    }
+
+    private void updateDaysComboBox(int selectedMonth) {
         jComboBox2.removeAllItems();
-        LocalDate today =LocalDate.now();
+        LocalDate today = LocalDate.now();
         int currentDay = today.getDayOfMonth();
-        int daysInMonth = YearMonth.of(today.getYear(),selectedMonth).lengthOfMonth();
-        for (int i=1; i <= daysInMonth; i++){
-            if (selectedMonth==today.getMonthValue() && i < currentDay){
-                continue; //No añadir mas dias que ya pasaron del mes actual xd
+        int daysInMonth = YearMonth.of(today.getYear(), selectedMonth).lengthOfMonth();
+        for (int i = 1; i <= daysInMonth; i++) {
+            if (selectedMonth == today.getMonthValue() && i < currentDay) {
+                continue;
             }
             jComboBox2.addItem(i);
         }
     }
+
     private class MonthComboBoxListener implements java.awt.event.ActionListener {
+
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            int selectedMonth = Month.valueOf((String) jComboBox1.getSelectedItem()).getValue();
-            updateDaysComboBox(selectedMonth);
+            String selectedItem = (String) jComboBox1.getSelectedItem();
+            if (selectedItem != null) {
+                int selectedMonth = Integer.parseInt(selectedItem);
+                updateDaysComboBox(selectedMonth);
+            }
         }
     }
 
+    private String setTheDate() {
+        int currentYear = LocalDate.now().getYear();
+        String selectedMonth = jComboBox1.getSelectedItem().toString();
+        String selectedDay = jComboBox2.getSelectedItem().toString();
+        String selectedYear = String.valueOf(currentYear);
+        return selectedDay + "/" + selectedMonth + "/" + selectedYear;
+    }
+
+    private boolean dateIsAlreadyBooked(String date) {
+        List<Document> documents = CloudController.getMenuInformation();
+
+        for (Document doc : documents) {
+            String dateOfTheMenu = doc.getString("date");
+            if (date.equals(dateOfTheMenu)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -168,32 +197,32 @@ public class FrmChooseMontyMenu extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btmCancel)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel3))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(42, 42, 42)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(btmIngresar)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                            .addComponent(lblYear, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(61, 61, 61))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(79, 79, 79)))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(84, 84, 84))))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(lblYear, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(61, 61, 61))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(79, 79, 79)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(84, 84, 84))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btmIngresar)
+                                .addGap(29, 29, 29)
+                                .addComponent(btmCancel)))))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -212,12 +241,16 @@ public class FrmChooseMontyMenu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addComponent(btmIngresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(btmCancel)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btmCancel)
+                            .addComponent(btmIngresar))
+                        .addGap(59, 59, 59))))
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -232,15 +265,15 @@ public class FrmChooseMontyMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btmCancelActionPerformed
 
     private void btmIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmIngresarActionPerformed
-    LocalDate currentDate = LocalDate.now();
-    int currentYear = currentDate.getYear();
-    String selectedMonth = jComboBox1.getSelectedItem().toString();
-    String selectedDay = jComboBox2.getSelectedItem().toString();
-    String selectedYear = String.valueOf(currentYear);
-    String date = selectedDay + "/" + selectedMonth + "/" + selectedYear;
-    FrmRegistMenuForADay frmRegistMenuForADay = new FrmRegistMenuForADay(chefName,date);
-    this.setVisible(false);
-    frmRegistMenuForADay.setVisible(true);
+        String date = setTheDate();
+
+        if (dateIsAlreadyBooked(date)) {
+            FrmRegistMenuForADay frmRegistMenuForADay = new FrmRegistMenuForADay(chefName, date);
+            this.setVisible(false);
+            frmRegistMenuForADay.setVisible(true);
+        } else {
+            Validation.showInfoMessage(this, "El dia ya esta registrado.");
+        }
     }//GEN-LAST:event_btmIngresarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

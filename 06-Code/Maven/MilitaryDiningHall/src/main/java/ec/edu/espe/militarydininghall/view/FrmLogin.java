@@ -12,6 +12,7 @@ import ec.edu.espe.militarydininghall.controller.CloudController;
 import static ec.edu.espe.militarydininghall.controller.CloudController.getAccountDetails;
 import javax.swing.JOptionPane;
 import utils.DataCollection;
+import utils.Validation;
 
 /**
  *
@@ -24,6 +25,45 @@ public class FrmLogin extends javax.swing.JFrame {
      */
     public FrmLogin() {
         initComponents();
+    }
+
+    private void handleLogin() {
+        String loginResponse = CloudController.login(txfEmail.getText(), pwfPassword.getText());
+        if (loginResponse == null) {
+            Validation.showErrorMessage(this, "Correo electronico o contraseña incorrectos");
+            return;
+        }
+        navigateToUserMenu(loginResponse);
+    }
+
+    private void navigateToUserMenu(String loginResponse) {
+        String id = DataCollection.obtainIdFromJSON(loginResponse);
+        String name = DataCollection.obtainNameFromJSON(loginResponse);
+        String type = DataCollection.obtainTypeFromJSON(loginResponse);
+        double accountBalance = DataCollection.obtainBalanceFromJSON(loginResponse);
+
+        switch (type) {
+            case "commensal" -> {
+                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id, accountBalance, type);
+                this.setVisible(false);
+                frmCommensalMenu.setVisible(true);
+            }
+            case "administrators" -> {
+                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name, accountBalance, type, id);
+                this.setVisible(false);
+                frmAdminMenu.setVisible(true);
+            }
+            case "militaryChef" -> {
+                FrmChefMenu frmChefMenu = new FrmChefMenu(name);
+                this.setVisible(false);
+                frmChefMenu.setVisible(true);
+            }
+            case "generalAdministrator" -> {
+                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id, accountBalance, type);
+                this.setVisible(false);
+                frmGeneralAdmin.setVisible(true);
+            }
+        }
     }
 
     /**
@@ -220,44 +260,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmLoginActionPerformed
-        String loginIsCorrect = CloudController.login(txfEmail.getText(), pwfPassword.getText());
-
-        while (true) {
-            if (loginIsCorrect == null) {
-                JOptionPane.showMessageDialog(this, "Invalid email or password");
-                break;
-            }
-
-            String id = DataCollection.obtainIdFromJSON(loginIsCorrect);
-            String name = DataCollection.obtainNameFromJSON(loginIsCorrect);
-            String type = DataCollection.obtainTypeFromJSON(loginIsCorrect);
-            double accountBalance = DataCollection.obtainBalanceFromJSON(loginIsCorrect);
-
-            switch (type) {
-                case "commensal" -> {
-                    FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id, accountBalance, type);
-                    this.setVisible(false);
-                    frmCommensalMenu.setVisible(true);
-                }
-                case "administrators" -> {
-                    FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name, accountBalance, type, id);
-                    this.setVisible(false);
-                    frmAdminMenu.setVisible(true);
-                }
-                case "militaryChef" -> {
-                    FrmChefMenu frmChefMenu = new FrmChefMenu(name);
-                    this.setVisible(false);
-                    frmChefMenu.setVisible(true);
-                }
-                case "generalAdministrator" -> {
-                    FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id, accountBalance, type);
-                    this.setVisible(false);
-                    frmGeneralAdmin.setVisible(true);
-                }
-            }
-
-            break;
-        }
+        handleLogin();
     }//GEN-LAST:event_btmLoginActionPerformed
 
     private void btmCreateNewAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCreateNewAccountActionPerformed

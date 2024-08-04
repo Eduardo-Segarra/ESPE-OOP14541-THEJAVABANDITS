@@ -48,7 +48,7 @@ public class CloudController {
     public static boolean create(Object object) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
 
             MongoCollection<Document> collection = database.getCollection("commensals");
 
@@ -67,7 +67,7 @@ public class CloudController {
     public static boolean createANewAdministrator(Object object) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
 
             MongoCollection<Document> collection = database.getCollection("administrators");
 
@@ -86,7 +86,7 @@ public class CloudController {
     public static void delete(Object object) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
 
             MongoCollection<Document> collection = database.getCollection("commensals");
 
@@ -105,7 +105,7 @@ public class CloudController {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
 
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
 
             for (String accountFiles : collections) {
                 MongoCollection<Document> collection = database.getCollection(accountFiles);
@@ -129,7 +129,7 @@ public class CloudController {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
 
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
 
             for (String collectionName : database.listCollectionNames()) {
                 System.out.println("Searching in collection: " + collectionName);
@@ -155,7 +155,7 @@ public class CloudController {
     public static boolean updateCommensalBalance(String id, double additionalBalance) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
 
             for (String collectionName : collections) {
                 MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -186,7 +186,7 @@ public class CloudController {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
 
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
             MongoCollection<Document> collection = database.getCollection("datebook");
 
             Document query = new Document("id", id);
@@ -217,7 +217,7 @@ public class CloudController {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
 
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
             MongoCollection<Document> collection = database.getCollection("datebook");
 
             Document datebookDoc = new Document("id", dateBook.getId()).append("reservedDays", dateBook.getReservedDays());
@@ -239,7 +239,7 @@ public class CloudController {
     public static AccountDetails getAccountDetails(String id) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
 
             for (String collectionName : collections) {
                 MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -266,7 +266,7 @@ public class CloudController {
     public static void saveMenu(Object object) {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
 
             MongoCollection<Document> collection = database.getCollection("menu");
 
@@ -285,7 +285,7 @@ public class CloudController {
         ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
         List<Document> documents = new ArrayList<>();
         try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("oop");
+            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
 
             MongoCollection<Document> collection = database.getCollection("menu");
 

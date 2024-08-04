@@ -7,19 +7,23 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author TheJavaBandits, DCCO-ESPE
  */
 public class Validation {
-    
+
     public static boolean ValidCommensal(Commensal commensal) {
-    return commensal != null && commensal.getId() != null && !commensal.getId().isEmpty();
-}
+        return commensal != null && commensal.getId() != null && !commensal.getId().isEmpty();
+    }
+
     public static boolean ValidBalance(double balance) {
-    return balance >= 0;
-}
+        return balance >= 0;
+    }
+
     public static boolean validateId(String idInput) {
         long id = 0;
         if (idInput.length() == 10) {
@@ -61,14 +65,14 @@ public class Validation {
 
         return checkDigit == digits[9];
     }
-    
-        public static boolean isValidEmailFormat(String email) {
+
+    public static boolean isValidEmailFormat(String email) {
         String regex = "^[\\w-\\.]+@(hotmail\\.com|gmail\\.com|outlook\\.com|yahoo\\.com)$";
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-     
+
     public static boolean validBoolean() {
         Scanner scanner = new Scanner(System.in);
         boolean userInput;
@@ -86,5 +90,13 @@ public class Validation {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public static void showErrorMessage(JFrame parentFrame, String message) {
+        JOptionPane.showMessageDialog(parentFrame, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void showInfoMessage(JFrame parentFrame, String message) {
+        JOptionPane.showMessageDialog(parentFrame, message, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
 }

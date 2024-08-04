@@ -121,23 +121,23 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblLunch" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblAvailableLunch" min="-2" pref="158" max="-2" attributes="0"/>
+                          <Component id="lblAvailableLunch" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblBreakfast" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblAvailableBreakfast" min="-2" pref="163" max="-2" attributes="0"/>
+                          <Component id="lblAvailableBreakfast" min="-2" pref="439" max="-2" attributes="0"/>
                       </Group>
                       <Component id="lblAvailablePlates" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblSnack" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblAvailableSnack" min="-2" pref="379" max="-2" attributes="0"/>
+                          <Component id="lblAvailableSnack" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -193,7 +193,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Este mes los platos son:"/>
+            <Property name="text" type="java.lang.String" value="Parece que todavia no has hecho una reservacion, haz una reservacion para poder ver el menu aqui!"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblBreakfast">

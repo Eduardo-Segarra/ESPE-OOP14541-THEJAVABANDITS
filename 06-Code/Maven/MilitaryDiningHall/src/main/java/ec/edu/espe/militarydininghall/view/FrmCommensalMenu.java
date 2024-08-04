@@ -19,7 +19,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
     public static String commensalId, nameCommensal, commensalType;
     private double commensalBalance;
-    
+
     /**
      * Creates new form CommensalMenu
      */
@@ -36,22 +36,13 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         this.commensalBalance = balance;
         lbldNameCommensal.setText("Bienvenido " + nameCommensal + "!");
         lblAccountBalance.setText(String.valueOf(commensalBalance));
-        summaryOfTheMenu(CloudController.getDateBook(Long.parseLong(commensalId)), today);
-    }
-    
-    
-    private void summaryOfTheMenu(DateBook datebook, LocalDate today) {
-        if (datebook == null) {
-            lblAvailablePlates.setText("Parece que todavia no has hecho una reservacion, haz una reservacion para poder ver el menu aqui!");
-            lblBreakfast.setVisible(false);
-            lblAvailableBreakfast.setVisible(false);
-            lblLunch.setVisible(false);
-            lblAvailableLunch.setVisible(false);
-            lblSnack.setVisible(false);
-            lblAvailableSnack.setVisible(false);
-        } else {
-            loopForShowingTheMenu(datebook, today);
-        }
+        lblBreakfast.setVisible(false);
+        lblAvailableBreakfast.setVisible(false);
+        lblLunch.setVisible(false);
+        lblAvailableLunch.setVisible(false);
+        lblSnack.setVisible(false);
+        lblAvailableSnack.setVisible(false);
+        loopForShowingTheMenu(CloudController.getDateBook(Long.parseLong(commensalId)), today);
     }
 
     private void loopForShowingTheMenu(DateBook datebook, LocalDate today) {
@@ -73,6 +64,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
                 String year = parts[2];
                 LocalDate dateSearch = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
                 String dateToCompare = day + "/" + month + "/" + year;
+                
                 if (today.isBefore(dateSearch) || today.isEqual(dateSearch)) {
                     if (dateToCompare.contentEquals(date)) {
                         lblAvailablePlates.setText("Los platillos para el dia " + dateToCompare + " son los siguientes:");
@@ -225,7 +217,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
         lblAvailablePlates.setFont(new java.awt.Font("Artifakt Element Medium", 0, 16)); // NOI18N
         lblAvailablePlates.setForeground(new java.awt.Color(255, 255, 255));
-        lblAvailablePlates.setText("Este mes los platos son:");
+        lblAvailablePlates.setText("Parece que todavia no has hecho una reservacion, haz una reservacion para poder ver el menu aqui!");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -240,26 +232,26 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbldNameCommensal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAvailablePlates)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(lblSnack)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lblAvailableSnack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(lblBreakfast)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lblAvailableBreakfast))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(lblLunch)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lblAvailableLunch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(lblSnack)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblAvailableSnack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(lblLunch)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblAvailableLunch, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(lblBreakfast)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblAvailableBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblAvailablePlates))
+                .addGap(28, 28, 28))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,9 +263,9 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
                         .addComponent(lbldNameCommensal)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(14, 14, 14)
-                .addComponent(lblAvailablePlates)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblAvailablePlates)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBreakfast)
                     .addComponent(lblAvailableBreakfast))
@@ -285,7 +277,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSnack)
                     .addComponent(lblAvailableSnack))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

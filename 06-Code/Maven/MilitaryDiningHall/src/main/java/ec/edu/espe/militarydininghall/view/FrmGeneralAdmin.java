@@ -37,21 +37,13 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         this.generalAdminType = type;
         jLabel1.setText("Bienvenido, " + generalAdminName + "!");
         lblAccountBalance.setText(String.valueOf(generalAdminBalance));
-        summaryOfTheMenu(CloudController.getDateBook(Long.parseLong(generalAdminminId)), today);
-    }
-
-    private void summaryOfTheMenu(DateBook datebook, LocalDate today) {
-        if (datebook == null) {
-            lblAvailablePlates.setText("Parece que todavia no has hecho una reservacion, haz una reservacion para poder ver el menu aqui!");
-            lblBreakfast.setVisible(false);
-            lblAvailableBreakfast.setVisible(false);
-            lblLunch.setVisible(false);
-            lblAvailableLunch.setVisible(false);
-            lblSnack.setVisible(false);
-            lblAvailableSnack.setVisible(false);
-        } else {
-            loopForShowingTheMenu(datebook, today);
-        }
+        lblBreakfast.setVisible(false);
+        lblAvailableBreakfast.setVisible(false);
+        lblLunch.setVisible(false);
+        lblAvailableLunch.setVisible(false);
+        lblSnack.setVisible(false);
+        lblAvailableSnack.setVisible(false);
+        loopForShowingTheMenu(CloudController.getDateBook(Long.parseLong(generalAdminminId)), today);
     }
 
     private void loopForShowingTheMenu(DateBook datebook, LocalDate today) {
@@ -148,7 +140,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
 
         lblAvailablePlates.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
         lblAvailablePlates.setForeground(new java.awt.Color(255, 255, 255));
-        lblAvailablePlates.setText("Este mes los platos son:");
+        lblAvailablePlates.setText("Parece que todavia no has hecho una reservacion, haz una reservacion para poder ver el menu aqui!");
 
         lblBreakfast.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
         lblBreakfast.setForeground(new java.awt.Color(255, 255, 255));
@@ -263,21 +255,21 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblLunch)
                         .addGap(18, 18, 18)
-                        .addComponent(lblAvailableLunch, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblAvailableLunch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblBreakfast)
                         .addGap(18, 18, 18)
-                        .addComponent(lblAvailableBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblAvailableBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblAvailablePlates)
                     .addComponent(jLabel11)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblSnack)
                         .addGap(18, 18, 18)
-                        .addComponent(lblAvailableSnack, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblAvailableSnack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(

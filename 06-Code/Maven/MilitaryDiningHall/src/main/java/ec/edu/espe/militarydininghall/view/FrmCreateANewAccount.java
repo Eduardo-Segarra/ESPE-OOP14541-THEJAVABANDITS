@@ -36,6 +36,37 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
         return modifiedPassword.toString();
     }
 
+    private void handleEmailAndId() {
+        String email = txfEmail.getText();
+        String id = txfId.getText();
+
+        if (!Validation.isValidEmailFormat(email)) {
+            Validation.showErrorMessage(this, "Formato de correo electronico invalido.");
+            return;
+        }
+        if (!Validation.validateId(id)) {
+            Validation.showErrorMessage(this, "Cedula invalida.");
+            return;
+        }
+
+        encryptedPassword(email, id);
+    }
+
+    private void encryptedPassword(String email, String id) {
+        String originalPassword = new String(pwfPassword.getPassword());
+        String modifiedPassword = modifyPassword(originalPassword, 1);
+        creatingAccount(email, id, modifiedPassword);
+    }
+
+    private void creatingAccount(String email, String id, String modifiedPassword) {
+        Commensal commensal = new Commensal(txfId.getText(), txfName.getText(), txfEmail.getText(), modifiedPassword, cmbGrade.getSelectedItem().toString(), "commensal", 0.0F);
+        CloudController.create(commensal);
+
+        FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(commensal.getName(), commensal.getId(), commensal.getBalance(), commensal.getType());
+        this.setVisible(false);
+        frmCommensalMenu.setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -260,33 +291,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
     }//GEN-LAST:event_txfNameActionPerformed
 
     private void btmCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCreateAccountActionPerformed
-        String email = txfEmail.getText();
-        String id = txfId.getText();
-
-        while (true) {
-            if (!Validation.isValidEmailFormat(email)) {
-                JOptionPane.showMessageDialog(this, "Invalid Email");
-                break;
-            }
-            if (!Validation.validateId(id)) {
-                JOptionPane.showMessageDialog(this, "Invalid ID");
-                break;
-            }
-
-            
-            String originalPassword = new String(pwfPassword.getPassword());
-            String modifiedPassword = modifyPassword(originalPassword, 1);
-
-            Commensal commensal = new Commensal(txfId.getText(), txfName.getText(), txfEmail.getText(), modifiedPassword, cmbGrade.getSelectedItem().toString(), "commensal", 0.0F);
-            CloudController.create(commensal);
-
-            FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(commensal.getName(), commensal.getId(), commensal.getBalance(), commensal.getType());
-            this.setVisible(false);
-            frmCommensalMenu.setVisible(true);
-
-            break;
-        }
-
+        handleEmailAndId();
     }//GEN-LAST:event_btmCreateAccountActionPerformed
 
     /**
