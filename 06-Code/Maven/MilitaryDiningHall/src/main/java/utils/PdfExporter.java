@@ -39,7 +39,7 @@ public class PdfExporter {
                 }
             }
 
-            document.add(new Paragraph("Informacion de la Tabla"));
+            document.add(new Paragraph("Informacion de la Tabla\n"));
             document.add(pdfTable);
             
             // Successfully saved

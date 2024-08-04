@@ -8,6 +8,7 @@ import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.GeneralAdmin;
 import javax.swing.JOptionPane;
+import utils.Validation;
 
 /**
  *
@@ -34,6 +35,12 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
         lblEmailSearched.setText(commensal.getEmail());
         lblNameSearched.setText(commensal.getName());
         lblGradeSearched.setText(commensal.getGrade());
+    }
+
+    private boolean creatingANewAdministrator() {
+        CloudController.delete(commensal);
+        commensal.setType("administrators");
+        return CloudController.createANewAdministrator(commensal);
     }
 
     /**
@@ -255,14 +262,12 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmYesActionPerformed
-        boolean succes;
-        CloudController.delete(commensal);
-        commensal.setType("administrators");
-        succes = CloudController.createANewAdministrator(commensal);
-        if (succes) {
+        if (creatingANewAdministrator()) {
             FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(generalAdminName, generalAdminminId, generalAdminminBalance, generalAdminType);
             this.setVisible(false);
             frmGeneralAdmin.setVisible(true);
+        } else {
+            Validation.showErrorMessage(this, "Un error a ocurrido al crear un nuevo administrador.");
         }
     }//GEN-LAST:event_btmYesActionPerformed
 

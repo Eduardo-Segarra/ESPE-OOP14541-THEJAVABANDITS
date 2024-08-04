@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
+import utils.Validation;
 
 /**
  *
@@ -17,20 +18,33 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
 
     private String adminName, adminType, adminId;
     private double adminBalance;
-    
+
     /**
      * Creates new form UpdateAccountBalanceForACommensal
      */
     public FrmUpdateAccountBalance() {
         initComponents();
     }
-    
+
     public FrmUpdateAccountBalance(String name, double balance, String type, String id) {
         initComponents();
         this.adminName = name;
         this.adminBalance = balance;
         this.adminType = type;
         this.adminId = id;
+    }
+
+    private String gettingAccountInformation() {
+        return CloudController.findAccountById(jTextField1.getText());
+    }
+
+    private boolean theIdExist(String accountInfo) {
+        return accountInfo != null;
+    }
+
+    private Commensal sendingTheData(String accountData) {
+        Gson gson = new Gson();
+        return gson.fromJson(accountData, Commensal.class);
     }
 
     /**
@@ -219,23 +233,18 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
     }//GEN-LAST:event_btmCancelActionPerformed
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        try {
-            String id = jTextField1.getText();
-            String accountJson = CloudController.findAccountById(id);
+        String accountJson = gettingAccountInformation();
 
-            if (accountJson != null) {
-                Gson gson = new Gson();
-                Commensal commensal = gson.fromJson(accountJson, Commensal.class);
+        if (theIdExist(accountJson)) {
+            Commensal commensal = sendingTheData(accountJson);
 
-                FrmUpdateAccountBalanceCommensalID frmUpdateAccountBalanceCommensalID = new FrmUpdateAccountBalanceCommensalID(commensal, adminName, adminBalance, adminType, adminId);
-                this.setVisible(false);
-                frmUpdateAccountBalanceCommensalID.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "Account not found", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            FrmUpdateAccountBalanceCommensalID frmUpdateAccountBalanceCommensalID = new FrmUpdateAccountBalanceCommensalID(commensal, adminName, adminBalance, adminType, adminId);
+            this.setVisible(false);
+            frmUpdateAccountBalanceCommensalID.setVisible(true);
+        } else {
+            Validation.showErrorMessage(this, "La cedula ingresada no existe en el sistema.");
         }
+
     }//GEN-LAST:event_btmSearchActionPerformed
 
     /**

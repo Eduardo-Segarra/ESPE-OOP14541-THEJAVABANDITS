@@ -160,7 +160,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="btmSearch" min="-2" max="-2" attributes="0"/>
+                          <Component id="btmSave" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                           <Component id="btmCancel" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -180,7 +180,7 @@
                   <Component id="jScrollPane2" min="-2" pref="110" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btmSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btmSave" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btmCancel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -191,7 +191,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btmSearch">
+        <Component class="javax.swing.JButton" name="btmSave">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="1f" green="52" red="84" type="rgb"/>
@@ -199,7 +199,7 @@
             <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btmSearchActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btmSaveActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btmCancel">

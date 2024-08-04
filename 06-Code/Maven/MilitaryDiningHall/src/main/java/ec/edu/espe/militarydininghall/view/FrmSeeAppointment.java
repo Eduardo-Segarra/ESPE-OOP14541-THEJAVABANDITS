@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import utils.PdfExporter;
+import utils.Validation;
 
 /**
  *
@@ -63,6 +64,40 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
         FrmSeeAppointment.userName = name;
         FrmSeeAppointment.userType = type;
         this.userBalance = balance;
+    }
+
+    private void navigateToUserMenu() {
+        switch (userType) {
+            case "commensal" -> {
+                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
+                this.setVisible(false);
+                frmCommensalMenu.setVisible(true);
+            }
+            case "administrators" -> {
+                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
+                this.setVisible(false);
+                frmAdminMenu.setVisible(true);
+            }
+            case "generalAdministrator" -> {
+                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
+                this.setVisible(false);
+                frmGeneralAdmin.setVisible(true);
+            }
+        }
+    }
+
+    private String gettingThePdfFileName() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timestamp = dateFormat.format(new Date());
+        return "Reservaciones_" + timestamp + ".pdf";
+    }
+
+    private void savingThePdfFile(String fileName) {
+        if (PdfExporter.exportTableToPdf(tblTable, fileName)) {
+            Validation.showInfoMessage(this, "El PDF fue guardado con éxito como " + fileName);
+        } else {
+            Validation.showErrorMessage(this, "No se pudo guardar el PDF");
+        }
     }
 
     /**
@@ -167,7 +202,7 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
         );
 
         btmSavePdf.setBackground(new java.awt.Color(132, 82, 31));
-        btmSavePdf.setText("Guardar pdf");
+        btmSavePdf.setText("Guardar en pdf");
         btmSavePdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmSavePdfActionPerformed(evt);
@@ -217,39 +252,13 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
-        switch (userType) {
-            case "commensal" -> {
-                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmCommensalMenu.setVisible(true);
-            }
-            case "administrators" -> {
-                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
-                this.setVisible(false);
-                frmAdminMenu.setVisible(true);
-            }
-            case "generalAdministrator" -> {
-                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmGeneralAdmin.setVisible(true);
-            }
-        }
+        navigateToUserMenu();
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void btmSavePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSavePdfActionPerformed
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        String timestamp = dateFormat.format(new Date());
-        String filePath = "Reservaciones_" + timestamp + ".pdf";
+        String filePath = gettingThePdfFileName();
 
-        boolean success = PdfExporter.exportTableToPdf(tblTable, filePath);
-
-        if (success) {
-            JOptionPane.showMessageDialog(null, "El PDF fue guardado con éxito como " + filePath, "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo guardar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-        System.out.println("PDF guardado en " + filePath);
+        savingThePdfFile(filePath);
     }//GEN-LAST:event_btmSavePdfActionPerformed
 
     /**

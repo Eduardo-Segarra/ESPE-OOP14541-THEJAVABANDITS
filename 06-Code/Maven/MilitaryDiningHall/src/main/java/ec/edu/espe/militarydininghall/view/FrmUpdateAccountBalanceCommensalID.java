@@ -236,27 +236,24 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
             double newBalance = Double.parseDouble(jTextField1.getText());
 
             if (!Validation.ValidBalance(newBalance)) {
-                JOptionPane.showMessageDialog(this, "El saldo no puede ser negativo.", "Error", JOptionPane.ERROR_MESSAGE);
+                Validation.showInfoMessage(this, "El saldo no puede ser negativo.");
                 return;
             }
 
             if (!Validation.ValidCommensal(commensal)) {
-                JOptionPane.showMessageDialog(this, "El objeto comensal no se inicializa correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                Validation.showInfoMessage(this, "El objeto comensal no se inicializa correctamente.");
                 return;
             }
 
-            boolean success = CloudController.updateCommensalBalance(commensal.getId(), newBalance);
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Saldo de cuenta actualizado exitosamente!", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            if (CloudController.updateCommensalBalance(commensal.getId(), newBalance)) {
+                Validation.showInfoMessage(this, "Saldo de cuenta actualizado exitosamente!");
                 new FrmAdminMenu(adminName, adminBalance, adminType, adminId).setVisible(true);
-                this.dispose();  // Cierra el formulario actual
+                this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo actualizar el saldo", "Error", JOptionPane.ERROR_MESSAGE);
+                Validation.showErrorMessage(this, "No se pudo actualizar el saldo");
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Validation.showErrorMessage(this, "Por favor ingrese una cantidad válida.");
         }
     }//GEN-LAST:event_btmSearchActionPerformed
 

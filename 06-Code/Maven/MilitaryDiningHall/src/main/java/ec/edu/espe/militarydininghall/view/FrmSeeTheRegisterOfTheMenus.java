@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 import utils.PdfExporter;
+import utils.Validation;
 
 /**
  *
@@ -45,6 +46,20 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
             String lunch = doc.getString("lunch");
             String dinner = doc.getString("dinner");
             model.addRow(new Object[]{date, breakfast, lunch, dinner});
+        }
+    }
+
+    private String gettingThePdfFileName() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timestamp = dateFormat.format(new Date());
+        return "Menu_de_Platos_" + timestamp + ".pdf";
+    }
+
+    private void savingThePdfFile(String fileName) {
+        if (PdfExporter.exportTableToPdf(tblTable, fileName)) {
+            Validation.showInfoMessage(this, "El PDF fue guardado con éxito como " + fileName);
+        } else {
+            Validation.showErrorMessage(this, "No se pudo guardar el PDF");
         }
     }
 
@@ -226,19 +241,9 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void btmSavePdfMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSavePdfMenuActionPerformed
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        String timestamp = dateFormat.format(new Date());
-        String filePath = "Menu_de_Platos_" + timestamp + ".pdf";
+        String filePath = gettingThePdfFileName();
 
-        boolean success = PdfExporter.exportTableToPdf(tblTable, filePath);
-
-        if (success) {
-            JOptionPane.showMessageDialog(null, "El PDF fue guardado con éxito como " + filePath, "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo guardar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-        System.out.println("PDF guardado en " + filePath);
+        savingThePdfFile(filePath);
     }//GEN-LAST:event_btmSavePdfMenuActionPerformed
 
     /**

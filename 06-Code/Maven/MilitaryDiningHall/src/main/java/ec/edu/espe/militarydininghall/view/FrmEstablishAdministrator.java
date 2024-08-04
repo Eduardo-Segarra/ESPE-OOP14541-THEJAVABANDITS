@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
+import utils.Validation;
 
 /**
  *
@@ -17,20 +18,33 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
 
     private String generalAdminminId, generalAdminName, generalAdminType;
     private double generalAdminminbalance;
-    
+
     /**
      * Creates new form FrmEstablishAdministrator
      */
     public FrmEstablishAdministrator() {
         initComponents();
     }
-    
+
     public FrmEstablishAdministrator(String id, String name, double balance, String type) {
         initComponents();
         this.generalAdminminId = id;
         this.generalAdminName = name;
         this.generalAdminminbalance = balance;
         this.generalAdminType = type;
+    }
+
+    private String gettingTheAccountData() {
+        return CloudController.findAccountById(txfId.getText());
+    }
+
+    private boolean theEnteredIdExists(String accountData) {
+        return accountData != null;
+    }
+
+    private Commensal sendingTheData(String accountData) {
+        Gson gson = new Gson();
+        return gson.fromJson(accountData, Commensal.class);
     }
 
     /**
@@ -153,12 +167,11 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmApplyActionPerformed
-        Gson gson = new Gson();
-        String accounData = CloudController.findAccountById(txfId.getText());
-        if (accounData == null) {
-            JOptionPane.showMessageDialog(this, "La cedula ingresada no existe");
+        String accountData = gettingTheAccountData();
+        if (!theEnteredIdExists(accountData)) {
+            Validation.showErrorMessage(this, "La cedula ingresada no existe.");
         } else {
-            Commensal commensal = gson.fromJson(accounData, Commensal.class);
+            Commensal commensal = sendingTheData(accountData);
             FrmEstablishAdministratorSearch frmEstablishAdministratorSearch = new FrmEstablishAdministratorSearch(commensal, generalAdminminId, generalAdminName, generalAdminminbalance, generalAdminType);
             FrmEstablishAdministratorSearch.commensal = commensal;
             this.setVisible(false);

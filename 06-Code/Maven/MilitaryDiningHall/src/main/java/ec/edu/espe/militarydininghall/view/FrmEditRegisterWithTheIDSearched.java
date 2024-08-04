@@ -58,6 +58,16 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
         }
     }
 
+    private void savingTheSelectionsOfTheTable() {
+        for (int row = 0; row < tblTable.getRowCount(); row++) {
+            String data = (String) tblTable.getValueAt(row, 0);
+            boolean attendance = (boolean) tblTable.getValueAt(row, 1);
+            DateBook datebook = CloudController.getDateBook(Long.parseLong(idSearched));
+            datebook.changeAssistance(data, attendance);
+            CloudController.saveDateBook(datebook);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,7 +83,7 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        btmSearch = new javax.swing.JButton();
+        btmSave = new javax.swing.JButton();
         btmCancel = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -152,11 +162,11 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(50, 91, 14));
 
-        btmSearch.setBackground(new java.awt.Color(132, 82, 31));
-        btmSearch.setText("Guardar");
-        btmSearch.addActionListener(new java.awt.event.ActionListener() {
+        btmSave.setBackground(new java.awt.Color(132, 82, 31));
+        btmSave.setText("Guardar");
+        btmSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btmSearchActionPerformed(evt);
+                btmSaveActionPerformed(evt);
             }
         });
 
@@ -218,7 +228,7 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addComponent(btmSearch)
+                        .addComponent(btmSave)
                         .addGap(64, 64, 64)
                         .addComponent(btmCancel))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -233,7 +243,7 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btmSearch)
+                    .addComponent(btmSave)
                     .addComponent(btmCancel))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,18 +255,12 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        for (int row = 0; row < tblTable.getRowCount(); row++) {
-            String data = (String) tblTable.getValueAt(row, 0);
-            boolean attendance = (boolean) tblTable.getValueAt(row, 1);
-            DateBook datebook = CloudController.getDateBook(Long.parseLong(idSearched));
-            datebook.changeAssistance(data, attendance);
-            CloudController.saveDateBook(datebook);
-        }
+    private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
+        savingTheSelectionsOfTheTable();
         FrmAdminMenu frmMilitaryDinindHallSystemAdminMenu = new FrmAdminMenu(adminName, adminBalance, adminType, adminId);
         this.setVisible(false);
         frmMilitaryDinindHallSystemAdminMenu.setVisible(true);
-    }//GEN-LAST:event_btmSearchActionPerformed
+    }//GEN-LAST:event_btmSaveActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
         FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance, adminType, adminId);
@@ -308,7 +312,7 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmCancel;
-    private javax.swing.JButton btmSearch;
+    private javax.swing.JButton btmSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
