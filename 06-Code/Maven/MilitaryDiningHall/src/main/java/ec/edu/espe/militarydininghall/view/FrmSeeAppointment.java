@@ -6,10 +6,14 @@ package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.DateBook;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.table.DefaultTableModel;
 
 import java.util.Map;
+import javax.swing.JOptionPane;
+import utils.PdfExporter;
 
 /**
  *
@@ -78,6 +82,7 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
         tblTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        btmSavePdf = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -161,6 +166,14 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
             .addGap(0, 14, Short.MAX_VALUE)
         );
 
+        btmSavePdf.setBackground(new java.awt.Color(132, 82, 31));
+        btmSavePdf.setText("Guardar pdf");
+        btmSavePdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmSavePdfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -173,13 +186,14 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(131, 131, 131))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btmBack)
-                        .addGap(18, 18, 18))))
+                .addComponent(jLabel1)
+                .addGap(131, 131, 131))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(btmSavePdf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btmBack)
+                .addGap(18, 18, 18))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,8 +204,10 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btmBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btmBack)
+                    .addComponent(btmSavePdf))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -219,6 +235,22 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btmBackActionPerformed
+
+    private void btmSavePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSavePdfActionPerformed
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timestamp = dateFormat.format(new Date());
+        String filePath = "Reservaciones_" + timestamp + ".pdf";
+
+        boolean success = PdfExporter.exportTableToPdf(tblTable, filePath);
+
+        if (success) {
+            JOptionPane.showMessageDialog(null, "El PDF fue guardado con éxito como " + filePath, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo guardar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        System.out.println("PDF guardado en " + filePath);
+    }//GEN-LAST:event_btmSavePdfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,6 +291,7 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmBack;
+    private javax.swing.JButton btmSavePdf;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

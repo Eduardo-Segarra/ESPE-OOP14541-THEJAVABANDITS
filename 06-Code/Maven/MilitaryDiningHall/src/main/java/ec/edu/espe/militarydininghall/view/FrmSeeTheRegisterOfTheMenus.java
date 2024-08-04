@@ -5,9 +5,13 @@
 package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.controller.CloudController;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
+import utils.PdfExporter;
 
 /**
  *
@@ -18,24 +22,23 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
     /**
      * Creates new form FrmSeeTheRegisterOfTheMenus
      */
-    
     private String chefName;
-    
+
     public FrmSeeTheRegisterOfTheMenus() {
         initComponents();
     }
-    
+
     public FrmSeeTheRegisterOfTheMenus(String name) {
         initComponents();
         this.chefName = name;
     }
-    
-    public void updateTableOfMenus(){
+
+    public void updateTableOfMenus() {
         List<Document> documents = CloudController.getMenuInformation();
-        
+
         DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
         model.setRowCount(0);
-        
+
         for (Document doc : documents) {
             String date = doc.getString("date");
             String breakfast = doc.getString("breakfast");
@@ -63,6 +66,7 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btmBack = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        btmSavePdfMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -179,13 +183,23 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
             .addGap(0, 14, Short.MAX_VALUE)
         );
 
+        btmSavePdfMenu.setBackground(new java.awt.Color(132, 82, 31));
+        btmSavePdfMenu.setText("Guardar menu en pdf");
+        btmSavePdfMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmSavePdfMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addComponent(btmSavePdfMenu)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btmBack, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
@@ -193,7 +207,9 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btmBack, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btmBack, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btmSavePdfMenu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -208,6 +224,22 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
         this.setVisible(false);
         frmChefMenu.setVisible(true);
     }//GEN-LAST:event_btmBackActionPerformed
+
+    private void btmSavePdfMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSavePdfMenuActionPerformed
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timestamp = dateFormat.format(new Date());
+        String filePath = "Menu_de_Platos_" + timestamp + ".pdf";
+
+        boolean success = PdfExporter.exportTableToPdf(tblTable, filePath);
+
+        if (success) {
+            JOptionPane.showMessageDialog(null, "El PDF fue guardado con éxito como " + filePath, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo guardar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        System.out.println("PDF guardado en " + filePath);
+    }//GEN-LAST:event_btmSavePdfMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,6 +278,7 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmBack;
+    private javax.swing.JButton btmSavePdfMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
