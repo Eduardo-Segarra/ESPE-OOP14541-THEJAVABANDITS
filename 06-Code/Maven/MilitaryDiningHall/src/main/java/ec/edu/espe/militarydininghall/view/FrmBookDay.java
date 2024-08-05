@@ -6,6 +6,7 @@ package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.DateBook;
+import java.awt.Color;
 import java.util.Map;
 import java.time.LocalDate;
 import java.time.Month;
@@ -13,6 +14,8 @@ import java.time.YearMonth;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import utils.DataCollection;
 import utils.Validation;
 
@@ -42,6 +45,7 @@ public class FrmBookDay extends javax.swing.JFrame {
         this.userType = type;
         this.userBalance = balance;
         this.id = Long.parseLong(id);
+        txfAmountOfPeople.setToolTipText("Solo puede ingresar numeros como 1, 2, 3 , 4....");
         customizeComboBoxes();
     }
 
@@ -108,6 +112,21 @@ public class FrmBookDay extends javax.swing.JFrame {
         userBalance -= reservationCost;
     }
 
+    private boolean theAmountOfPeopleIsCorrect() {
+        try {
+            int amountOfPeople = Integer.parseInt(txfAmountOfPeople.getText());
+
+            if (amountOfPeople > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException ex) {
+            txfAmountOfPeople.setBackground(Color.red);
+            return false;
+        }
+    }
+
     private void navigateToUserMenu() {
         switch (userType) {
             case "commensal" -> {
@@ -125,6 +144,15 @@ public class FrmBookDay extends javax.swing.JFrame {
                 this.setVisible(false);
                 frmGeneralAdmin.setVisible(true);
             }
+        }
+    }
+
+    private void updateTotal() {
+        try {
+            double totalToPay = reservationCost * Integer.parseInt(txfAmountOfPeople.getText());
+            lblAmountToPay.setText("La cantidad de dinero a pagar es: $" + String.format("%.2f", totalToPay));
+        } catch (NumberFormatException ex) {
+            lblAmountToPay.setText("La cantidad de dinero a pagar es: $0.00");
         }
     }
 
@@ -150,6 +178,8 @@ public class FrmBookDay extends javax.swing.JFrame {
         btmBack = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txfAmountOfPeople = new javax.swing.JTextField();
         lblAmountToPay = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
@@ -204,17 +234,23 @@ public class FrmBookDay extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Reservar un dia");
 
+        jLabel4.setBackground(new java.awt.Color(187, 187, 187));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("¿Cuántas personas van a asistir ese día?");
+
+        txfAmountOfPeople.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfAmountOfPeopleActionPerformed(evt);
+            }
+        });
+
         lblAmountToPay.setForeground(new java.awt.Color(255, 255, 255));
-        lblAmountToPay.setText("La cantidad de dinero a pagar es: $7.50");
+        lblAmountToPay.setText("La cantidad de dinero a pagar es: $0.00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(133, 133, 133))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -225,18 +261,26 @@ public class FrmBookDay extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txfAmountOfPeople, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblAmountToPay, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
+                        .addGap(112, 112, 112)
                         .addComponent(btmSave)
-                        .addGap(81, 81, 81)
+                        .addGap(73, 73, 73)
                         .addComponent(btmBack)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(125, 125, 125))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -249,23 +293,32 @@ public class FrmBookDay extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txfAmountOfPeople, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(lblAmountToPay)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btmSave)
                     .addComponent(btmBack))
-                .addGap(19, 19, 19))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -285,6 +338,11 @@ public class FrmBookDay extends javax.swing.JFrame {
             return;
         }
 
+        if (!theAmountOfPeopleIsCorrect()) {
+            Validation.showInfoMessage(this, "La cantidad de personas deber ser un numero entero positivo.");
+            return;
+        }
+
         saveReservation(dateBook, selectedDate);
         deductReservationCost();
         Validation.showInfoMessage(this, "Guardada correctamente la reservacion.");
@@ -297,6 +355,25 @@ public class FrmBookDay extends javax.swing.JFrame {
     private void cmbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMonthActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbMonthActionPerformed
+
+    private void txfAmountOfPeopleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfAmountOfPeopleActionPerformed
+        txfAmountOfPeople.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateTotal();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateTotal();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateTotal();
+            }
+        });
+    }//GEN-LAST:event_txfAmountOfPeopleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,6 +408,30 @@ public class FrmBookDay extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -349,11 +450,13 @@ public class FrmBookDay extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblAmountToPay;
+    private javax.swing.JTextField txfAmountOfPeople;
     // End of variables declaration//GEN-END:variables
 }

@@ -99,4 +99,30 @@ public class Validation {
     public static void showInfoMessage(JFrame parentFrame, String message) {
         JOptionPane.showMessageDialog(parentFrame, message, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    public static String modifyPassword(String password, int asqui) {
+        StringBuilder modifiedPassword = new StringBuilder();
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (Character.isLetter(c)) {
+                char base = Character.isLowerCase(c) ? 'a' : 'A';
+                c = (char) ((c - base + asqui) % 26 + base);
+            }
+            modifiedPassword.append(c);
+        }
+        return modifiedPassword.toString();
+    }
+    
+    public static String decryptingPassword(String password, int asqui) {
+        StringBuilder modifiedPassword = new StringBuilder();
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (Character.isLetter(c)) {
+                char base = Character.isLowerCase(c) ? 'a' : 'A';
+                c = (char) ((c - base - asqui) % 26 + base);
+            }
+            modifiedPassword.append(c);
+        }
+        return modifiedPassword.toString();
+    }
 }

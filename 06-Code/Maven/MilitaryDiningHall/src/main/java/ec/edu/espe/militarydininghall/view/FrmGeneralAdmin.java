@@ -36,7 +36,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         this.generalAdminBalance = balance;
         this.generalAdminType = type;
         jLabel1.setText("Bienvenido, " + generalAdminName + "!");
-        lblAccountBalance.setText(String.valueOf(generalAdminBalance));
+        lblAccountBalance.setText(String.format("%.2f", generalAdminBalance));
         lblBreakfast.setVisible(false);
         lblAvailableBreakfast.setVisible(false);
         lblLunch.setVisible(false);

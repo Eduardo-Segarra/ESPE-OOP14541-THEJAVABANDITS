@@ -35,7 +35,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         FrmCommensalMenu.commensalType = type;
         this.commensalBalance = balance;
         lbldNameCommensal.setText("Bienvenido " + nameCommensal + "!");
-        lblAccountBalance.setText(String.valueOf(commensalBalance));
+        lblAccountBalance.setText(String.format("%.2f", commensalBalance));
         lblBreakfast.setVisible(false);
         lblAvailableBreakfast.setVisible(false);
         lblLunch.setVisible(false);

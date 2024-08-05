@@ -31,7 +31,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         this.adminType = type;
         this.adminId = id;
         lbldNameAdmin.setText("Bienvenido, " + adminName + "!");
-        lblAccountBalance.setText(String.valueOf(adminBalance));
+        lblAccountBalance.setText(String.format("%.2f", adminBalance));
         lblBreakfast.setVisible(false);
         lblAvailableBreakfast.setVisible(false);
         lblLunch.setVisible(false);

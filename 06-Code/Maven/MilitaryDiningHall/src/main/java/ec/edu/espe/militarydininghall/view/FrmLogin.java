@@ -27,8 +27,13 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
     }
 
+    private String encryptingPassword(String password) {
+        return Validation.modifyPassword(password, 1);
+    }
+
     private void handleLogin() {
-        String loginResponse = CloudController.login(txfEmail.getText(), pwfPassword.getText());
+        String encryptedPassword = encryptingPassword(pwfPassword.getText());
+        String loginResponse = CloudController.login(txfEmail.getText(), encryptedPassword);
         if (loginResponse == null) {
             Validation.showErrorMessage(this, "Correo electronico o contraseña incorrectos");
             return;
