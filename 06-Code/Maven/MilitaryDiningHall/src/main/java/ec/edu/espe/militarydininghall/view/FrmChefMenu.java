@@ -8,6 +8,7 @@ import ec.edu.espe.militarydininghall.controller.CloudController;
 import java.time.LocalDate;
 import java.util.List;
 import org.bson.Document;
+import utils.LabelsActions;
 
 /**
  *
@@ -16,6 +17,7 @@ import org.bson.Document;
 public class FrmChefMenu extends javax.swing.JFrame {
 
     private String chefName;
+
     /**
      * Creates new form ChefMenu
      */
@@ -26,55 +28,13 @@ public class FrmChefMenu extends javax.swing.JFrame {
     public FrmChefMenu(String name) {
         initComponents();
         LocalDate today = LocalDate.now();
-        this.chefName = name;
-        lblNameOfTheChef.setText("Bienvenido, " + chefName + "!");
         List<Document> documents = CloudController.getMenuInformation();
-        summaryOfTheMenu(documents, today);
-    }
 
-    private void summaryOfTheMenu(List<Document> documents, LocalDate today) {
-        if (documents == null) {
-            lblAvailablePlates.setText("Parece que todavia no se ha registrado algun menu.");
-            lblAvailableBreakfast.setVisible(false);
-            lblAvailableBreakfast.setVisible(false);
-            lblAvailableLunch.setVisible(false);
-            lblAvailableLunch.setVisible(false);
-            lblAvailableSnack.setVisible(false);
-            lblAvailableSnack.setVisible(false);
-        } else {
-            loopForShowingTheMenu(documents, today);
-        }
-    }
+        this.chefName = name;
 
-    private void loopForShowingTheMenu(List<Document> documents, LocalDate today) {
-
-        for (Document doc : documents) {
-            String date = doc.getString("date");
-            String[] parts = date.split("/");
-            String day = parts[0];
-            String month = parts[1];
-            String year = parts[2];
-            String dateToCompare = day + "/" + month + "/" + year;
-            LocalDate dateSearch = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-            String breakfast = doc.getString("breakfast");
-            String lunch = doc.getString("lunch");
-            String dinner = doc.getString("dinner");
-
-            if (today.isBefore(dateSearch) || today.isEqual(dateSearch)) {
-                lblAvailablePlates.setText("Los platillos para el dia " + dateToCompare + " son los siguientes:");
-                lblBreakfast.setVisible(true);
-                lblAvailableBreakfast.setVisible(true);
-                lblLunch.setVisible(true);
-                lblAvailableLunch.setVisible(true);
-                lblSnack.setVisible(true);
-                lblAvailableSnack.setVisible(true);
-                lblAvailableBreakfast.setText(breakfast);
-                lblAvailableLunch.setText(lunch);
-                lblAvailableSnack.setText(dinner);
-                break;
-            }
-
-        }
+        LabelsActions.settingName(lblNameOfTheChef, chefName);
+        LabelsActions.summaryOfTheMenu(documents, today, lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, 
+                lblAvailableLunch, lblSnack, lblAvailableSnack);
     }
 
     /**
@@ -162,37 +122,31 @@ public class FrmChefMenu extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblNameOfTheChef)
-                .addContainerGap(74, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAvailablePlates1)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addContainerGap()
+                        .addComponent(lblAvailableBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(97, 97, 97)
-                                    .addComponent(lblAvailableBreakfast, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(lblBreakfast)
-                                    .addGap(288, 288, 288)))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(lblLunch)
-                                    .addGap(290, 290, 290))
-                                .addComponent(lblAvailablePlates)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(lblSnack)
-                                    .addGap(28, 28, 28)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblAvailableLunch, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblAvailableSnack, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap())
+                            .addComponent(lblAvailablePlates1)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblAvailablePlates)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(lblSnack)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(lblAvailableSnack, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(lblLunch)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(lblAvailableLunch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(lblBreakfast)))
+                            .addComponent(lblNameOfTheChef))))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,15 +161,15 @@ public class FrmChefMenu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBreakfast)
                     .addComponent(lblAvailableBreakfast))
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLunch)
                     .addComponent(lblAvailableLunch))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSnack)
                     .addComponent(lblAvailableSnack))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -269,7 +223,7 @@ public class FrmChefMenu extends javax.swing.JFrame {
     private void itmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmLogoutActionPerformed
         FrmLogin frmLogin = new FrmLogin();
         this.setVisible(false);
-        frmLogin.setVisible(true); 
+        frmLogin.setVisible(true);
     }//GEN-LAST:event_itmLogoutActionPerformed
 
     private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
@@ -286,7 +240,6 @@ public class FrmChefMenu extends javax.swing.JFrame {
         FrmSeeTheRegisterOfTheMenus frmSeeTheRegisterOfTheMenus = new FrmSeeTheRegisterOfTheMenus(chefName);
         this.setVisible(false);
         frmSeeTheRegisterOfTheMenus.setVisible(true);
-        frmSeeTheRegisterOfTheMenus.updateTableOfMenus();
     }//GEN-LAST:event_itmSeeTheRegisterOfTheMenusActionPerformed
 
     /**

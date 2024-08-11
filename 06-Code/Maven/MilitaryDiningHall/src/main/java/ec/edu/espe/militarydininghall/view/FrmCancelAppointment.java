@@ -8,6 +8,7 @@ import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.DateBook;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import utils.InterfacesActions;
 import utils.Validation;
 
 /**
@@ -19,11 +20,9 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     /**
      * Creates new form FrmCancelAppoiment
      */
-    private double userBalance;
+    public static double userBalance;
     private long id;
     public static String userId, userName, userType;
-    private static final double reservationCost = 7.5F;
-    private static final int actualYear = LocalDate.now().getYear();
 
     public FrmCancelAppointment() {
         initComponents();
@@ -34,53 +33,8 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         FrmCancelAppointment.userId = id;
         FrmCancelAppointment.userName = name;
         FrmCancelAppointment.userType = type;
-        this.userBalance = balance;
+        FrmCancelAppointment.userBalance = balance;
         this.id = Long.parseLong(id);
-
-    }
-
-    private String getSelectedDate() {
-        return cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() + "/" + actualYear;
-    }
-
-    private boolean confirmReservationCancellation(String selectedDate) {
-        String message = String.format("La reservación del día %s va a ser eliminada. ¿Está seguro de eliminar esta reservación?", selectedDate);
-        int confirmation = JOptionPane.showConfirmDialog(this, message, "Confirmar", JOptionPane.YES_NO_OPTION);
-        return confirmation == JOptionPane.YES_OPTION;
-    }
-
-    private void processReservationCancellation(DateBook dateBook, LocalDate selectedDate, LocalDate today, String date) {
-        DateBook updatedDateBook = CloudController.removeDay(dateBook, date);
-
-        if (today.isAfter(selectedDate)) {
-            Validation.showErrorMessage(this, "No se puede cancelar reservaciones antiguas.");
-        } else if (updatedDateBook == null) {
-            Validation.showErrorMessage(this, "El día ingresado no existe en las reservaciones.");
-        } else {
-            CloudController.saveDateBook(updatedDateBook);
-            CloudController.updateCommensalBalance(userId, reservationCost);
-            userBalance += reservationCost;
-        }
-    }
-
-    private void navigateToUserMenu() {
-        switch (userType) {
-            case "commensal" -> {
-                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmCommensalMenu.setVisible(true);
-            }
-            case "administrators" -> {
-                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
-                this.setVisible(false);
-                frmAdminMenu.setVisible(true);
-            }
-            case "generalAdministrator" -> {
-                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmGeneralAdmin.setVisible(true);
-            }
-        }
     }
 
     /**
@@ -117,10 +71,14 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
 
         jLabel10.setBackground(new java.awt.Color(187, 187, 187));
         jLabel10.setDisplayedMnemonic('[');
+        jLabel10.setFont(new java.awt.Font("Artifakt Element", 0, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Elija el dia");
 
-        jLabel1.setBackground(new java.awt.Color(187, 187, 187));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setDisplayedMnemonic('[');
+        jLabel1.setFont(new java.awt.Font("Artifakt Element Black", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cancelar la reserva de un dia");
 
         cmbMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
@@ -132,6 +90,8 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(187, 187, 187));
         jLabel2.setDisplayedMnemonic('[');
+        jLabel2.setFont(new java.awt.Font("Artifakt Element", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Elija el mes");
 
         btmApply.setBackground(new java.awt.Color(132, 82, 31));
@@ -155,48 +115,41 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btmApply)
-                                .addGap(18, 18, 18)
-                                .addComponent(btmBack)
-                                .addGap(6, 6, 6))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(cmbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                .addGap(102, 102, 102)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(51, 51, 51)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbDay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btmApply)
+                        .addGap(18, 18, 18)
+                        .addComponent(btmBack)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(33, 33, 33))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel2)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btmApply)
                     .addComponent(btmBack))
@@ -218,7 +171,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
-        navigateToUserMenu();
+        InterfacesActions.navigateToUserMenu(this, userName, userId, userBalance, userType);
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void cmbDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDayActionPerformed
@@ -226,15 +179,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbDayActionPerformed
 
     private void btmApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmApplyActionPerformed
-        LocalDate today = LocalDate.now();
-        DateBook dateBook = CloudController.getDateBook(id);
-
-        String date = getSelectedDate();
-        LocalDate dateSearch = LocalDate.of(actualYear, Integer.parseInt(cmbMonth.getSelectedItem().toString()), Integer.parseInt(cmbDay.getSelectedItem().toString()));
-
-        if (confirmReservationCancellation(date)) {
-            processReservationCancellation(dateBook, dateSearch, today, date);
-        }
+        InterfacesActions.cancelAppoinmentActionPerformer(this, id, cmbMonth, cmbDay);
     }//GEN-LAST:event_btmApplyActionPerformed
 
     private void cmbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMonthActionPerformed

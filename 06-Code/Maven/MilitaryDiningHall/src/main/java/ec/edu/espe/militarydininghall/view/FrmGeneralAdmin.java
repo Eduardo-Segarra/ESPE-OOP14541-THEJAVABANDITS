@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import org.bson.Document;
+import utils.LabelsActions;
 
 /**
  *
@@ -31,67 +32,18 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
     public FrmGeneralAdmin(String name, String id, double balance, String type) {
         initComponents();
         LocalDate today = LocalDate.now();
+        
         this.generalAdminminId = id;
         this.generalAdminName = name;
         this.generalAdminBalance = balance;
         this.generalAdminType = type;
-        jLabel1.setText("Bienvenido, " + generalAdminName + "!");
-        lblAccountBalance.setText(String.format("%.2f", generalAdminBalance));
-        lblBreakfast.setVisible(false);
-        lblAvailableBreakfast.setVisible(false);
-        lblLunch.setVisible(false);
-        lblAvailableLunch.setVisible(false);
-        lblSnack.setVisible(false);
-        lblAvailableSnack.setVisible(false);
-        loopForShowingTheMenu(CloudController.getDateBook(Long.parseLong(generalAdminminId)), today);
-    }
-
-    private void loopForShowingTheMenu(DateBook datebook, LocalDate today) {
-        List<Document> documents = CloudController.getMenuInformation();
-        Map<String, Boolean> reservedDays = datebook.getReservedDays();
-
-        for (Document doc : documents) {
-            String date = doc.getString("date");
-            String breakfast = doc.getString("breakfast");
-            String lunch = doc.getString("lunch");
-            String dinner = doc.getString("dinner");
-
-            for (Map.Entry<String, Boolean> entry : reservedDays.entrySet()) {
-                String dateReserved = entry.getKey();
-
-                String[] parts = dateReserved.split("/");
-                String day = parts[0];
-                String month = parts[1];
-                String year = parts[2];
-                LocalDate dateSearch = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-                String dateToCompare = day + "/" + month + "/" + year;
-                if (today.isBefore(dateSearch) || today.isEqual(dateSearch)) {
-                    if (dateToCompare.contentEquals(date)) {
-                        lblAvailablePlates.setText("Los platillos para el dia " + dateToCompare + " son los siguientes:");
-                        lblBreakfast.setVisible(true);
-                        lblAvailableBreakfast.setVisible(true);
-                        lblLunch.setVisible(true);
-                        lblAvailableLunch.setVisible(true);
-                        lblSnack.setVisible(true);
-                        lblAvailableSnack.setVisible(true);
-                        lblAvailableBreakfast.setText(breakfast);
-                        lblAvailableLunch.setText(lunch);
-                        lblAvailableSnack.setText(dinner);
-                        break;
-                    } else if (!dateToCompare.contentEquals(date)) {
-                        lblAvailablePlates.setText("Parece que todavia no se han ingresado los platillos para el dia " + dateToCompare + ".");
-                        lblBreakfast.setVisible(false);
-                        lblAvailableBreakfast.setVisible(false);
-                        lblLunch.setVisible(false);
-                        lblAvailableLunch.setVisible(false);
-                        lblSnack.setVisible(false);
-                        lblAvailableSnack.setVisible(false);
-                        break;
-                    }
-                }
-
-            }
-        }
+        
+        LabelsActions.settingName(lblNameGeneralAdmin, generalAdminName);
+        LabelsActions.settingBalance(lblAccountBalance, generalAdminBalance);
+        LabelsActions.settingLabelsInvisible(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch,
+                lblSnack, lblAvailableSnack);
+        LabelsActions.loopForShowingTheMenu(lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch,
+                lblSnack, lblAvailableSnack, CloudController.getDateBook(Long.parseLong(generalAdminminId)), today);
     }
 
     /**
@@ -113,7 +65,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         lblSnack = new javax.swing.JLabel();
         lblAvailableSnack = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblNameGeneralAdmin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         lblAccountBalance = new javax.swing.JLabel();
@@ -168,9 +120,9 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(50, 91, 14));
 
-        jLabel1.setFont(new java.awt.Font("Artifakt Element Black", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Bienvenido! \"generaladmin\"");
+        lblNameGeneralAdmin.setFont(new java.awt.Font("Artifakt Element Black", 0, 24)); // NOI18N
+        lblNameGeneralAdmin.setForeground(new java.awt.Color(255, 255, 255));
+        lblNameGeneralAdmin.setText("Bienvenido! \"generaladmin\"");
 
         jPanel3.setBackground(new java.awt.Color(47, 79, 9));
 
@@ -217,7 +169,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel1)
+                .addComponent(lblNameGeneralAdmin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -225,7 +177,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblNameGeneralAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,7 +332,6 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment(generalAdminminId, generalAdminName, generalAdminType, generalAdminBalance);
         this.setVisible(false);
         frmSeeAppointment.setVisible(true);
-        frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(Long.parseLong(generalAdminminId)));
     }//GEN-LAST:event_itmSeeReservationsActionPerformed
 
     private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
@@ -445,7 +396,6 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmLogout;
     private javax.swing.JMenuItem itmNextMonthAdmin;
     private javax.swing.JMenuItem itmSeeReservations;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -463,6 +413,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel lblAvailableSnack;
     private javax.swing.JLabel lblBreakfast;
     private javax.swing.JLabel lblLunch;
+    private javax.swing.JLabel lblNameGeneralAdmin;
     private javax.swing.JLabel lblSnack;
     private javax.swing.JMenu mnAdminAdministration;
     // End of variables declaration//GEN-END:variables

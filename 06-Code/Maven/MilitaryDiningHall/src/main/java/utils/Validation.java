@@ -1,14 +1,28 @@
 package utils;
 
+import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
+import ec.edu.espe.militarydininghall.model.DateBook;
+import ec.edu.espe.militarydininghall.view.FrmBookDay;
+import static ec.edu.espe.militarydininghall.view.FrmBookDay.reservationCost;
+import ec.edu.espe.militarydininghall.view.FrmCancelAppointment;
+import ec.edu.espe.militarydininghall.view.FrmRegistMenuForADay;
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import org.bson.Document;
 
 /**
  *
@@ -22,6 +36,10 @@ public class Validation {
 
     public static boolean ValidBalance(double balance) {
         return balance >= 0;
+    }
+
+    public static boolean theEnteredIdExists(String accountData) {
+        return accountData != null;
     }
 
     public static boolean validateId(String idInput) {
@@ -99,7 +117,13 @@ public class Validation {
     public static void showInfoMessage(JFrame parentFrame, String message) {
         JOptionPane.showMessageDialog(parentFrame, message, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
+    public static boolean confirmReservationCancellation(String selectedDate, JFrame parentFrame) {
+        String message = String.format("La reservación del día %s va a ser eliminada. ¿Está seguro de eliminar esta reservación?", selectedDate);
+        int confirmation = JOptionPane.showConfirmDialog(parentFrame, message, "Confirmar", JOptionPane.YES_NO_OPTION);
+        return confirmation == JOptionPane.YES_OPTION;
+    }
+
     public static String modifyPassword(String password, int asqui) {
         StringBuilder modifiedPassword = new StringBuilder();
         for (int i = 0; i < password.length(); i++) {
@@ -112,17 +136,104 @@ public class Validation {
         }
         return modifiedPassword.toString();
     }
-    
-    public static String decryptingPassword(String password, int asqui) {
-        StringBuilder modifiedPassword = new StringBuilder();
-        for (int i = 0; i < password.length(); i++) {
-            char c = password.charAt(i);
-            if (Character.isLetter(c)) {
-                char base = Character.isLowerCase(c) ? 'a' : 'A';
-                c = (char) ((c - base - asqui) % 26 + base);
-            }
-            modifiedPassword.append(c);
+
+    public static void loginIsCorrect(JFrame parentFrame, JPasswordField pwfPassword, JTextField txfEmail) {
+        String encryptedPassword = DataCollection.encryptingPassword(pwfPassword.getText());
+        String loginResponse = CloudController.login(txfEmail.getText(), encryptedPassword);
+        if (loginResponse == null) {
+            Validation.showErrorMessage(parentFrame, "Correo electronico o contraseña incorrectos");
+            return;
         }
-        return modifiedPassword.toString();
+        InterfacesActions.navigateToUserMenuFromLogin(parentFrame, loginResponse);
+    }
+
+    public static void emailAndIdAreCorrect(JFrame parentFrame, JTextField txfName, JTextField txfEmail, JTextField txfId,
+            JPasswordField txfPassword, JComboBox cmbGrade) {
+        String name = txfName.getText();
+        String email = txfEmail.getText();
+        String id = txfId.getText();
+        String password = txfPassword.getText();
+
+        if (!Validation.isValidEmailFormat(email)) {
+            Validation.showErrorMessage(parentFrame, "Formato de correo electronico invalido.");
+            return;
+        }
+        if (!Validation.validateId(id)) {
+            Validation.showErrorMessage(parentFrame, "Cedula invalida.");
+            return;
+        }
+
+        InterfacesActions.creatingAccount(parentFrame, name, email, id, password, cmbGrade.getSelectedItem().toString());
+    }
+
+    public static boolean hasSufficientBalance(double balance, int amountOfPeople) {
+        return balance >= (reservationCost * amountOfPeople);
+    }
+
+    public static boolean isDateAlreadyReserved(DateBook dateBook, String date) {
+        return dateBook.getReservedDays().containsKey(date);
+    }
+
+    public static boolean theAmountOfPeopleIsCorrect(JTextField txfAmountOfPeople) {
+        try {
+            int amountOfPeople = Integer.parseInt(txfAmountOfPeople.getText());
+
+            if (amountOfPeople > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException ex) {
+            txfAmountOfPeople.setBackground(Color.red);
+            return false;
+        }
+    }
+
+    public static void updateTotal(JTextField txfAmountOfPeople, JLabel lblAmountToPay) {
+        try {
+            double totalToPay = reservationCost * Integer.parseInt(txfAmountOfPeople.getText());
+            lblAmountToPay.setText("La cantidad de dinero a pagar es: $" + String.format("%.2f", totalToPay));
+        } catch (NumberFormatException ex) {
+            lblAmountToPay.setText("La cantidad de dinero a pagar es: $0.00");
+        }
+    }
+
+    public static void processReservationCancellation(JFrame parentFrame, DateBook dateBook, LocalDate selectedDate,
+            LocalDate today, String date) {
+        DateBook updatedDateBook = CloudController.removeDay(dateBook, date);
+
+        if (today.isAfter(selectedDate)) {
+            Validation.showErrorMessage(parentFrame, "No se puede cancelar reservaciones antiguas.");
+        } else if (updatedDateBook == null) {
+            Validation.showErrorMessage(parentFrame, "El día ingresado no existe en las reservaciones.");
+        } else {
+            CloudController.saveDateBook(updatedDateBook);
+            CloudController.updateCommensalBalance(FrmCancelAppointment.userId, reservationCost);
+            FrmCancelAppointment.userBalance += reservationCost;
+        }
+    }
+
+    public static boolean dateIsAlreadyBooked(String date) {
+        List<Document> documents = CloudController.getMenuInformation();
+
+        for (Document doc : documents) {
+            String dateOfTheMenu = doc.getString("date");
+            if (date.equals(dateOfTheMenu)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void enteringTheDay(JFrame parentFrame, JComboBox cmbDay, JComboBox cmbMonth, String chefName) {
+        String date = DataCollection.getSelectedDate(cmbDay, cmbMonth);
+
+        if (Validation.dateIsAlreadyBooked(date)) {
+            FrmRegistMenuForADay frmRegistMenuForADay = new FrmRegistMenuForADay(chefName, date);
+            parentFrame.setVisible(false);
+            frmRegistMenuForADay.setVisible(true);
+        } else {
+            Validation.showInfoMessage(parentFrame, "El dia ya esta registrado.");
+        }
     }
 }

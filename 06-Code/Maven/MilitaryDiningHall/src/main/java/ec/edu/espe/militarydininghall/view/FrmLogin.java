@@ -12,6 +12,7 @@ import ec.edu.espe.militarydininghall.controller.CloudController;
 import static ec.edu.espe.militarydininghall.controller.CloudController.getAccountDetails;
 import javax.swing.JOptionPane;
 import utils.DataCollection;
+import utils.InterfacesActions;
 import utils.Validation;
 
 /**
@@ -25,50 +26,6 @@ public class FrmLogin extends javax.swing.JFrame {
      */
     public FrmLogin() {
         initComponents();
-    }
-
-    private String encryptingPassword(String password) {
-        return Validation.modifyPassword(password, 1);
-    }
-
-    private void handleLogin() {
-        String encryptedPassword = encryptingPassword(pwfPassword.getText());
-        String loginResponse = CloudController.login(txfEmail.getText(), encryptedPassword);
-        if (loginResponse == null) {
-            Validation.showErrorMessage(this, "Correo electronico o contraseña incorrectos");
-            return;
-        }
-        navigateToUserMenu(loginResponse);
-    }
-
-    private void navigateToUserMenu(String loginResponse) {
-        String id = DataCollection.obtainIdFromJSON(loginResponse);
-        String name = DataCollection.obtainNameFromJSON(loginResponse);
-        String type = DataCollection.obtainTypeFromJSON(loginResponse);
-        double accountBalance = DataCollection.obtainBalanceFromJSON(loginResponse);
-
-        switch (type) {
-            case "commensal" -> {
-                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(name, id, accountBalance, type);
-                this.setVisible(false);
-                frmCommensalMenu.setVisible(true);
-            }
-            case "administrators" -> {
-                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(name, accountBalance, type, id);
-                this.setVisible(false);
-                frmAdminMenu.setVisible(true);
-            }
-            case "militaryChef" -> {
-                FrmChefMenu frmChefMenu = new FrmChefMenu(name);
-                this.setVisible(false);
-                frmChefMenu.setVisible(true);
-            }
-            case "generalAdministrator" -> {
-                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(name, id, accountBalance, type);
-                this.setVisible(false);
-                frmGeneralAdmin.setVisible(true);
-            }
-        }
     }
 
     /**
@@ -125,7 +82,6 @@ public class FrmLogin extends javax.swing.JFrame {
 
         btmCreateNewAccount.setBackground(new java.awt.Color(132, 82, 31));
         btmCreateNewAccount.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btmCreateNewAccount.setForeground(new java.awt.Color(0, 0, 0));
         btmCreateNewAccount.setText("Crear una cuenta nueva");
         btmCreateNewAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +91,6 @@ public class FrmLogin extends javax.swing.JFrame {
 
         btmLogin.setBackground(new java.awt.Color(132, 82, 31));
         btmLogin.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btmLogin.setForeground(new java.awt.Color(0, 0, 0));
         btmLogin.setText("Iniciar sesion");
         btmLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +113,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,10 +125,10 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(119, 119, 119)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(129, 129, 129))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +220,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmLoginActionPerformed
-        handleLogin();
+        Validation.loginIsCorrect(this, pwfPassword, txfEmail);
     }//GEN-LAST:event_btmLoginActionPerformed
 
     private void btmCreateNewAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCreateNewAccountActionPerformed

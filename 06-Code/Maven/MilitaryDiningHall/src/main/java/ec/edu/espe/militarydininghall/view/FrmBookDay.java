@@ -16,7 +16,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import utils.ComboBoxCustomizer;
 import utils.DataCollection;
+import utils.InterfacesActions;
+import utils.LabelsActions;
 import utils.Validation;
 
 /**
@@ -32,128 +35,24 @@ public class FrmBookDay extends javax.swing.JFrame {
         initComponents();
     }
 
-    private double userBalance;
+    public static double userBalance;
     private long id;
     private String userId, userName, userType;
-    private static final double reservationCost = 7.5F;
-    private static final int actualYear = LocalDate.now().getYear();
+    public static final double reservationCost = 7.5F;
+    public static final int actualYear = LocalDate.now().getYear();
 
     public FrmBookDay(String id, String name, String type, double balance) {
         initComponents();
         this.userId = id;
         this.userName = name;
         this.userType = type;
-        this.userBalance = balance;
+        FrmBookDay.userBalance = balance;
         this.id = Long.parseLong(id);
         txfAmountOfPeople.setToolTipText("Solo puede ingresar numeros como 1, 2, 3 , 4....");
-        customizeComboBoxes();
-    }
 
-    private void customizeComboBoxes() {
-        LocalDate today = LocalDate.now();
-        int currentMonth = today.getMonthValue();
-
-        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cmbMonth.getModel();
-        model.removeAllElements();
-        for (int i = currentMonth; i <= 12; i++) {
-            model.addElement(String.valueOf(i));
-        }
-        cmbMonth.addActionListener(new MonthComboBoxListener());
-
-        updateDaysComboBox(currentMonth);
-    }
-
-    private void updateDaysComboBox(int selectedMonth) {
-        cmbDay.removeAllItems();
-        LocalDate today = LocalDate.now();
-        int currentDay = today.getDayOfMonth();
-        int daysInMonth = YearMonth.of(today.getYear(), selectedMonth).lengthOfMonth();
-        for (int i = 1; i <= daysInMonth; i++) {
-            if (selectedMonth == today.getMonthValue() && i < currentDay) {
-                continue;
-            }
-            cmbDay.addItem(String.valueOf(i));
-        }
-    }
-
-    private class MonthComboBoxListener implements java.awt.event.ActionListener {
-
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            String selectedItem = (String) cmbMonth.getSelectedItem();
-            if (selectedItem != null) {
-                int selectedMonth = Integer.parseInt(selectedItem);
-                updateDaysComboBox(selectedMonth);
-            }
-        }
-    }
-
-    private String getSelectedDate() {
-        String day = cmbDay.getSelectedItem().toString();
-        String month = cmbMonth.getSelectedItem().toString();
-        return day + "/" + month + "/" + actualYear;
-    }
-
-    private boolean hasSufficientBalance(double balance) {
-        return balance >= reservationCost;
-    }
-
-    private boolean isDateAlreadyReserved(DateBook dateBook, String date) {
-        return dateBook.getReservedDays().containsKey(date);
-    }
-
-    private void saveReservation(DateBook dateBook, String date) {
-        dateBook.addDay(date, false);
-        DateBook orderedDays = CloudController.orderingOfDays(dateBook);
-        CloudController.saveDateBook(orderedDays);
-    }
-
-    private void deductReservationCost() {
-        CloudController.updateCommensalBalance(userId, -reservationCost);
-        userBalance -= reservationCost;
-    }
-
-    private boolean theAmountOfPeopleIsCorrect() {
-        try {
-            int amountOfPeople = Integer.parseInt(txfAmountOfPeople.getText());
-
-            if (amountOfPeople > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (NumberFormatException ex) {
-            txfAmountOfPeople.setBackground(Color.red);
-            return false;
-        }
-    }
-
-    private void navigateToUserMenu() {
-        switch (userType) {
-            case "commensal" -> {
-                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmCommensalMenu.setVisible(true);
-            }
-            case "administrators" -> {
-                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
-                this.setVisible(false);
-                frmAdminMenu.setVisible(true);
-            }
-            case "generalAdministrator" -> {
-                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmGeneralAdmin.setVisible(true);
-            }
-        }
-    }
-
-    private void updateTotal() {
-        try {
-            double totalToPay = reservationCost * Integer.parseInt(txfAmountOfPeople.getText());
-            lblAmountToPay.setText("La cantidad de dinero a pagar es: $" + String.format("%.2f", totalToPay));
-        } catch (NumberFormatException ex) {
-            lblAmountToPay.setText("La cantidad de dinero a pagar es: $0.00");
-        }
+        ComboBoxCustomizer comboBoxCustomizer = new ComboBoxCustomizer(cmbMonth, cmbDay);
+        comboBoxCustomizer.customizeComboBoxes();
+        LabelsActions.establishingTheAmountToPay(txfAmountOfPeople, lblAmountToPay);
     }
 
     /**
@@ -325,31 +224,11 @@ public class FrmBookDay extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
-        String selectedDate = getSelectedDate();
-        DateBook dateBook = CloudController.getDateBook(id);
-
-        if (!hasSufficientBalance(userBalance)) {
-            Validation.showInfoMessage(this, "No tiene el dinero suficiente para hacer una reservacion.");
-            return;
-        }
-
-        if (isDateAlreadyReserved(dateBook, selectedDate)) {
-            Validation.showInfoMessage(this, "El dia ya esta registrado en sus reservaciones.");
-            return;
-        }
-
-        if (!theAmountOfPeopleIsCorrect()) {
-            Validation.showInfoMessage(this, "La cantidad de personas deber ser un numero entero positivo.");
-            return;
-        }
-
-        saveReservation(dateBook, selectedDate);
-        deductReservationCost();
-        Validation.showInfoMessage(this, "Guardada correctamente la reservacion.");
+        InterfacesActions.saveDayActionPerformed(this, cmbDay, cmbMonth, id, txfAmountOfPeople, userId);
     }//GEN-LAST:event_btmSaveActionPerformed
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
-        navigateToUserMenu();
+        InterfacesActions.navigateToUserMenu(this, userName, userId, userBalance, userType);
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void cmbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMonthActionPerformed
@@ -357,22 +236,7 @@ public class FrmBookDay extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbMonthActionPerformed
 
     private void txfAmountOfPeopleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfAmountOfPeopleActionPerformed
-        txfAmountOfPeople.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                updateTotal();
-            }
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                updateTotal();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                updateTotal();
-            }
-        });
     }//GEN-LAST:event_txfAmountOfPeopleActionPerformed
 
     /**

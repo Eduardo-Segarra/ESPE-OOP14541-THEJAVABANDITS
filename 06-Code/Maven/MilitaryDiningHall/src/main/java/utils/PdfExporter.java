@@ -13,6 +13,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import javax.swing.JTable;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import javax.swing.JFrame;
 
 /**
  *
@@ -50,6 +51,14 @@ public class PdfExporter {
             return false;
         } finally {
             document.close();
+        }
+    }
+    
+    public static  void savingThePdfFile(String fileName, JTable tblTable, JFrame parentFrame) {
+        if (PdfExporter.exportTableToPdf(tblTable, fileName)) {
+            Validation.showInfoMessage(parentFrame, "El PDF fue guardado con éxito como " + fileName);
+        } else {
+            Validation.showErrorMessage(parentFrame, "No se pudo guardar el PDF");
         }
     }
 }

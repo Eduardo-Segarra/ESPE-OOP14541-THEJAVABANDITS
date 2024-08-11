@@ -9,6 +9,7 @@ import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.DateBook;
 import java.util.Map;
 import javax.swing.table.DefaultTableModel;
+import utils.Tables;
 
 /**
  *
@@ -26,7 +27,7 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
         initComponents();
     }
 
-    public FrmEditRegisterWithTheIDSearched(String name, double balance, String type, String id, Commensal commensal) {
+    public FrmEditRegisterWithTheIDSearched(Commensal commensal, String id, String name, double balance, String type) {
         initComponents();
         this.adminName = name;
         this.adminBalance = balance;
@@ -35,37 +36,7 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
         this.idSearched = commensal.getId();
 
         lblNameAndIdOfThePerson.setText("Editando la asistencia de " + commensal.getName() + " con el ID: " + idSearched + ".");
-        updateTableFromDateBook(CloudController.getDateBook(Long.parseLong(idSearched)));
-    }
-
-    private void updateTableFromDateBook(DateBook dateBook) {
-        if (tblTable == null) {
-            System.err.println("Error: tblTable no está inicializada.");
-            return;
-        }
-
-        Map<String, Boolean> reservedDays = dateBook.getReservedDays();
-
-        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
-
-        model.setRowCount(0);
-
-        for (Map.Entry<String, Boolean> entry : reservedDays.entrySet()) {
-            String date = entry.getKey();
-            boolean reserved = entry.getValue();
-
-            model.addRow(new Object[]{date, reserved});
-        }
-    }
-
-    private void savingTheSelectionsOfTheTable() {
-        for (int row = 0; row < tblTable.getRowCount(); row++) {
-            String data = (String) tblTable.getValueAt(row, 0);
-            boolean attendance = (boolean) tblTable.getValueAt(row, 1);
-            DateBook datebook = CloudController.getDateBook(Long.parseLong(idSearched));
-            datebook.changeAssistance(data, attendance);
-            CloudController.saveDateBook(datebook);
-        }
+        Tables.updateTableToEditTheAssistance(CloudController.getDateBook(Long.parseLong(idSearched)), tblTable);
     }
 
     /**
@@ -256,7 +227,7 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
-        savingTheSelectionsOfTheTable();
+        Tables.savingTheSelectionsOfTheTable(tblTable, idSearched);
         FrmAdminMenu frmMilitaryDinindHallSystemAdminMenu = new FrmAdminMenu(adminName, adminBalance, adminType, adminId);
         this.setVisible(false);
         frmMilitaryDinindHallSystemAdminMenu.setVisible(true);

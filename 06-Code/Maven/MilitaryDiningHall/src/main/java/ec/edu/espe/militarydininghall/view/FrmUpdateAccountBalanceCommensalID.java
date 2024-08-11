@@ -7,6 +7,8 @@ package ec.edu.espe.militarydininghall.view;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
+import utils.InterfacesActions;
+import utils.LabelsActions;
 import utils.Validation;
 
 /**
@@ -26,15 +28,8 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
         this.adminType = type;
         this.adminId = id;
         initComponents();
-
-        if (commensal != null) {
-            jLabel2.setText("Actualizacion del saldo de cuenta de " + commensal.getName() + " con cedula: " + commensal.getId());
-            jLabel3.setText(commensal.getName() + " tiene: $" + commensal.getBalance());
-            jLabel4.setText("¿Cuánto dinero" + commensal.getName() + "quiere ingresar?:");
-        } else {
-            jLabel2.setText("Actualización del saldo de la cuenta");
-            jLabel3.setText("Detalles de la cuenta no disponibles");
-        }
+        
+        LabelsActions.showingInformationOfThePerson(commensal, lblDataOfThePerson, lblAmountOfMoney, lblHowMuchMoney);
     }
 
     /**
@@ -54,8 +49,8 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblDataOfThePerson = new javax.swing.JLabel();
+        lblAmountOfMoney = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -63,21 +58,21 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
         btmSearch = new javax.swing.JButton();
         btmCancel = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        lblHowMuchMoney = new javax.swing.JLabel();
+        txfMoney = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(50, 91, 14));
 
-        jLabel2.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Actualización del saldo de la cuenta de [Nombre de la persona] con ID: [ID de la persona]");
+        lblDataOfThePerson.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblDataOfThePerson.setForeground(new java.awt.Color(255, 255, 255));
+        lblDataOfThePerson.setText("Actualización del saldo de la cuenta de [Nombre de la persona] con ID: [ID de la persona]");
 
-        jLabel3.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("[Nombre de la persona] tiene: [cantidad de dinero]");
+        lblAmountOfMoney.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblAmountOfMoney.setForeground(new java.awt.Color(255, 255, 255));
+        lblAmountOfMoney.setText("[Nombre de la persona] tiene: [cantidad de dinero]");
 
         jPanel1.setBackground(new java.awt.Color(50, 91, 14));
 
@@ -128,8 +123,8 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(lblDataOfThePerson)
+                    .addComponent(lblAmountOfMoney))
                 .addContainerGap(28, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -138,9 +133,9 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblDataOfThePerson)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(lblAmountOfMoney)
                 .addGap(29, 29, 29))
         );
 
@@ -177,13 +172,13 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
             .addGap(0, 14, Short.MAX_VALUE)
         );
 
-        jLabel4.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("¿Cuánto dinero [nombre de la persona] quiere ingresar?:");
+        lblHowMuchMoney.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
+        lblHowMuchMoney.setForeground(new java.awt.Color(255, 255, 255));
+        lblHowMuchMoney.setText("¿Cuánto dinero [nombre de la persona] quiere ingresar?:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txfMoney.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txfMoneyActionPerformed(evt);
             }
         });
 
@@ -200,9 +195,9 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(lblHowMuchMoney)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txfMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -215,8 +210,8 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHowMuchMoney)
+                    .addComponent(txfMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -232,34 +227,12 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        try {
-            double newBalance = Double.parseDouble(jTextField1.getText());
-
-            if (!Validation.ValidBalance(newBalance)) {
-                Validation.showInfoMessage(this, "El saldo no puede ser negativo.");
-                return;
-            }
-
-            if (!Validation.ValidCommensal(commensal)) {
-                Validation.showInfoMessage(this, "El objeto comensal no se inicializa correctamente.");
-                return;
-            }
-
-            if (CloudController.updateCommensalBalance(commensal.getId(), newBalance)) {
-                Validation.showInfoMessage(this, "Saldo de cuenta actualizado exitosamente!");
-                new FrmAdminMenu(adminName, adminBalance, adminType, adminId).setVisible(true);
-                this.dispose();
-            } else {
-                Validation.showErrorMessage(this, "No se pudo actualizar el saldo");
-            }
-        } catch (NumberFormatException e) {
-            Validation.showErrorMessage(this, "Por favor ingrese una cantidad válida.");
-        }
+        InterfacesActions.updateAccountBalance(this, commensal, txfMoney, adminName, adminBalance, adminType, adminId);
     }//GEN-LAST:event_btmSearchActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txfMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfMoneyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txfMoneyActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
         FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance, adminType, adminId);
@@ -313,15 +286,15 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
     private javax.swing.JButton btmCancel;
     private javax.swing.JButton btmSearch;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblAmountOfMoney;
+    private javax.swing.JLabel lblDataOfThePerson;
+    private javax.swing.JLabel lblHowMuchMoney;
+    private javax.swing.JTextField txfMoney;
     // End of variables declaration//GEN-END:variables
 }

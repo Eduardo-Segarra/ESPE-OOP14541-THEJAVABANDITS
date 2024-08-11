@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
+import utils.InterfacesActions;
 import utils.Validation;
 
 /**
@@ -34,19 +35,6 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
         this.adminId = id;
     }
 
-    private String gettingAccountInformation() {
-        return CloudController.findAccountById(jTextField1.getText());
-    }
-
-    private boolean theIdExist(String accountInfo) {
-        return accountInfo != null;
-    }
-
-    private Commensal sendingTheData(String accountData) {
-        Gson gson = new Gson();
-        return gson.fromJson(accountData, Commensal.class);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,7 +48,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txfId = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -90,9 +78,9 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Ingrese el ID de la persona que desea actualizar su saldo de cuenta:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txfId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txfIdActionPerformed(evt);
             }
         });
 
@@ -146,7 +134,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txfId, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -157,7 +145,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -222,9 +210,9 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txfIdActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
         FrmAdminMenu frmAdmin = new FrmAdminMenu(adminName, adminBalance, adminType, adminId);
@@ -233,18 +221,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
     }//GEN-LAST:event_btmCancelActionPerformed
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        String accountJson = gettingAccountInformation();
-
-        if (theIdExist(accountJson)) {
-            Commensal commensal = sendingTheData(accountJson);
-
-            FrmUpdateAccountBalanceCommensalID frmUpdateAccountBalanceCommensalID = new FrmUpdateAccountBalanceCommensalID(commensal, adminName, adminBalance, adminType, adminId);
-            this.setVisible(false);
-            frmUpdateAccountBalanceCommensalID.setVisible(true);
-        } else {
-            Validation.showErrorMessage(this, "La cedula ingresada no existe en el sistema.");
-        }
-
+        InterfacesActions.theEnterIdIsRight(this, txfId, adminId, adminName, adminBalance, adminType, "FrmUpdateAccountBalance");
     }//GEN-LAST:event_btmSearchActionPerformed
 
     /**
@@ -325,6 +302,6 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txfId;
     // End of variables declaration//GEN-END:variables
 }

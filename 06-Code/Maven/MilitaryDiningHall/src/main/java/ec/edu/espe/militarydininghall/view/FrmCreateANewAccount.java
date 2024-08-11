@@ -23,50 +23,6 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
         initComponents();
     }
 
-    String modifyPassword(String password, int asqui) {
-        StringBuilder modifiedPassword = new StringBuilder();
-        for (int i = 0; i < password.length(); i++) {
-            char c = password.charAt(i);
-            if (Character.isLetter(c)) {
-                char base = Character.isLowerCase(c) ? 'a' : 'A';
-                c = (char) ((c - base + asqui) % 26 + base);
-            }
-            modifiedPassword.append(c);
-        }
-        return modifiedPassword.toString();
-    }
-
-    private void handleEmailAndId() {
-        String email = txfEmail.getText();
-        String id = txfId.getText();
-
-        if (!Validation.isValidEmailFormat(email)) {
-            Validation.showErrorMessage(this, "Formato de correo electronico invalido.");
-            return;
-        }
-        if (!Validation.validateId(id)) {
-            Validation.showErrorMessage(this, "Cedula invalida.");
-            return;
-        }
-
-        encryptedPassword(email, id);
-    }
-
-    private void encryptedPassword(String email, String id) {
-        String originalPassword = new String(pwfPassword.getPassword());
-        String modifiedPassword = modifyPassword(originalPassword, 1);
-        creatingAccount(email, id, modifiedPassword);
-    }
-
-    private void creatingAccount(String email, String id, String modifiedPassword) {
-        Commensal commensal = new Commensal(txfId.getText(), txfName.getText(), txfEmail.getText(), modifiedPassword, cmbGrade.getSelectedItem().toString(), "commensal", 0.0F);
-        CloudController.create(commensal);
-
-        FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(commensal.getName(), commensal.getId(), commensal.getBalance(), commensal.getType());
-        this.setVisible(false);
-        frmCommensalMenu.setVisible(true);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,6 +47,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
         txfName = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txfId = new javax.swing.JTextField();
+        btmBack = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
@@ -186,6 +143,14 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Ingresa tu cedula:");
 
+        btmBack.setBackground(new java.awt.Color(132, 82, 31));
+        btmBack.setText("Volver");
+        btmBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -193,7 +158,6 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btmCreateAccount)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(44, 44, 44)
@@ -205,13 +169,18 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel5))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txfId)
                             .addComponent(pwfPassword)
-                            .addComponent(txfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btmCreateAccount)
+                            .addComponent(jLabel6))
+                        .addGap(28, 28, 28)
+                        .addComponent(btmBack)))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -237,9 +206,11 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(btmCreateAccount)
-                .addGap(21, 21, 21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btmCreateAccount)
+                    .addComponent(btmBack))
+                .addGap(15, 15, 15))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 77, 750, 280));
@@ -291,8 +262,14 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
     }//GEN-LAST:event_txfNameActionPerformed
 
     private void btmCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCreateAccountActionPerformed
-        handleEmailAndId();
+        Validation.emailAndIdAreCorrect(this, txfName, txfEmail, txfId, pwfPassword, cmbGrade);
     }//GEN-LAST:event_btmCreateAccountActionPerformed
+
+    private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
+        FrmLogin frmLogin = new FrmLogin();
+        this.setVisible(false);
+        frmLogin.setVisible(true);
+    }//GEN-LAST:event_btmBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,6 +314,7 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btmBack;
     private javax.swing.JButton btmCreateAccount;
     private javax.swing.JComboBox<String> cmbGrade;
     private javax.swing.JLabel jLabel1;

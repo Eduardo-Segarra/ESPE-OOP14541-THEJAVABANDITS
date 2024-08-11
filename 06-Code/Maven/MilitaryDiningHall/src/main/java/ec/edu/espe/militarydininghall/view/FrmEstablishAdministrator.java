@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
+import utils.DataCollection;
+import utils.InterfacesActions;
 import utils.Validation;
 
 /**
@@ -32,19 +34,6 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
         this.generalAdminName = name;
         this.generalAdminminbalance = balance;
         this.generalAdminType = type;
-    }
-
-    private String gettingTheAccountData() {
-        return CloudController.findAccountById(txfId.getText());
-    }
-
-    private boolean theEnteredIdExists(String accountData) {
-        return accountData != null;
-    }
-
-    private Commensal sendingTheData(String accountData) {
-        Gson gson = new Gson();
-        return gson.fromJson(accountData, Commensal.class);
     }
 
     /**
@@ -75,7 +64,7 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Artifakt Element", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Ingrese el ID del nuevo administrador:");
+        jLabel2.setText("Ingrese la cedula del nuevo administrador:");
 
         btmApply.setBackground(new java.awt.Color(132, 82, 31));
         btmApply.setText("Aplicar");
@@ -167,20 +156,13 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmApplyActionPerformed
-        String accountData = gettingTheAccountData();
-        if (!theEnteredIdExists(accountData)) {
-            Validation.showErrorMessage(this, "La cedula ingresada no existe.");
-        } else {
-            Commensal commensal = sendingTheData(accountData);
-            FrmEstablishAdministratorSearch frmEstablishAdministratorSearch = new FrmEstablishAdministratorSearch(commensal, generalAdminminId, generalAdminName, generalAdminminbalance, generalAdminType);
-            FrmEstablishAdministratorSearch.commensal = commensal;
-            this.setVisible(false);
-            frmEstablishAdministratorSearch.setVisible(true);
-        }
+        InterfacesActions.theEnterIdIsRight(this, txfId, generalAdminminId, generalAdminName, generalAdminminbalance,
+                generalAdminType, "FrmEstablishAdministrator");
     }//GEN-LAST:event_btmApplyActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed
-        FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(generalAdminName, generalAdminminId, generalAdminminbalance, generalAdminType);
+        FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(generalAdminName, generalAdminminId, generalAdminminbalance,
+                generalAdminType);
         this.setVisible(false);
         frmGeneralAdmin.setVisible(true);
     }//GEN-LAST:event_btmCancelActionPerformed

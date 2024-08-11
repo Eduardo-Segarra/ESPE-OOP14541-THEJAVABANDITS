@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import org.bson.Document;
+import utils.LabelsActions;
 
 /**
  *
@@ -26,67 +27,18 @@ public class FrmAdminMenu extends javax.swing.JFrame {
     public FrmAdminMenu(String name, double balance, String type, String id) {
         initComponents();
         LocalDate today = LocalDate.now();
+
         this.adminName = name;
         this.adminBalance = balance;
         this.adminType = type;
         this.adminId = id;
-        lbldNameAdmin.setText("Bienvenido, " + adminName + "!");
-        lblAccountBalance.setText(String.format("%.2f", adminBalance));
-        lblBreakfast.setVisible(false);
-        lblAvailableBreakfast.setVisible(false);
-        lblLunch.setVisible(false);
-        lblAvailableLunch.setVisible(false);
-        lblSnack.setVisible(false);
-        lblAvailableSnack.setVisible(false);
-        loopForShowingTheMenu(CloudController.getDateBook(Long.parseLong(adminId)), today);
-    }
 
-    private void loopForShowingTheMenu(DateBook datebook, LocalDate today) {
-        List<Document> documents = CloudController.getMenuInformation();
-        Map<String, Boolean> reservedDays = datebook.getReservedDays();
-
-        for (Document doc : documents) {
-            String date = doc.getString("date");
-            String breakfast = doc.getString("breakfast");
-            String lunch = doc.getString("lunch");
-            String dinner = doc.getString("dinner");
-
-            for (Map.Entry<String, Boolean> entry : reservedDays.entrySet()) {
-                String dateReserved = entry.getKey();
-
-                String[] parts = dateReserved.split("/");
-                String day = parts[0];
-                String month = parts[1];
-                String year = parts[2];
-                LocalDate dateSearch = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-                String dateToCompare = day + "/" + month + "/" + year;
-                if (today.isBefore(dateSearch) || today.isEqual(dateSearch)) {
-                    if (dateToCompare.contentEquals(date)) {
-                        lblAvailablePlates.setText("Los platillos para el dia " + dateToCompare + " son los siguientes:");
-                        lblBreakfast.setVisible(true);
-                        lblAvailableBreakfast.setVisible(true);
-                        lblLunch.setVisible(true);
-                        lblAvailableLunch.setVisible(true);
-                        lblSnack.setVisible(true);
-                        lblAvailableSnack.setVisible(true);
-                        lblAvailableBreakfast.setText(breakfast);
-                        lblAvailableLunch.setText(lunch);
-                        lblAvailableSnack.setText(dinner);
-                        break;
-                    } else if (!dateToCompare.contentEquals(date)) {
-                        lblAvailablePlates.setText("Parece que todavia no se han ingresado los platillos para el dia " + dateToCompare + ".");
-                        lblBreakfast.setVisible(false);
-                        lblAvailableBreakfast.setVisible(false);
-                        lblLunch.setVisible(false);
-                        lblAvailableLunch.setVisible(false);
-                        lblSnack.setVisible(false);
-                        lblAvailableSnack.setVisible(false);
-                        break;
-                    }
-                }
-
-            }
-        }
+        LabelsActions.settingName(lbldNameAdmin, adminName);
+        LabelsActions.settingBalance(lblAccountBalance, adminBalance);
+        LabelsActions.settingLabelsInvisible(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
+                lblAvailableSnack);
+        LabelsActions.loopForShowingTheMenu(lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch,
+                lblSnack, lblAvailableSnack, CloudController.getDateBook(Long.parseLong(adminId)), today);
     }
 
     /**
@@ -413,11 +365,9 @@ public class FrmAdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmUpdateTheAccountBalanceForACommensalActionPerformed
 
     private void itmSeeReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSeeReservationActionPerformed
-
         FrmSeeAppointment frmSeeAppointment = new FrmSeeAppointment(adminId, adminName, adminType, adminBalance);
         this.setVisible(false);
         frmSeeAppointment.setVisible(true);
-        frmSeeAppointment.updateTableFromDateBook(CloudController.getDateBook(Long.parseLong(adminId)));
     }//GEN-LAST:event_itmSeeReservationActionPerformed
 
     /**

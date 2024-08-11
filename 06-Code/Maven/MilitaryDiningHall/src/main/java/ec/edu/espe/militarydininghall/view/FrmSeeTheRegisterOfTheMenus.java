@@ -11,7 +11,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
+import utils.DataCollection;
 import utils.PdfExporter;
+import utils.Tables;
 import utils.Validation;
 
 /**
@@ -32,35 +34,8 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
     public FrmSeeTheRegisterOfTheMenus(String name) {
         initComponents();
         this.chefName = name;
-    }
-
-    public void updateTableOfMenus() {
-        List<Document> documents = CloudController.getMenuInformation();
-
-        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
-        model.setRowCount(0);
-
-        for (Document doc : documents) {
-            String date = doc.getString("date");
-            String breakfast = doc.getString("breakfast");
-            String lunch = doc.getString("lunch");
-            String dinner = doc.getString("dinner");
-            model.addRow(new Object[]{date, breakfast, lunch, dinner});
-        }
-    }
-
-    private String gettingThePdfFileName() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        String timestamp = dateFormat.format(new Date());
-        return "Menu_de_Platos_" + timestamp + ".pdf";
-    }
-
-    private void savingThePdfFile(String fileName) {
-        if (PdfExporter.exportTableToPdf(tblTable, fileName)) {
-            Validation.showInfoMessage(this, "El PDF fue guardado con éxito como " + fileName);
-        } else {
-            Validation.showErrorMessage(this, "No se pudo guardar el PDF");
-        }
+        
+        Tables.updateTableOfMenus(tblTable);
     }
 
     /**
@@ -241,9 +216,9 @@ public class FrmSeeTheRegisterOfTheMenus extends javax.swing.JFrame {
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void btmSavePdfMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSavePdfMenuActionPerformed
-        String filePath = gettingThePdfFileName();
+        String filePath = DataCollection.gettingThePdfFileNameForMenu();
 
-        savingThePdfFile(filePath);
+        PdfExporter.savingThePdfFile(filePath, tblTable, this);
     }//GEN-LAST:event_btmSavePdfMenuActionPerformed
 
     /**

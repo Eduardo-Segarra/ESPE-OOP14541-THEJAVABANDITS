@@ -13,7 +13,10 @@ import javax.swing.table.DefaultTableModel;
 
 import java.util.Map;
 import javax.swing.JOptionPane;
+import utils.DataCollection;
+import utils.InterfacesActions;
 import utils.PdfExporter;
+import utils.Tables;
 import utils.Validation;
 
 /**
@@ -21,32 +24,6 @@ import utils.Validation;
  * @author David Rodriguez,THEJAVABANDITS DCCO-ESPE
  */
 public class FrmSeeAppointment extends javax.swing.JFrame {
-
-    public void updateTableFromDateBook(DateBook dateBook) {
-        if (tblTable == null) {
-            System.err.println("Error: tblTable no está inicializada.");
-            return;
-        }
-
-        Map<String, Boolean> reservedDays = dateBook.getReservedDays();
-
-        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
-
-        model.setRowCount(0);
-
-        for (Map.Entry<String, Boolean> entry : reservedDays.entrySet()) {
-            String date = entry.getKey();
-            boolean reserved = entry.getValue();
-
-            String[] parts = date.split("/");
-            String day = parts[0];
-            String month = parts[1];
-            String year = parts[2];
-
-            model.addRow(new Object[]{year, month, day, reserved});
-        }
-    }
-
     /**
      * Creates new form FrmSeeAppointment
      */
@@ -64,40 +41,8 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
         FrmSeeAppointment.userName = name;
         FrmSeeAppointment.userType = type;
         this.userBalance = balance;
-    }
-
-    private void navigateToUserMenu() {
-        switch (userType) {
-            case "commensal" -> {
-                FrmCommensalMenu frmCommensalMenu = new FrmCommensalMenu(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmCommensalMenu.setVisible(true);
-            }
-            case "administrators" -> {
-                FrmAdminMenu frmAdminMenu = new FrmAdminMenu(userName, userBalance, userType, userId);
-                this.setVisible(false);
-                frmAdminMenu.setVisible(true);
-            }
-            case "generalAdministrator" -> {
-                FrmGeneralAdmin frmGeneralAdmin = new FrmGeneralAdmin(userName, userId, userBalance, userType);
-                this.setVisible(false);
-                frmGeneralAdmin.setVisible(true);
-            }
-        }
-    }
-
-    private String gettingThePdfFileName() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        String timestamp = dateFormat.format(new Date());
-        return "Reservaciones_" + timestamp + ".pdf";
-    }
-
-    private void savingThePdfFile(String fileName) {
-        if (PdfExporter.exportTableToPdf(tblTable, fileName)) {
-            Validation.showInfoMessage(this, "El PDF fue guardado con éxito como " + fileName);
-        } else {
-            Validation.showErrorMessage(this, "No se pudo guardar el PDF");
-        }
+        
+        Tables.updateTableFromDateBook(CloudController.getDateBook(Long.parseLong(userId)), tblTable);
     }
 
     /**
@@ -252,13 +197,13 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
-        navigateToUserMenu();
+        InterfacesActions.navigateToUserMenu(this, userName, userId, userBalance, userType);
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void btmSavePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSavePdfActionPerformed
-        String filePath = gettingThePdfFileName();
+        String filePath = DataCollection.gettingThePdfFileNameForAppointment();
 
-        savingThePdfFile(filePath);
+        PdfExporter.savingThePdfFile(filePath, tblTable, this);
     }//GEN-LAST:event_btmSavePdfActionPerformed
 
     /**
