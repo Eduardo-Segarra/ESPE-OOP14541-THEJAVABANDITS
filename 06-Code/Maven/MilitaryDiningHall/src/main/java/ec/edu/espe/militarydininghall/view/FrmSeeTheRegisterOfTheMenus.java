@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 import utils.DataCollection;
-import utils.PdfExporter;
+import ec.edu.espe.militarydininghall.controller.PdfExporter;
 import utils.Tables;
 import utils.Validation;
 

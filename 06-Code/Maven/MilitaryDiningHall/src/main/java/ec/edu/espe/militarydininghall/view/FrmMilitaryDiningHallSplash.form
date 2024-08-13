@@ -161,7 +161,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="E:\OOP\Proyecto grupal\ESPE-OOP14541-THEJAVABANDITS\06-Code\Maven\MilitaryDiningHall\src\main\resources\Picture1-removebg-preview.png"/>
+              <Image iconType="3" name="/Picture1-removebg-preview.png"/>
             </Property>
           </Properties>
         </Component>

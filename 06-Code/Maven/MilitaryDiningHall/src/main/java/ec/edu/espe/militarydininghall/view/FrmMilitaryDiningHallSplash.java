@@ -69,7 +69,7 @@ public class FrmMilitaryDiningHallSplash extends javax.swing.JFrame {
         });
 
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblLogo.setIcon(new javax.swing.ImageIcon("E:\\OOP\\Proyecto grupal\\ESPE-OOP14541-THEJAVABANDITS\\06-Code\\Maven\\MilitaryDiningHall\\src\\main\\resources\\Picture1-removebg-preview.png")); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture1-removebg-preview.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

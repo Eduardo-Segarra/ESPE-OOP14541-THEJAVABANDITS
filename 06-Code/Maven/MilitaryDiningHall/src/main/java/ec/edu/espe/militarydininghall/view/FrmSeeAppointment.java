@@ -15,7 +15,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 import utils.DataCollection;
 import utils.InterfacesActions;
-import utils.PdfExporter;
+import ec.edu.espe.militarydininghall.controller.PdfExporter;
 import utils.Tables;
 import utils.Validation;
 

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package utils;
+package ec.edu.espe.militarydininghall.controller;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -14,10 +14,12 @@ import javax.swing.JTable;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.swing.JFrame;
+import utils.Validation;
+import utils.Validation;
 
 /**
  *
- * @author David Rodriguez,THEJAVABANDITS DCCO-ESPE
+ * @author THEJAVABANDITS DCCO-ESPE
  */
 public class PdfExporter {
     public static boolean exportTableToPdf(JTable table, String filePath) {
@@ -28,12 +30,12 @@ public class PdfExporter {
             
             PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
 
-            // Adding table headers
+            
             for (int i = 0; i < table.getColumnCount(); i++) {
                 pdfTable.addCell(table.getColumnName(i));
             }
 
-            // Adding table rows
+            
             for (int i = 0; i < table.getRowCount(); i++) {
                 for (int j = 0; j < table.getColumnCount(); j++) {
                     pdfTable.addCell(table.getValueAt(i, j).toString());
@@ -43,11 +45,11 @@ public class PdfExporter {
             document.add(new Paragraph("Informacion de la Tabla\n"));
             document.add(pdfTable);
             
-            // Successfully saved
+            
             return true;
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
-            // Failed to save
+            
             return false;
         } finally {
             document.close();
