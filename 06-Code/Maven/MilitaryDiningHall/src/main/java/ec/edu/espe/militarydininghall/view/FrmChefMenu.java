@@ -27,13 +27,12 @@ public class FrmChefMenu extends javax.swing.JFrame {
 
     public FrmChefMenu(String name) {
         initComponents();
-        LocalDate today = LocalDate.now();
         List<Document> documents = CloudController.getMenuInformation();
 
         this.chefName = name;
 
         LabelsActions.settingName(lblNameOfTheChef, chefName);
-        LabelsActions.summaryOfTheMenu(documents, today, lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, 
+        LabelsActions.summaryOfTheMenu(documents, lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, 
                 lblAvailableLunch, lblSnack, lblAvailableSnack);
     }
 

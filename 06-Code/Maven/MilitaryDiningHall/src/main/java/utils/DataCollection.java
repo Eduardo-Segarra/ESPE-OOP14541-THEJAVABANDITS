@@ -11,6 +11,7 @@ import static ec.edu.espe.militarydininghall.view.FrmBookDay.actualYear;
 import static ec.edu.espe.militarydininghall.view.FrmBookDay.reservationCost;
 import static ec.edu.espe.militarydininghall.view.FrmEstablishAdministratorSearch.commensal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -21,43 +22,16 @@ import javax.swing.JTextField;
  */
 public class DataCollection {
     
+    public static final double reservationCost = 7.5F;
+    public static final LocalDate currentDate = LocalDate.now();
+    
     public static String gettingTheAccountData(JTextField txfId) {
         return CloudController.findAccountById(txfId.getText());
     }
 
-    public static String obtainIdFromJSON(String json) {
+    public static String obtainInformationFromJSON(String json, String informationType){
         JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("id").getAsString();
-    }
-
-    public static String obtainNameFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("name").getAsString();
-    }
-
-    public static String obtainEmailFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("email").getAsString();
-    }
-
-    public static String obtainPasswordFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("password").getAsString();
-    }
-
-    public static String obtainGradeFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("grade").getAsString();
-    }
-
-    public static String obtainTypeFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject.get("type").getAsString();
-    }
-
-    public static Float obtainBalanceFromJSON(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return Float.valueOf(jsonObject.get("balance").getAsString());
+        return jsonObject.get(informationType).getAsString();
     }
 
     public static String encryptingPassword(String password) {
@@ -72,7 +46,7 @@ public class DataCollection {
     public static String getSelectedDate(JComboBox cmbDay, JComboBox cmbMonth) {
         String day = cmbDay.getSelectedItem().toString();
         String month = cmbMonth.getSelectedItem().toString();
-        return day + "/" + month + "/" + actualYear;
+        return day + "/" + month + "/" + currentDate.getYear();
     }
 
     public static boolean creatingANewAdministrator() {

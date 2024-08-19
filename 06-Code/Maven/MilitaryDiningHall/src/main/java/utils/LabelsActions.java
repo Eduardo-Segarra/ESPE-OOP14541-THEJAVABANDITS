@@ -23,24 +23,14 @@ import org.bson.Document;
  */
 public class LabelsActions {
 
-    public static void settingLabelsInvisible(JLabel lblBreakfast, JLabel lblAvailableBreakfast, JLabel lblLunch,
-            JLabel lblAvailableLunch, JLabel lblSnack, JLabel lblAvailableSnack) {
-        lblBreakfast.setVisible(false);
-        lblAvailableBreakfast.setVisible(false);
-        lblLunch.setVisible(false);
-        lblAvailableLunch.setVisible(false);
-        lblSnack.setVisible(false);
-        lblAvailableSnack.setVisible(false);
-    }
-
-    public static void settingLabelsVisible(JLabel lblBreakfast, JLabel lblAvailableBreakfast, JLabel lblLunch,
-            JLabel lblAvailableLunch, JLabel lblSnack, JLabel lblAvailableSnack) {
-        lblBreakfast.setVisible(true);
-        lblAvailableBreakfast.setVisible(true);
-        lblLunch.setVisible(true);
-        lblAvailableLunch.setVisible(true);
-        lblSnack.setVisible(true);
-        lblAvailableSnack.setVisible(true);
+    public static void settingLabelsVisibility(JLabel lblBreakfast, JLabel lblAvailableBreakfast, JLabel lblLunch,
+            JLabel lblAvailableLunch, JLabel lblSnack, JLabel lblAvailableSnack, boolean visibility) {
+        lblBreakfast.setVisible(visibility);
+        lblAvailableBreakfast.setVisible(visibility);
+        lblLunch.setVisible(visibility);
+        lblAvailableLunch.setVisible(visibility);
+        lblSnack.setVisible(visibility);
+        lblAvailableSnack.setVisible(visibility);
     }
 
     public static void settingLMeals(JLabel lblAvailableBreakfast, JLabel lblAvailableLunch, JLabel lblAvailableSnack,
@@ -71,59 +61,53 @@ public class LabelsActions {
     }
 
     public static void loopForShowingTheMenu(JLabel lblAvailablePlates, JLabel lblBreakfast, JLabel lblAvailableBreakfast,
-            JLabel lblLunch, JLabel lblAvailableLunch, JLabel lblSnack, JLabel lblAvailableSnack, DateBook datebook,
-            LocalDate today) {
+            JLabel lblLunch, JLabel lblAvailableLunch, JLabel lblSnack, JLabel lblAvailableSnack, DateBook datebook) {
+
         List<Document> documents = CloudController.getMenuInformation();
         Map<String, Boolean> reservedDays = datebook.getReservedDays();
 
-        for (Document doc : documents) {
-            String date = doc.getString("date");
-            String breakfast = doc.getString("breakfast");
-            String lunch = doc.getString("lunch");
-            String dinner = doc.getString("dinner");
+        reservedDays.forEach((dateReserved, isReserved) -> {
+            LocalDate dateSearch = parseDate(dateReserved);
 
-            for (Map.Entry<String, Boolean> entry : reservedDays.entrySet()) {
-                String dateReserved = entry.getKey();
-
-                String[] parts = dateReserved.split("/");
-                String day = parts[0];
-                String month = parts[1];
-                String year = parts[2];
-                LocalDate dateSearch = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-                String dateToCompare = day + "/" + month + "/" + year;
-
-                if (today.isBefore(dateSearch) || today.isEqual(dateSearch)) {
-                    if (dateToCompare.contentEquals(date)) {
-                        ifMenuIsAvailable(lblAvailablePlates, dateToCompare);
-                        settingLabelsVisible(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
-                                lblAvailableSnack);
-                        settingLMeals(lblAvailableBreakfast, lblAvailableLunch, lblAvailableSnack, breakfast, lunch, dinner);
-                        break;
-                    } else if (!dateToCompare.contentEquals(date)) {
-                        ifMenuIsNotAvailable(lblAvailablePlates, dateToCompare);
-                        break;
-                    }
-                }
-
+            if (!DataCollection.currentDate.isAfter(dateSearch)) {
+                documents.stream()
+                        .filter(doc -> doc.getString("date").equals(dateReserved))
+                        .findFirst()
+                        .ifPresentOrElse(doc -> {
+                            ifMenuIsAvailable(lblAvailablePlates, dateReserved);
+                            settingLabelsVisibility(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
+                                    lblAvailableSnack, true);
+                            settingLMeals(lblAvailableBreakfast, lblAvailableLunch, lblAvailableSnack,
+                                    doc.getString("breakfast"),
+                                    doc.getString("lunch"),
+                                    doc.getString("dinner"));
+                        }, () -> ifMenuIsNotAvailable(lblAvailablePlates, dateReserved));
             }
-        }
+        });
     }
 
-    public static void summaryOfTheMenu(List<Document> documents, LocalDate today, JLabel lblAvailablePlates, JLabel lblBreakfast,
+    private static LocalDate parseDate(String date) {
+        String[] parts = date.split("/");
+        int day = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int year = Integer.parseInt(parts[2]);
+        return LocalDate.of(year, month, day);
+    }
+
+    public static void summaryOfTheMenu(List<Document> documents, JLabel lblAvailablePlates, JLabel lblBreakfast,
             JLabel lblAvailableBreakfast, JLabel lblLunch, JLabel lblAvailableLunch, JLabel lblSnack, JLabel lblAvailableSnack) {
         if (documents == null) {
             LabelsActions.ifMenuDoesNotExists(lblAvailablePlates);
-            LabelsActions.settingLabelsInvisible(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
-                    lblAvailableSnack);
+            LabelsActions.settingLabelsVisibility(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
+                    lblAvailableSnack, false);
         } else {
-            loopForShowingTheMenuForChefs(documents, today, lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch,
+            loopForShowingTheMenuForChefs(documents, lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch,
                     lblAvailableLunch, lblSnack, lblAvailableSnack);
         }
     }
 
-    public static void loopForShowingTheMenuForChefs(List<Document> documents, LocalDate today, JLabel lblAvailablePlates,
-            JLabel lblBreakfast, JLabel lblAvailableBreakfast, JLabel lblLunch, JLabel lblAvailableLunch, JLabel lblSnack,
-            JLabel lblAvailableSnack) {
+    public static void loopForShowingTheMenuForChefs(List<Document> documents, JLabel lblAvailablePlates, JLabel lblBreakfast,
+            JLabel lblAvailableBreakfast, JLabel lblLunch, JLabel lblAvailableLunch, JLabel lblSnack, JLabel lblAvailableSnack) {
         for (Document doc : documents) {
             String date = doc.getString("date");
             String[] parts = date.split("/");
@@ -131,15 +115,15 @@ public class LabelsActions {
             String month = parts[1];
             String year = parts[2];
             String dateToCompare = day + "/" + month + "/" + year;
-            LocalDate dateSearch = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+            LocalDate dateSearch = parseDate(dateToCompare);
             String breakfast = doc.getString("breakfast");
             String lunch = doc.getString("lunch");
             String dinner = doc.getString("dinner");
 
-            if (today.isBefore(dateSearch) || today.isEqual(dateSearch)) {
+            if (DataCollection.currentDate.isBefore(dateSearch) || DataCollection.currentDate.isEqual(dateSearch)) {
                 LabelsActions.ifMenuIsAvailable(lblAvailablePlates, dateToCompare);
-                LabelsActions.settingLabelsVisible(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
-                        lblAvailableSnack);
+                LabelsActions.settingLabelsVisibility(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
+                        lblAvailableSnack, true);
                 LabelsActions.settingLMeals(lblAvailableBreakfast, lblAvailableLunch, lblAvailableSnack, breakfast, lunch, dinner);
                 break;
             }

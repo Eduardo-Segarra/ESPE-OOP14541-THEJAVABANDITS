@@ -30,7 +30,6 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
     public FrmCommensalMenu(String name, String id, double balance, String type) {
         initComponents();
-        LocalDate today = LocalDate.now();
 
         FrmCommensalMenu.commensalId = id;
         FrmCommensalMenu.nameCommensal = name;
@@ -39,10 +38,10 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
 
         LabelsActions.settingName(lbldNameCommensal, nameCommensal);
         LabelsActions.settingBalance(lblAccountBalance, commensalBalance);
-        LabelsActions.settingLabelsInvisible(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
-                lblAvailableSnack);
+        LabelsActions.settingLabelsVisibility(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
+                lblAvailableSnack, false);
         LabelsActions.loopForShowingTheMenu(lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch,
-                lblSnack, lblAvailableSnack, CloudController.getDateBook(Long.parseLong(commensalId)), today);
+                lblSnack, lblAvailableSnack, CloudController.getDateBook(Long.parseLong(commensalId)));
     }
 
     /**

@@ -26,7 +26,6 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
     public FrmAdminMenu(String name, double balance, String type, String id) {
         initComponents();
-        LocalDate today = LocalDate.now();
 
         this.adminName = name;
         this.adminBalance = balance;
@@ -35,10 +34,10 @@ public class FrmAdminMenu extends javax.swing.JFrame {
 
         LabelsActions.settingName(lbldNameAdmin, adminName);
         LabelsActions.settingBalance(lblAccountBalance, adminBalance);
-        LabelsActions.settingLabelsInvisible(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
-                lblAvailableSnack);
+        LabelsActions.settingLabelsVisibility(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
+                lblAvailableSnack, false);
         LabelsActions.loopForShowingTheMenu(lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch,
-                lblSnack, lblAvailableSnack, CloudController.getDateBook(Long.parseLong(adminId)), today);
+                lblSnack, lblAvailableSnack, CloudController.getDateBook(Long.parseLong(adminId)));
     }
 
     /**

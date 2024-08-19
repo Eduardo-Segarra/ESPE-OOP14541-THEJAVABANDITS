@@ -198,18 +198,17 @@ public class Validation {
         }
     }
 
-    public static void processReservationCancellation(JFrame parentFrame, DateBook dateBook, LocalDate selectedDate,
-            LocalDate today, String date) {
+    public static void processReservationCancellation(JFrame parentFrame, DateBook dateBook, LocalDate selectedDate, String date) {
         DateBook updatedDateBook = CloudController.removeDay(dateBook, date);
 
-        if (today.isAfter(selectedDate)) {
+        if (DataCollection.currentDate.isAfter(selectedDate)) {
             Validation.showErrorMessage(parentFrame, "No se puede cancelar reservaciones antiguas.");
         } else if (updatedDateBook == null) {
             Validation.showErrorMessage(parentFrame, "El día ingresado no existe en las reservaciones.");
         } else {
             CloudController.saveDateBook(updatedDateBook);
-            CloudController.updateCommensalBalance(FrmCancelAppointment.userId, reservationCost);
-            FrmCancelAppointment.userBalance += reservationCost;
+            CloudController.updateCommensalBalance(FrmCancelAppointment.userId, DataCollection.reservationCost);
+            FrmCancelAppointment.userBalance += DataCollection.reservationCost;
         }
     }
 
@@ -228,7 +227,7 @@ public class Validation {
     public static void enteringTheDay(JFrame parentFrame, JComboBox cmbDay, JComboBox cmbMonth, String chefName) {
         String date = DataCollection.getSelectedDate(cmbDay, cmbMonth);
 
-        if (Validation.dateIsAlreadyBooked(date)) {
+        if (!Validation.dateIsAlreadyBooked(date)) {
             FrmRegistMenuForADay frmRegistMenuForADay = new FrmRegistMenuForADay(chefName, date);
             parentFrame.setVisible(false);
             frmRegistMenuForADay.setVisible(true);

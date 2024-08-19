@@ -27,12 +27,13 @@ import javax.swing.JTextField;
  * @author Eduardo Segarra, TheJavaBandits, DCCO-ESPE
  */
 public class InterfaceActions {
-public static void navigateToUserMenuFromLogin(JFrame parentFrame, String loginResponse) {
-        String id = DataCollection.obtainIdFromJSON(loginResponse);
-        String name = DataCollection.obtainNameFromJSON(loginResponse);
-        String type = DataCollection.obtainTypeFromJSON(loginResponse);
-        double accountBalance = DataCollection.obtainBalanceFromJSON(loginResponse);
-        
+
+    public static void navigateToUserMenuFromLogin(JFrame parentFrame, String loginResponse) {
+        String id = DataCollection.obtainInformationFromJSON(loginResponse, "id");
+        String name = DataCollection.obtainInformationFromJSON(loginResponse, "name");
+        String type = DataCollection.obtainInformationFromJSON(loginResponse, "type");
+        double accountBalance = Double.parseDouble(DataCollection.obtainInformationFromJSON(loginResponse, "balance"));
+
         navigateToUserMenu(parentFrame, name, id, accountBalance, type);
     }
 
@@ -81,16 +82,15 @@ public static void navigateToUserMenuFromLogin(JFrame parentFrame, String loginR
         Validation.showInfoMessage(parentFrame, "Guardada correctamente la reservacion.");
     }
 
-    public static void cancelAppoinmentActionPerformer(JFrame parentFrame, long id, JComboBox<String> cmbMonth, JComboBox<String> cmbDay) {
-        LocalDate today = LocalDate.now();
+    public static void cancelAppoinmentActionPerformer(JFrame parentFrame, long id, JComboBox cmbMonth, JComboBox cmbDay) {
         DateBook dateBook = CloudController.getDateBook(id);
 
-        String date = formatDate(cmbDay, cmbMonth, today);
-        LocalDate dateSearch = LocalDate.of(today.getYear(), Integer.parseInt(cmbMonth.getSelectedItem().toString()),
-                Integer.parseInt(cmbDay.getSelectedItem().toString()));
+        String date = formatDate(cmbDay, cmbMonth);
+        LocalDate dateSearch = LocalDate.of(DataCollection.currentDate.getYear(),
+                Integer.parseInt(cmbMonth.getSelectedItem().toString()),Integer.parseInt(cmbDay.getSelectedItem().toString()));
 
         if (Validation.confirmReservationCancellation(date, parentFrame)) {
-            Validation.processReservationCancellation(parentFrame, dateBook, dateSearch, today, date);
+            Validation.processReservationCancellation(parentFrame, dateBook, dateSearch, date);
         }
     }
 
@@ -108,7 +108,8 @@ public static void navigateToUserMenuFromLogin(JFrame parentFrame, String loginR
             return;
         }
 
-        JFrame newFrame = createFrameFromClassName(nameOfTheClass, DataCollection.sendingTheData(accountData), id, name, balance, type);
+        JFrame newFrame = createFrameFromClassName(nameOfTheClass, DataCollection.sendingTheData(accountData), id, name, balance
+                , type);
         if (newFrame != null) {
             parentFrame.setVisible(false);
             newFrame.setVisible(true);
@@ -167,11 +168,13 @@ public static void navigateToUserMenuFromLogin(JFrame parentFrame, String loginR
         return true;
     }
 
-    private static String formatDate(JComboBox<String> cmbDay, JComboBox<String> cmbMonth, LocalDate today) {
-        return cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() + "/" + today.getYear();
+    private static String formatDate(JComboBox<String> cmbDay, JComboBox<String> cmbMonth) {
+        return cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() +
+                "/" + DataCollection.currentDate.getYear();
     }
 
-    private static JFrame createFrameFromClassName(String className, Commensal commensal, String id, String name, double balance, String type) {
+    private static JFrame createFrameFromClassName(String className, Commensal commensal, String id, String name, double balance
+            , String type) {
         switch (className) {
             case "FrmEstablishAdministrator":
                 return new FrmEstablishAdministratorSearch(commensal, id, name, balance, type);
