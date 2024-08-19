@@ -7,7 +7,7 @@ package ec.edu.espe.militarydininghall.view;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
-import utils.InterfacesActions;
+import utils.InterfaceActions;
 import utils.LabelsActions;
 import utils.Validation;
 
@@ -227,7 +227,7 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        InterfacesActions.updateAccountBalance(this, commensal, txfMoney, adminName, adminBalance, adminType, adminId);
+        InterfaceActions.updateAccountBalance(this, commensal, txfMoney, adminName, adminBalance, adminType, adminId);
     }//GEN-LAST:event_btmSearchActionPerformed
 
     private void txfMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfMoneyActionPerformed

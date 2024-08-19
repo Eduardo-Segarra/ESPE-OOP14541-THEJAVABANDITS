@@ -144,7 +144,7 @@ public class Validation {
             Validation.showErrorMessage(parentFrame, "Correo electronico o contraseña incorrectos");
             return;
         }
-        InterfacesActions.navigateToUserMenuFromLogin(parentFrame, loginResponse);
+        InterfaceActions.navigateToUserMenuFromLogin(parentFrame, loginResponse);
     }
 
     public static void emailAndIdAreCorrect(JFrame parentFrame, JTextField txfName, JTextField txfEmail, JTextField txfId,
@@ -163,7 +163,7 @@ public class Validation {
             return;
         }
 
-        InterfacesActions.creatingAccount(parentFrame, name, email, id, password, cmbGrade.getSelectedItem().toString());
+        InterfaceActions.creatingAccount(parentFrame, name, email, id, password, cmbGrade.getSelectedItem().toString());
     }
 
     public static boolean hasSufficientBalance(double balance, int amountOfPeople) {

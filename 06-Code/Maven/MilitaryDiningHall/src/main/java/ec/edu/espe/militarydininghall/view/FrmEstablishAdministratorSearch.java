@@ -9,7 +9,7 @@ import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.GeneralAdmin;
 import javax.swing.JOptionPane;
 import utils.DataCollection;
-import utils.InterfacesActions;
+import utils.InterfaceActions;
 import utils.Validation;
 
 /**
@@ -258,7 +258,7 @@ public class FrmEstablishAdministratorSearch extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmYesActionPerformed
-        InterfacesActions.establishANewAdministrator(this, generalAdminName, generalAdminminId, generalAdminminBalance, generalAdminType);
+        InterfaceActions.establishANewAdministrator(this, generalAdminName, generalAdminminId, generalAdminminBalance, generalAdminType);
     }//GEN-LAST:event_btmYesActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed

@@ -7,7 +7,7 @@ package ec.edu.espe.militarydininghall.view;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Dish;
 import java.util.Date;
-import utils.InterfacesActions;
+import utils.InterfaceActions;
 
 /**
  *
@@ -227,7 +227,7 @@ public class FrmRegistMenuForADay extends javax.swing.JFrame {
     }//GEN-LAST:event_btmCancelActionPerformed
 
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
-        InterfacesActions.savingAMenu(date, txfBreakfast, txfDinner, txfSnack);
+        InterfaceActions.savingAMenu(date, txfBreakfast, txfDinner, txfSnack);
         FrmChefMenu frmChefMenu = new FrmChefMenu(chefName);
         this.setVisible(false);
         frmChefMenu.setVisible(true);

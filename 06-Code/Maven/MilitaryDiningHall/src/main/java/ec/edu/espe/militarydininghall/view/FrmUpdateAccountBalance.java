@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
-import utils.InterfacesActions;
+import utils.InterfaceActions;
 import utils.Validation;
 
 /**
@@ -221,7 +221,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
     }//GEN-LAST:event_btmCancelActionPerformed
 
     private void btmSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSearchActionPerformed
-        InterfacesActions.theEnterIdIsRight(this, txfId, adminId, adminName, adminBalance, adminType, "FrmUpdateAccountBalance");
+        InterfaceActions.theEnterIdIsRight(this, txfId, adminId, adminName, adminBalance, adminType, "FrmUpdateAccountBalance");
     }//GEN-LAST:event_btmSearchActionPerformed
 
     /**

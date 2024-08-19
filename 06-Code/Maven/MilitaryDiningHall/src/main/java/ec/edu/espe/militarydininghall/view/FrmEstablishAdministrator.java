@@ -9,7 +9,7 @@ import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
 import utils.DataCollection;
-import utils.InterfacesActions;
+import utils.InterfaceActions;
 import utils.Validation;
 
 /**
@@ -156,7 +156,7 @@ public class FrmEstablishAdministrator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmApplyActionPerformed
-        InterfacesActions.theEnterIdIsRight(this, txfId, generalAdminminId, generalAdminName, generalAdminminbalance,
+        InterfaceActions.theEnterIdIsRight(this, txfId, generalAdminminId, generalAdminName, generalAdminminbalance,
                 generalAdminType, "FrmEstablishAdministrator");
     }//GEN-LAST:event_btmApplyActionPerformed
 

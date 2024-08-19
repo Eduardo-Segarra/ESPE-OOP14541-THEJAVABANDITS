@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import utils.DataCollection;
-import utils.InterfacesActions;
+import utils.InterfaceActions;
 import ec.edu.espe.militarydininghall.controller.PdfExporter;
 import utils.Tables;
 import utils.Validation;
@@ -197,7 +197,7 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
-        InterfacesActions.navigateToUserMenu(this, userName, userId, userBalance, userType);
+        InterfaceActions.navigateToUserMenu(this, userName, userId, userBalance, userType);
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void btmSavePdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSavePdfActionPerformed

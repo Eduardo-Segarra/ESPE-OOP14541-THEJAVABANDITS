@@ -8,7 +8,7 @@ import ec.edu.espe.militarydininghall.controller.CloudController;
 import ec.edu.espe.militarydininghall.model.DateBook;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
-import utils.InterfacesActions;
+import utils.InterfaceActions;
 import utils.Validation;
 
 /**
@@ -171,7 +171,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
-        InterfacesActions.navigateToUserMenu(this, userName, userId, userBalance, userType);
+        InterfaceActions.navigateToUserMenu(this, userName, userId, userBalance, userType);
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void cmbDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDayActionPerformed
@@ -179,7 +179,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbDayActionPerformed
 
     private void btmApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmApplyActionPerformed
-        InterfacesActions.cancelAppoinmentActionPerformer(this, id, cmbMonth, cmbDay);
+        InterfaceActions.cancelAppoinmentActionPerformer(this, id, cmbMonth, cmbDay);
     }//GEN-LAST:event_btmApplyActionPerformed
 
     private void cmbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMonthActionPerformed

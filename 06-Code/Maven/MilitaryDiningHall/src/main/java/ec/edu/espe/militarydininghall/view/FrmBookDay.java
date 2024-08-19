@@ -18,7 +18,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import utils.ComboBoxCustomizer;
 import utils.DataCollection;
-import utils.InterfacesActions;
+import utils.InterfaceActions;
 import utils.LabelsActions;
 import utils.Validation;
 
@@ -224,11 +224,11 @@ public class FrmBookDay extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
-        InterfacesActions.saveDayActionPerformed(this, cmbDay, cmbMonth, id, txfAmountOfPeople, userId);
+        InterfaceActions.saveDayActionPerformed(this, cmbDay, cmbMonth, id, txfAmountOfPeople, userId);
     }//GEN-LAST:event_btmSaveActionPerformed
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
-        InterfacesActions.navigateToUserMenu(this, userName, userId, userBalance, userType);
+        InterfaceActions.navigateToUserMenu(this, userName, userId, userBalance, userType);
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void cmbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMonthActionPerformed

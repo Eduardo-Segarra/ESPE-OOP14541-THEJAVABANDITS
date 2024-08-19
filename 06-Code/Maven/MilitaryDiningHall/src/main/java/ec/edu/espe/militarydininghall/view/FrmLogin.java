@@ -12,7 +12,7 @@ import ec.edu.espe.militarydininghall.controller.CloudController;
 import static ec.edu.espe.militarydininghall.controller.CloudController.getAccountDetails;
 import javax.swing.JOptionPane;
 import utils.DataCollection;
-import utils.InterfacesActions;
+import utils.InterfaceActions;
 import utils.Validation;
 
 /**
