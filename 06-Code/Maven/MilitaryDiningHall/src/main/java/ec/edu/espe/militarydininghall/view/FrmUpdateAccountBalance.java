@@ -211,7 +211,7 @@ public class FrmUpdateAccountBalance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfIdActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txfIdActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed

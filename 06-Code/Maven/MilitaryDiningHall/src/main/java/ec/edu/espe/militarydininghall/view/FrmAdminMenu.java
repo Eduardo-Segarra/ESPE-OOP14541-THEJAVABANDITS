@@ -352,7 +352,6 @@ public class FrmAdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmExitActionPerformed
 
     private void itmEditRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEditRegisterActionPerformed
-        // TODO add your handling code here:
         FrmEditRegister frmEditRegister = new FrmEditRegister(adminName, adminBalance, adminType, adminId);
         this.setVisible(false);
         frmEditRegister.setVisible(true);

@@ -316,7 +316,6 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itmBookDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmBookDayActionPerformed
-        // TODO add your handling code here:
         FrmBookDay frmBookDay = new FrmBookDay(generalAdminminId, generalAdminName, generalAdminType, generalAdminBalance);
         this.setVisible(false);
         frmBookDay.setVisible(true);
@@ -339,7 +338,6 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_itmExitActionPerformed
 
     private void itmCancelDayBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCancelDayBookingActionPerformed
-        // TODO add your handling code here:
         FrmCancelAppointment frmCancelAppointment = new FrmCancelAppointment(generalAdminminId, generalAdminName, generalAdminType, generalAdminBalance);
         this.setVisible(false);
         frmCancelAppointment.setVisible(true);

@@ -231,7 +231,7 @@ public class FrmUpdateAccountBalanceCommensalID extends javax.swing.JFrame {
     }//GEN-LAST:event_btmSearchActionPerformed
 
     private void txfMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfMoneyActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txfMoneyActionPerformed
 
     private void btmCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCancelActionPerformed

@@ -207,7 +207,7 @@ public class FrmChooseMontyMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btmIngresarActionPerformed
 
     private void cmbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMonthActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cmbMonthActionPerformed
 
     /**

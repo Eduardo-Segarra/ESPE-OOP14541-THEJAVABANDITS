@@ -254,11 +254,11 @@ public class FrmCreateANewAccount extends javax.swing.JFrame {
     }//GEN-LAST:event_txfEmailActionPerformed
 
     private void cmbGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGradeActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cmbGradeActionPerformed
 
     private void txfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNameActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txfNameActionPerformed
 
     private void btmCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmCreateAccountActionPerformed

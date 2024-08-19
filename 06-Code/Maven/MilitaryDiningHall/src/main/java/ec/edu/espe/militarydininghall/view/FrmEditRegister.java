@@ -206,7 +206,7 @@ public class FrmEditRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_btmSearchActionPerformed
 
     private void txfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfIdActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_txfIdActionPerformed
 
     /**

@@ -175,7 +175,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void cmbDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDayActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cmbDayActionPerformed
 
     private void btmApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmApplyActionPerformed
@@ -183,7 +183,7 @@ public class FrmCancelAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_btmApplyActionPerformed
 
     private void cmbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMonthActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cmbMonthActionPerformed
 
     /**

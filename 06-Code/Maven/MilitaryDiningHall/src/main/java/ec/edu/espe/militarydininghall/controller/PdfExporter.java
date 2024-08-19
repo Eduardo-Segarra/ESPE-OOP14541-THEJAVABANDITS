@@ -19,7 +19,7 @@ import utils.Validation;
 
 /**
  *
- * @author THEJAVABANDITS DCCO-ESPE
+ * @author David Rodriguez, THEJAVABANDITS DCCO-ESPE
  */
 public class PdfExporter {
     public static boolean exportTableToPdf(JTable table, String filePath) {

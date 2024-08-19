@@ -24,7 +24,6 @@ import utils.Validation;
  *
  * @author Ismael Travez, The Java Bandits, DCCO-ESPE
  */
-//ESTE ES EL NUEVO
 public class DateBook {
 
     private long id;
