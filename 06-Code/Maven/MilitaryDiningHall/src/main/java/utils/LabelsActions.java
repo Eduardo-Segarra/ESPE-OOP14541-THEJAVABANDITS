@@ -63,7 +63,7 @@ public class LabelsActions {
     public static void loopForShowingTheMenu(JLabel lblAvailablePlates, JLabel lblBreakfast, JLabel lblAvailableBreakfast,
             JLabel lblLunch, JLabel lblAvailableLunch, JLabel lblSnack, JLabel lblAvailableSnack, DateBook datebook) {
 
-        List<Document> documents = CloudController.getMenuInformation();
+        List<Document> documents = CloudController.getInstance().getMenuInformation();
         Map<String, Boolean> reservedDays = datebook.getReservedDays();
 
         reservedDays.forEach((dateReserved, isReserved) -> {

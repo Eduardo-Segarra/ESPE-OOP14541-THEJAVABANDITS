@@ -37,7 +37,7 @@ public class FrmAdminMenu extends javax.swing.JFrame {
         LabelsActions.settingLabelsVisibility(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
                 lblAvailableSnack, false);
         LabelsActions.loopForShowingTheMenu(lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch,
-                lblSnack, lblAvailableSnack, CloudController.getDateBook(Long.parseLong(adminId)));
+                lblSnack, lblAvailableSnack, CloudController.getInstance().getDateBook(Long.parseLong(adminId)));
     }
 
     /**

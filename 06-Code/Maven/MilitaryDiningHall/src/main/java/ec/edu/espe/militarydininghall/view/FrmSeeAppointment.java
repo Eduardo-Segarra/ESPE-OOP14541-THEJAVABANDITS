@@ -42,7 +42,7 @@ public class FrmSeeAppointment extends javax.swing.JFrame {
         FrmSeeAppointment.userType = type;
         this.userBalance = balance;
         
-        Tables.updateTableFromDateBook(CloudController.getDateBook(Long.parseLong(userId)), tblTable);
+        Tables.updateTableFromDateBook(CloudController.getInstance().getDateBook(Long.parseLong(userId)), tblTable);
     }
 
     /**

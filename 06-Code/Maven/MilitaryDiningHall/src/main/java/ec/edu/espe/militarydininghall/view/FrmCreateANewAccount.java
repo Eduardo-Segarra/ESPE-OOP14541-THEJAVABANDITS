@@ -5,7 +5,6 @@
 package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.controller.CloudController;
-import static ec.edu.espe.militarydininghall.controller.CloudController.create;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import javax.swing.JOptionPane;
 import utils.Validation;

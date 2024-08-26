@@ -64,14 +64,14 @@ public class InterfaceActions {
     public static void creatingAccount(JFrame parentFrame, String name, String email, String id, String password, String grade) {
         String modifiedPassword = Validation.modifyPassword(password, 1);
         Commensal commensal = new Commensal(id, name, email, modifiedPassword, grade, "commensal", 0.0F);
-        CloudController.create(commensal);
+        CloudController.getInstance().create(commensal);
         navigateToUserMenu(parentFrame, commensal.getName(), commensal.getId(), commensal.getBalance(), commensal.getType());
     }
 
     public static void saveDayActionPerformed(JFrame parentFrame, JComboBox<String> cmbDay, JComboBox<String> cmbMonth, long id,
             JTextField txfAmountOfPeople, String userId) {
         String selectedDate = DataCollection.getSelectedDate(cmbDay, cmbMonth);
-        DateBook dateBook = CloudController.getDateBook(id);
+        DateBook dateBook = CloudController.getInstance().getDateBook(id);
 
         if (!isValidReservation(txfAmountOfPeople, dateBook, selectedDate)) {
             return;
@@ -83,7 +83,7 @@ public class InterfaceActions {
     }
 
     public static void cancelAppoinmentActionPerformer(JFrame parentFrame, long id, JComboBox cmbMonth, JComboBox cmbDay) {
-        DateBook dateBook = CloudController.getDateBook(id);
+        DateBook dateBook = CloudController.getInstance().getDateBook(id);
 
         String date = formatDate(cmbDay, cmbMonth);
         LocalDate dateSearch = LocalDate.of(DataCollection.currentDate.getYear(),
@@ -96,7 +96,7 @@ public class InterfaceActions {
 
     public static void savingAMenu(String date, JTextField txfBreakfast, JTextField txfDinner, JTextField txfSnack) {
         Dish dish = new Dish(date, txfBreakfast.getText(), txfDinner.getText(), txfSnack.getText());
-        CloudController.saveMenu(dish);
+        CloudController.getInstance().saveMenu(dish);
     }
 
     public static void theEnterIdIsRight(JFrame parentFrame, JTextField txfId, String id, String name, double balance, String type,
@@ -139,7 +139,7 @@ public class InterfaceActions {
                 return;
             }
 
-            if (CloudController.updateCommensalBalance(commensal.getId(), newBalance)) {
+            if (CloudController.getInstance().updateCommensalBalance(commensal.getId(), newBalance)) {
                 Validation.showInfoMessage(parentFrame, "Saldo de cuenta actualizado exitosamente!");
                 navigateToUserMenu(parentFrame, name, id, balance + newBalance, type);
             } else {

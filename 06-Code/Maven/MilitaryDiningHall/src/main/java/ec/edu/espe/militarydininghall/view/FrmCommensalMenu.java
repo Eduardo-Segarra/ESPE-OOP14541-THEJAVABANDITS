@@ -41,7 +41,7 @@ public class FrmCommensalMenu extends javax.swing.JFrame {
         LabelsActions.settingLabelsVisibility(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
                 lblAvailableSnack, false);
         LabelsActions.loopForShowingTheMenu(lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch,
-                lblSnack, lblAvailableSnack, CloudController.getDateBook(Long.parseLong(commensalId)));
+                lblSnack, lblAvailableSnack, CloudController.getInstance().getDateBook(Long.parseLong(commensalId)));
     }
 
     /**

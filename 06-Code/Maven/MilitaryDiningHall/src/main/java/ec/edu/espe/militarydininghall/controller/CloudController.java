@@ -45,11 +45,27 @@ public class CloudController {
     private static final String[] collections = {
         "commensals", "militaryChefs", "administrators", "generalAdministrator",};
 
-    public static boolean create(Object object) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
+    private static CloudController instance;
+    private MongoClient mongoClient;
+    private MongoDatabase database;
 
+    // Constructor privado para prevenir la instanciación externa
+    private CloudController() {
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+        this.mongoClient = MongoClients.create(connectionString);
+        this.database = mongoClient.getDatabase("MilitaryDiningHall");
+    }
+
+    // Método para obtener la instancia única
+    public static synchronized CloudController getInstance() {
+        if (instance == null) {
+            instance = new CloudController();
+        }
+        return instance;
+    }
+
+    public boolean create(Object object) {
+        try {
             MongoCollection<Document> collection = database.getCollection("commensals");
 
             Gson gson = new Gson();
@@ -64,11 +80,8 @@ public class CloudController {
         }
     }
 
-    public static boolean createANewAdministrator(Object object) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
-
+    public boolean createANewAdministrator(Object object) {
+        try {
             MongoCollection<Document> collection = database.getCollection("administrators");
 
             Gson gson = new Gson();
@@ -83,11 +96,8 @@ public class CloudController {
         }
     }
 
-    public static void delete(Object object) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
-
+    public void delete(Object object) {
+        try {
             MongoCollection<Document> collection = database.getCollection("commensals");
 
             Gson gson = new Gson();
@@ -101,12 +111,8 @@ public class CloudController {
         }
     }
 
-    public static String login(String email, String password) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
-
+    public String login(String email, String password) {
+        try {
             for (String accountFiles : collections) {
                 MongoCollection<Document> collection = database.getCollection(accountFiles);
 
@@ -124,13 +130,8 @@ public class CloudController {
         }
     }
 
-    public static String findAccountById(String id) {
-
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
-
+    public String findAccountById(String id) {
+        try {
             for (String collectionName : database.listCollectionNames()) {
                 System.out.println("Searching in collection: " + collectionName);
 
@@ -152,11 +153,8 @@ public class CloudController {
         }
     }
 
-    public static boolean updateCommensalBalance(String id, double additionalBalance) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
-
+    public boolean updateCommensalBalance(String id, double additionalBalance) {
+        try {
             for (String collectionName : collections) {
                 MongoCollection<Document> collection = database.getCollection(collectionName);
 
@@ -182,11 +180,8 @@ public class CloudController {
         }
     }
 
-    public static DateBook getDateBook(long id) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
+    public DateBook getDateBook(long id) {
+        try {
             MongoCollection<Document> collection = database.getCollection("datebook");
 
             Document query = new Document("id", id);
@@ -204,7 +199,7 @@ public class CloudController {
             } else {
                 Map<String, Boolean> emptyDays = new HashMap<>();
                 DateBook datebook = new DateBook(id, emptyDays);
-                CloudController.saveDateBook(datebook);
+                saveDateBook(datebook);
                 return datebook;
             }
         } catch (Exception e) {
@@ -213,11 +208,8 @@ public class CloudController {
         return null;
     }
 
-    public static void saveDateBook(DateBook dateBook) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
+    public void saveDateBook(DateBook dateBook) {
+        try {
             MongoCollection<Document> collection = database.getCollection("datebook");
 
             Document datebookDoc = new Document("id", dateBook.getId()).append("reservedDays", dateBook.getReservedDays());
@@ -225,10 +217,8 @@ public class CloudController {
             Document existingDoc = collection.find(new Document("id", dateBook.getId())).first();
 
             if (existingDoc != null) {
-
                 collection.replaceOne(new Document("id", dateBook.getId()), datebookDoc);
             } else {
-
                 collection.insertOne(datebookDoc);
             }
         } catch (Exception e) {
@@ -236,11 +226,8 @@ public class CloudController {
         }
     }
 
-    public static AccountDetails getAccountDetails(String id) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
-
+    public AccountDetails getAccountDetails(String id) {
+        try {
             for (String collectionName : collections) {
                 MongoCollection<Document> collection = database.getCollection(collectionName);
 
@@ -263,11 +250,8 @@ public class CloudController {
         }
     }
 
-    public static void saveMenu(Object object) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
-
+    public void saveMenu(Object object) {
+        try {
             MongoCollection<Document> collection = database.getCollection("menu");
 
             Gson gson = new Gson();
@@ -281,24 +265,24 @@ public class CloudController {
         }
     }
 
-    public static List<Document> getMenuInformation() {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+    public List<Document> getMenuInformation() {
         List<Document> documents = new ArrayList<>();
-        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
-            MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
-
+        try {
             MongoCollection<Document> collection = database.getCollection("menu");
 
             FindIterable<Document> iterable = collection.find();
             for (Document doc : iterable) {
                 documents.add(doc);
             }
+        } catch (Exception e) {
 
+            System.err.println("An error occurred while fetching menu information: " + e.getMessage());
+            e.printStackTrace();
         }
         return documents;
     }
 
-    public static DateBook orderingOfDays(DateBook dateBook) {
+    public DateBook orderingOfDays(DateBook dateBook) {
         Map<String, Boolean> reservedDays = dateBook.getReservedDays();
 
         List<Map.Entry<LocalDate, Boolean>> dateEntries = new ArrayList<>();
@@ -325,7 +309,7 @@ public class CloudController {
         return new DateBook(dateBook.getId(), sortedReservedDays);
     }
 
-    public static DateBook removeDay(DateBook datebook, String searchedDate) {
+    public DateBook removeDay(DateBook datebook, String searchedDate) {
         Map<String, Boolean> dateEntries = datebook.getReservedDays();
 
         System.out.println("Fechas reservadas: " + dateEntries);

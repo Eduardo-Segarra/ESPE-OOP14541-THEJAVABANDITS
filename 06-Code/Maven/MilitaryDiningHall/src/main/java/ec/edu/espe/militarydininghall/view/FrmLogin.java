@@ -9,7 +9,6 @@ import ec.edu.espe.militarydininghall.model.Chef;
 import ec.edu.espe.militarydininghall.model.Commensal;
 import ec.edu.espe.militarydininghall.model.GeneralAdmin;
 import ec.edu.espe.militarydininghall.controller.CloudController;
-import static ec.edu.espe.militarydininghall.controller.CloudController.getAccountDetails;
 import javax.swing.JOptionPane;
 import utils.DataCollection;
 import utils.InterfaceActions;

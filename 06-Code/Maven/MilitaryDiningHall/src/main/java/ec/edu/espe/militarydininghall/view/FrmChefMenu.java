@@ -27,7 +27,7 @@ public class FrmChefMenu extends javax.swing.JFrame {
 
     public FrmChefMenu(String name) {
         initComponents();
-        List<Document> documents = CloudController.getMenuInformation();
+        List<Document> documents = CloudController.getInstance().getMenuInformation();
 
         this.chefName = name;
 

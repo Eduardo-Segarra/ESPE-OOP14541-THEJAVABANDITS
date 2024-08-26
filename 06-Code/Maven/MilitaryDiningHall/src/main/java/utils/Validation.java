@@ -139,7 +139,7 @@ public class Validation {
 
     public static void loginIsCorrect(JFrame parentFrame, JPasswordField pwfPassword, JTextField txfEmail) {
         String encryptedPassword = DataCollection.encryptingPassword(pwfPassword.getText());
-        String loginResponse = CloudController.login(txfEmail.getText(), encryptedPassword);
+        String loginResponse = CloudController.getInstance().login(txfEmail.getText(), encryptedPassword);
         if (loginResponse == null) {
             Validation.showErrorMessage(parentFrame, "Correo electronico o contraseña incorrectos");
             return;
@@ -199,21 +199,21 @@ public class Validation {
     }
 
     public static void processReservationCancellation(JFrame parentFrame, DateBook dateBook, LocalDate selectedDate, String date) {
-        DateBook updatedDateBook = CloudController.removeDay(dateBook, date);
+        DateBook updatedDateBook = CloudController.getInstance().removeDay(dateBook, date);
 
         if (DataCollection.currentDate.isAfter(selectedDate)) {
             Validation.showErrorMessage(parentFrame, "No se puede cancelar reservaciones antiguas.");
         } else if (updatedDateBook == null) {
             Validation.showErrorMessage(parentFrame, "El día ingresado no existe en las reservaciones.");
         } else {
-            CloudController.saveDateBook(updatedDateBook);
-            CloudController.updateCommensalBalance(FrmCancelAppointment.userId, DataCollection.reservationCost);
+            CloudController.getInstance().saveDateBook(updatedDateBook);
+            CloudController.getInstance().updateCommensalBalance(FrmCancelAppointment.userId, DataCollection.reservationCost);
             FrmCancelAppointment.userBalance += DataCollection.reservationCost;
         }
     }
 
     public static boolean dateIsAlreadyBooked(String date) {
-        List<Document> documents = CloudController.getMenuInformation();
+        List<Document> documents = CloudController.getInstance().getMenuInformation();
 
         for (Document doc : documents) {
             String dateOfTheMenu = doc.getString("date");

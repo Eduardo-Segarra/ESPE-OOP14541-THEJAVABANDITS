@@ -19,7 +19,7 @@ import org.bson.Document;
 public class Tables {
 
     public static void updateTableOfMenus(JTable tblTable) {
-        List<Document> documents = CloudController.getMenuInformation();
+        List<Document> documents = CloudController.getInstance().getMenuInformation();
 
         DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
         model.setRowCount(0);
@@ -82,9 +82,9 @@ public class Tables {
         for (int row = 0; row < tblTable.getRowCount(); row++) {
             String data = (String) tblTable.getValueAt(row, 0);
             boolean attendance = (boolean) tblTable.getValueAt(row, 1);
-            DateBook datebook = CloudController.getDateBook(Long.parseLong(idSearched));
+            DateBook datebook = CloudController.getInstance().getDateBook(Long.parseLong(idSearched));
             datebook.changeAssistance(data, attendance);
-            CloudController.saveDateBook(datebook);
+            CloudController.getInstance().saveDateBook(datebook);
         }
     }
 }

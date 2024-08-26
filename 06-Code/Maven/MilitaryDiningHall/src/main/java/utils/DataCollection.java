@@ -26,7 +26,7 @@ public class DataCollection {
     public static final LocalDate currentDate = LocalDate.now();
     
     public static String gettingTheAccountData(JTextField txfId) {
-        return CloudController.findAccountById(txfId.getText());
+        return CloudController.getInstance().findAccountById(txfId.getText());
     }
 
     public static String obtainInformationFromJSON(String json, String informationType){
@@ -50,19 +50,19 @@ public class DataCollection {
     }
 
     public static boolean creatingANewAdministrator() {
-        CloudController.delete(commensal);
+        CloudController.getInstance().delete(commensal);
         commensal.setType("administrators");
-        return CloudController.createANewAdministrator(commensal);
+        return CloudController.getInstance().createANewAdministrator(commensal);
     }
     
     public static void saveReservation(DateBook dateBook, String date) {
         dateBook.addDay(date, false);
-        DateBook orderedDays = CloudController.orderingOfDays(dateBook);
-        CloudController.saveDateBook(orderedDays);
+        DateBook orderedDays = CloudController.getInstance().orderingOfDays(dateBook);
+        CloudController.getInstance().saveDateBook(orderedDays);
     }
 
     public static void deductReservationCost(String userId, int amountOfPeople) {
-        CloudController.updateCommensalBalance(userId, -(reservationCost * amountOfPeople));
+        CloudController.getInstance().updateCommensalBalance(userId, -(reservationCost * amountOfPeople));
         FrmBookDay.userBalance -= (reservationCost * amountOfPeople);
     }
     

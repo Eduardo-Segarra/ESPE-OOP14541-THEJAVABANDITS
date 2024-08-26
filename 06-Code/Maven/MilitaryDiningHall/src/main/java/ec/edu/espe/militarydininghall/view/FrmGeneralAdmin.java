@@ -42,7 +42,7 @@ public class FrmGeneralAdmin extends javax.swing.JFrame {
         LabelsActions.settingLabelsVisibility(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch,
                 lblSnack, lblAvailableSnack, false);
         LabelsActions.loopForShowingTheMenu(lblAvailablePlates, lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch,
-                lblSnack, lblAvailableSnack, CloudController.getDateBook(Long.parseLong(generalAdminminId)));
+                lblSnack, lblAvailableSnack, CloudController.getInstance().getDateBook(Long.parseLong(generalAdminminId)));
     }
 
     /**

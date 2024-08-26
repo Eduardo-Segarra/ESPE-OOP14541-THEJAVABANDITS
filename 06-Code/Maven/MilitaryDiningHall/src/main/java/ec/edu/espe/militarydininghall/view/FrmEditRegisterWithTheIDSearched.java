@@ -36,7 +36,7 @@ public class FrmEditRegisterWithTheIDSearched extends javax.swing.JFrame {
         this.idSearched = commensal.getId();
 
         lblNameAndIdOfThePerson.setText("Editando la asistencia de " + commensal.getName() + " con el ID: " + idSearched + ".");
-        Tables.updateTableToEditTheAssistance(CloudController.getDateBook(Long.parseLong(idSearched)), tblTable);
+        Tables.updateTableToEditTheAssistance(CloudController.getInstance().getDateBook(Long.parseLong(idSearched)), tblTable);
     }
 
     /**
