@@ -1,5 +1,7 @@
 package ec.edu.espe.militarydininghall.model;
 
+import ec.edu.espe.militarydininghall.controller.Dinner;
+
 
 /**
  *

@@ -154,7 +154,7 @@ public class LabelsActions {
         if (commensal != null) {
             lblDataOfThePerson.setText("Actualizacion del saldo de cuenta de " + commensal.getName() + " con cedula: " + commensal.getId());
             lblAmountOfMoney.setText(commensal.getName() + " tiene: $" + commensal.getBalance());
-            lblHowMuchMoney.setText("¿Cuánto dinero" + commensal.getName() + "quiere ingresar?:");
+            lblHowMuchMoney.setText("¿Cuánto dinero quiere " + commensal.getName() + " ingresar?:");
         } else {
             lblDataOfThePerson.setText("Actualización del saldo de la cuenta");
             lblAmountOfMoney.setText("Detalles de la cuenta no disponibles");

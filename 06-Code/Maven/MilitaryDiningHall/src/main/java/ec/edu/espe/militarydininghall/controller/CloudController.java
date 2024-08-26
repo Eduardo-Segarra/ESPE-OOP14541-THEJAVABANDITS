@@ -324,6 +324,26 @@ public class CloudController {
         return new DateBook(datebook.getId(), dateEntries);
     }
 
+    public static void orderingMenus() {
+        MongoClient mongoClient = MongoClients.create("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
+        MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
+        MongoCollection<Document> collection = database.getCollection("menu");
+
+        List<Document> dishList = collection.find().into(new ArrayList<>());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/y");
+
+        Collections.sort(dishList, (currentDish, nextDish) -> {
+            LocalDate currentDate = LocalDate.parse(currentDish.getString("date"), formatter);
+            LocalDate nextDate = LocalDate.parse(nextDish.getString("date"), formatter);
+            return currentDate.compareTo(nextDate);
+        });
+
+        collection.deleteMany(new Document());
+
+        collection.insertMany(dishList);
+    }
+
     public static class AccountDetails {
 
         public double currentBalance;

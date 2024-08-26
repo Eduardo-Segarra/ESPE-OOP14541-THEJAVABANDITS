@@ -97,6 +97,7 @@ public class InterfaceActions {
     public static void savingAMenu(String date, JTextField txfBreakfast, JTextField txfDinner, JTextField txfSnack) {
         Dish dish = new Dish(date, txfBreakfast.getText(), txfDinner.getText(), txfSnack.getText());
         CloudController.getInstance().saveMenu(dish);
+        CloudController.orderingMenus();
     }
 
     public static void theEnterIdIsRight(JFrame parentFrame, JTextField txfId, String id, String name, double balance, String type,
@@ -141,7 +142,13 @@ public class InterfaceActions {
 
             if (CloudController.getInstance().updateCommensalBalance(commensal.getId(), newBalance)) {
                 Validation.showInfoMessage(parentFrame, "Saldo de cuenta actualizado exitosamente!");
-                navigateToUserMenu(parentFrame, name, id, balance + newBalance, type);
+                
+                if(id.equals(commensal.getId())){
+                    navigateToUserMenu(parentFrame, name, id, balance + newBalance, type);
+                }else{
+                    navigateToUserMenu(parentFrame, name, id, balance, type);
+                }
+
             } else {
                 Validation.showErrorMessage(parentFrame, "No se pudo actualizar el saldo");
             }
