@@ -5,7 +5,6 @@
 package ec.edu.espe.militarydininghall.view;
 
 import ec.edu.espe.militarydininghall.controller.CloudController;
-import ec.edu.espe.militarydininghall.model.Dish;
 import java.util.Date;
 import utils.InterfaceActions;
 

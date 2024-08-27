@@ -19,7 +19,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import ec.edu.espe.militarydininghall.model.DateBook;
-import ec.edu.espe.militarydininghall.model.Dish;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -187,20 +186,23 @@ public class CloudController {
             Document query = new Document("id", id);
             Document result = collection.find(query).first();
 
+            DateBook dateBook = DateBook.getInstance(); // Obtener la instancia Singleton
+
             if (result != null) {
                 long retrievedId = result.getLong("id");
                 Map<String, Boolean> reservedDays = (Map<String, Boolean>) result.get("reservedDays");
 
-                DateBook dateBook = new DateBook();
                 dateBook.setId(retrievedId);
                 dateBook.setReservedDays(reservedDays);
 
                 return dateBook;
             } else {
                 Map<String, Boolean> emptyDays = new HashMap<>();
-                DateBook datebook = new DateBook(id, emptyDays);
-                saveDateBook(datebook);
-                return datebook;
+                dateBook.setId(id);
+                dateBook.setReservedDays(emptyDays);
+                saveDateBook(dateBook); // Guardar el nuevo DateBook
+
+                return dateBook;
             }
         } catch (Exception e) {
             e.printStackTrace();

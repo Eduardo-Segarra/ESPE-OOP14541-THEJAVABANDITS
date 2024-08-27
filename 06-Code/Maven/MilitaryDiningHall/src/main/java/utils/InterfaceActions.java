@@ -17,6 +17,8 @@ import ec.edu.espe.militarydininghall.view.FrmEditRegisterWithTheIDSearched;
 import ec.edu.espe.militarydininghall.view.FrmEstablishAdministratorSearch;
 import ec.edu.espe.militarydininghall.view.FrmGeneralAdmin;
 import ec.edu.espe.militarydininghall.view.FrmUpdateAccountBalanceCommensalID;
+import ec.edu.espe.militarydininghall.factory.ConcreteDishFactory;
+import ec.edu.espe.militarydininghall.factory.DishFactory;
 import java.time.LocalDate;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -87,15 +89,18 @@ public class InterfaceActions {
 
         String date = formatDate(cmbDay, cmbMonth);
         LocalDate dateSearch = LocalDate.of(DataCollection.getInstance().getCurrentDate().getYear(),
-                Integer.parseInt(cmbMonth.getSelectedItem().toString()),Integer.parseInt(cmbDay.getSelectedItem().toString()));
+                Integer.parseInt(cmbMonth.getSelectedItem().toString()), Integer.parseInt(cmbDay.getSelectedItem().toString()));
 
         if (Validation.confirmReservationCancellation(date, parentFrame)) {
             Validation.processReservationCancellation(parentFrame, dateBook, dateSearch, date);
         }
     }
 
+    
+    private static DishFactory dishFactory = new ConcreteDishFactory();
+    
     public static void savingAMenu(String date, JTextField txfBreakfast, JTextField txfDinner, JTextField txfSnack) {
-        Dish dish = new Dish(date, txfBreakfast.getText(), txfDinner.getText(), txfSnack.getText());
+        Dish dish = dishFactory.createDish(date, txfBreakfast.getText(), txfDinner.getText(), txfSnack.getText());
         CloudController.getInstance().saveMenu(dish);
         CloudController.getInstance().orderingMenus();
     }
@@ -109,8 +114,8 @@ public class InterfaceActions {
             return;
         }
 
-        JFrame newFrame = createFrameFromClassName(nameOfTheClass, DataCollection.sendingTheData(accountData), id, name, balance
-                , type);
+        JFrame newFrame = createFrameFromClassName(nameOfTheClass, DataCollection.sendingTheData(accountData), id, name, balance,
+                 type);
         if (newFrame != null) {
             parentFrame.setVisible(false);
             newFrame.setVisible(true);
@@ -142,10 +147,10 @@ public class InterfaceActions {
 
             if (CloudController.getInstance().updateCommensalBalance(commensal.getId(), newBalance)) {
                 Validation.showInfoMessage(parentFrame, "Saldo de cuenta actualizado exitosamente!");
-                
-                if(id.equals(commensal.getId())){
+
+                if (id.equals(commensal.getId())) {
                     navigateToUserMenu(parentFrame, name, id, balance + newBalance, type);
-                }else{
+                } else {
                     navigateToUserMenu(parentFrame, name, id, balance, type);
                 }
 
@@ -176,12 +181,12 @@ public class InterfaceActions {
     }
 
     private static String formatDate(JComboBox<String> cmbDay, JComboBox<String> cmbMonth) {
-        return cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() +
-                "/" + DataCollection.getInstance().getCurrentDate().getYear();
+        return cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString()
+                + "/" + DataCollection.getInstance().getCurrentDate().getYear();
     }
 
-    private static JFrame createFrameFromClassName(String className, Commensal commensal, String id, String name, double balance
-            , String type) {
+    private static JFrame createFrameFromClassName(String className, Commensal commensal, String id, String name, double balance,
+             String type) {
         switch (className) {
             case "FrmEstablishAdministrator":
                 return new FrmEstablishAdministratorSearch(commensal, id, name, balance, type);

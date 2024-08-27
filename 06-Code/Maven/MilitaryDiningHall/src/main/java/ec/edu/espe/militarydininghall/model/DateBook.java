@@ -6,19 +6,8 @@ package ec.edu.espe.militarydininghall.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ec.edu.espe.militarydininghall.controller.CloudController;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import utils.Validation;
 
 /**
  *
@@ -29,8 +18,17 @@ public class DateBook {
     private long id;
     private Map<String, Boolean> reservedDays;
 
-    public DateBook() {
-        // It have to be empty for working
+    private static DateBook instance;
+
+    private DateBook() {
+        reservedDays = new LinkedHashMap<>();
+    }
+
+    public static synchronized DateBook getInstance() {
+        if (instance == null) {
+            instance = new DateBook();
+        }
+        return instance;
     }
 
     public DateBook(long id, Map<String, Boolean> reservedDays) {
