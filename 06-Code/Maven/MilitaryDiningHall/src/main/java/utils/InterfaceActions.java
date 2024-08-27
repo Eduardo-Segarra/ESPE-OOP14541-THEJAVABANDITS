@@ -86,7 +86,7 @@ public class InterfaceActions {
         DateBook dateBook = CloudController.getInstance().getDateBook(id);
 
         String date = formatDate(cmbDay, cmbMonth);
-        LocalDate dateSearch = LocalDate.of(DataCollection.currentDate.getYear(),
+        LocalDate dateSearch = LocalDate.of(DataCollection.getInstance().getCurrentDate().getYear(),
                 Integer.parseInt(cmbMonth.getSelectedItem().toString()),Integer.parseInt(cmbDay.getSelectedItem().toString()));
 
         if (Validation.confirmReservationCancellation(date, parentFrame)) {
@@ -97,7 +97,7 @@ public class InterfaceActions {
     public static void savingAMenu(String date, JTextField txfBreakfast, JTextField txfDinner, JTextField txfSnack) {
         Dish dish = new Dish(date, txfBreakfast.getText(), txfDinner.getText(), txfSnack.getText());
         CloudController.getInstance().saveMenu(dish);
-        CloudController.orderingMenus();
+        CloudController.getInstance().orderingMenus();
     }
 
     public static void theEnterIdIsRight(JFrame parentFrame, JTextField txfId, String id, String name, double balance, String type,
@@ -177,7 +177,7 @@ public class InterfaceActions {
 
     private static String formatDate(JComboBox<String> cmbDay, JComboBox<String> cmbMonth) {
         return cmbDay.getSelectedItem().toString() + "/" + cmbMonth.getSelectedItem().toString() +
-                "/" + DataCollection.currentDate.getYear();
+                "/" + DataCollection.getInstance().getCurrentDate().getYear();
     }
 
     private static JFrame createFrameFromClassName(String className, Commensal commensal, String id, String name, double balance

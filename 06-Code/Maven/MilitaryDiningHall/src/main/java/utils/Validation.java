@@ -201,14 +201,17 @@ public class Validation {
     public static void processReservationCancellation(JFrame parentFrame, DateBook dateBook, LocalDate selectedDate, String date) {
         DateBook updatedDateBook = CloudController.getInstance().removeDay(dateBook, date);
 
-        if (DataCollection.currentDate.isAfter(selectedDate)) {
+        if (DataCollection.getInstance().getCurrentDate().isAfter(selectedDate)) {
             Validation.showErrorMessage(parentFrame, "No se puede cancelar reservaciones antiguas.");
         } else if (updatedDateBook == null) {
             Validation.showErrorMessage(parentFrame, "El día ingresado no existe en las reservaciones.");
         } else {
             CloudController.getInstance().saveDateBook(updatedDateBook);
-            CloudController.getInstance().updateCommensalBalance(FrmCancelAppointment.userId, DataCollection.reservationCost);
-            FrmCancelAppointment.userBalance += DataCollection.reservationCost;
+            CloudController.getInstance().updateCommensalBalance(FrmCancelAppointment.userId, 
+                    DataCollection.getInstance().getReservationCost());
+            FrmCancelAppointment.userBalance += DataCollection.getInstance().getReservationCost();
+            
+            Validation.showInfoMessage(parentFrame, "La reservacion se ha eliminado correctamente.");
         }
     }
 

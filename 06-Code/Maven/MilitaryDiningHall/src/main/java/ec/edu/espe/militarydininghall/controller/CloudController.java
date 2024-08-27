@@ -324,9 +324,7 @@ public class CloudController {
         return new DateBook(datebook.getId(), dateEntries);
     }
 
-    public static void orderingMenus() {
-        MongoClient mongoClient = MongoClients.create("mongodb+srv://segarra:segarra@cluster0.b2q6ac3.mongodb.net/");
-        MongoDatabase database = mongoClient.getDatabase("MilitaryDiningHall");
+    public void orderingMenus() {
         MongoCollection<Document> collection = database.getCollection("menu");
 
         List<Document> dishList = collection.find().into(new ArrayList<>());

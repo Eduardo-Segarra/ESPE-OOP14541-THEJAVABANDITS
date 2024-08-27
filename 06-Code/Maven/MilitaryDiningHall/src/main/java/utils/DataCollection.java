@@ -21,15 +21,43 @@ import javax.swing.JTextField;
  * @author TheJavaBandits, DCCO-ESPE
  */
 public class DataCollection {
+
+    private static DataCollection instance;
+    protected double reservationCost;
+    protected LocalDate currentDate;
+
+    private DataCollection() {
+        this.reservationCost = 7.5F;
+        this.currentDate = LocalDate.now();
+    }
+
+    public static DataCollection getInstance() {
+        if (instance == null) {
+            instance = new DataCollection();
+        }
+
+        return instance;
+    }
     
-    public static final double reservationCost = 7.5F;
-    public static final LocalDate currentDate = LocalDate.now();
-    
+    /**
+     * @return the reservationCost
+     */
+    public double getReservationCost() {
+        return reservationCost;
+    }
+
+    /**
+     * @return the currentDate
+     */
+    public LocalDate getCurrentDate() {
+        return currentDate;
+    }
+
     public static String gettingTheAccountData(JTextField txfId) {
         return CloudController.getInstance().findAccountById(txfId.getText());
     }
 
-    public static String obtainInformationFromJSON(String json, String informationType){
+    public static String obtainInformationFromJSON(String json, String informationType) {
         JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
         return jsonObject.get(informationType).getAsString();
     }
@@ -37,7 +65,7 @@ public class DataCollection {
     public static String encryptingPassword(String password) {
         return Validation.modifyPassword(password, 1);
     }
-    
+
     public static Commensal sendingTheData(String accountData) {
         Gson gson = new Gson();
         return gson.fromJson(accountData, Commensal.class);
@@ -46,7 +74,7 @@ public class DataCollection {
     public static String getSelectedDate(JComboBox cmbDay, JComboBox cmbMonth) {
         String day = cmbDay.getSelectedItem().toString();
         String month = cmbMonth.getSelectedItem().toString();
-        return day + "/" + month + "/" + currentDate.getYear();
+        return day + "/" + month + "/" + DataCollection.getInstance().getCurrentDate().getYear();
     }
 
     public static boolean creatingANewAdministrator() {
@@ -54,7 +82,7 @@ public class DataCollection {
         commensal.setType("administrators");
         return CloudController.getInstance().createANewAdministrator(commensal);
     }
-    
+
     public static void saveReservation(DateBook dateBook, String date) {
         dateBook.addDay(date, false);
         DateBook orderedDays = CloudController.getInstance().orderingOfDays(dateBook);
@@ -62,19 +90,21 @@ public class DataCollection {
     }
 
     public static void deductReservationCost(String userId, int amountOfPeople) {
-        CloudController.getInstance().updateCommensalBalance(userId, -(reservationCost * amountOfPeople));
-        FrmBookDay.userBalance -= (reservationCost * amountOfPeople);
+        CloudController.getInstance().updateCommensalBalance(userId, -(DataCollection.getInstance().getReservationCost() * 
+                amountOfPeople));
+        FrmBookDay.userBalance -= (DataCollection.getInstance().getReservationCost() * amountOfPeople);
     }
-    
+
     public static String gettingThePdfFileNameForMenu() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timestamp = dateFormat.format(new Date());
         return "Menu_de_Platos_" + timestamp + ".pdf";
     }
-    
+
     public static String gettingThePdfFileNameForAppointment() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timestamp = dateFormat.format(new Date());
         return "Reservaciones_" + timestamp + ".pdf";
     }
+
 }

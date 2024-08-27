@@ -69,7 +69,7 @@ public class LabelsActions {
         reservedDays.forEach((dateReserved, isReserved) -> {
             LocalDate dateSearch = parseDate(dateReserved);
 
-            if (!DataCollection.currentDate.isAfter(dateSearch)) {
+            if (!DataCollection.getInstance().getCurrentDate().isAfter(dateSearch)) {
                 documents.stream()
                         .filter(doc -> doc.getString("date").equals(dateReserved))
                         .findFirst()
@@ -120,7 +120,8 @@ public class LabelsActions {
             String lunch = doc.getString("lunch");
             String dinner = doc.getString("dinner");
 
-            if (DataCollection.currentDate.isBefore(dateSearch) || DataCollection.currentDate.isEqual(dateSearch)) {
+            if (DataCollection.getInstance().getCurrentDate().isBefore(dateSearch) || 
+                    DataCollection.getInstance().getCurrentDate().isEqual(dateSearch)) {
                 LabelsActions.ifMenuIsAvailable(lblAvailablePlates, dateToCompare);
                 LabelsActions.settingLabelsVisibility(lblBreakfast, lblAvailableBreakfast, lblLunch, lblAvailableLunch, lblSnack,
                         lblAvailableSnack, true);
